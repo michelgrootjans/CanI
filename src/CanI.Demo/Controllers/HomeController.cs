@@ -10,5 +10,11 @@ namespace CanI.Demo.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult SecretData()
+        {
+            return View();
+        }
+
     }
 }
