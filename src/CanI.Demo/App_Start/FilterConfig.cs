@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using CanI.Demo.Controllers;
 
 namespace CanI.Demo
 {
@@ -7,6 +8,7 @@ namespace CanI.Demo
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new AuthorizeWithCanIAttribute());
         }
     }
 }
