@@ -1,12 +1,12 @@
 Can I ?
 =======
 
-This project is written in the RDD fashion: ReadMe Driven Development.
-
 Goals:
 ------
 Create a .net  authorization component that can decouple authorization from roles/actions/...
 Loosely based on cancan
+
+This project is written in the RDD fashion: ReadMe Driven Development.
 
 Done:
 -----
