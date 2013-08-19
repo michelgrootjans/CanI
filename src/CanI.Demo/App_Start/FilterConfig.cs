@@ -11,7 +11,10 @@ namespace CanI.Demo
         {
             filters.Add(new HandleErrorAttribute());
 
-            CanIConfiguration.ConfigureWith(() => new DemoAbility(new DummyUser("admin")));
+            CanIMvcConfiguration.ConfigureWith(
+                () => new DemoAbilityConfiguration(new DummyUser("admin")),
+                () => new RedirectResult("/")
+                );
 
             filters.Add(new AuthorizeWithCanIAttribute());
         }

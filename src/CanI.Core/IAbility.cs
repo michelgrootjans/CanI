@@ -2,6 +2,11 @@
 {
     public interface IAbility
     {
-        bool Can(string action, string subject);
+        bool ICan(string action, string subject);
+    }
+
+    public interface IAbilityConfiguration
+    {
+        void AllowTo(string action, string subject);
     }
 }

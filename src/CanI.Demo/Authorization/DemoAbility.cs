@@ -1,32 +1,51 @@
 ﻿using System.Security.Principal;
 using System.Web.Mvc;
+using CanI.Core;
 using CanI.Mvc;
 
 namespace CanI.Demo.Authorization
 {
-    public class DemoAbility : IMvcAbility
+    public class DemoAbilityConfiguration : IAbilityConfigurator
     {
         private readonly IPrincipal principal;
 
-        public DemoAbility(IPrincipal principal)
+        public DemoAbilityConfiguration(IPrincipal principal)
         {
             this.principal = principal;
+
         }
 
-        public ActionResult OnAuthorizationFailed()
-        {
-            return new RedirectResult("/");
-        }
-
-        public bool Can(string action, string subject)
+        public void Configure(IAbilityConfiguration userConfiguration)
         {
             if (principal.IsInRole("admin"))
-                return true;
+                userConfiguration.AllowTo("manage", "all");
 
             if (principal.IsInRole("home-owner"))
-                return subject == "Home";
+                userConfiguration.AllowTo("manage", "home");
 
-            return action == "Index" && subject == "Home";
+            userConfiguration.AllowTo("view", "home");
         }
+
+//        public ActionResult OnAuthorizationFailed()
+//        {
+//            return new RedirectResult("/");
+//        }
+
+
+        //        public bool CanI(string action, string subject)
+
+//        {
+
+//            if (principal.IsInRole("admin"))
+
+//                return true;
+
+//            if (principal.IsInRole("home-owner"))
+
+//                return subject == "Home";
+
+//            return action == "Index" && subject == "Home";
+
+//        }
     }
 }

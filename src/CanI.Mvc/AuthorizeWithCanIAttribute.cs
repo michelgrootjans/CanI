@@ -8,7 +8,7 @@ namespace CanI.Mvc
     {
         public void OnAuthorization(AuthorizationContext filterContext)
         {
-            var ability = CanIConfiguration.CreateAbility() as IMvcAbility;
+            var ability = CanIMvcConfiguration.CreateAbility();
             if (ability == null)
             {
                 throw new Exception("CanIConfiguration has not been configured with an IMvcAbilty");
@@ -17,9 +17,47 @@ namespace CanI.Mvc
             var action = filterContext.ActionDescriptor.ActionName;
             var subject = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
 
-            if (ability.Can(action, subject)) return;
+            if (ability.ICan(action, subject)) return;
 
             filterContext.Result = ability.OnAuthorizationFailed();
+        }
+    }
+
+    public static class CanIMvcConfiguration
+    {
+        private static Func<ActionResult> onFailedAuthorizationResultFactory;
+
+        public static IMvcAbility CreateAbility()
+        {
+            return new MvcAbility(CanIConfiguration.CreateAbility(), onFailedAuthorizationResultFactory());
+        }
+
+        public static void ConfigureWith(Func<IAbilityConfigurator> configurator, Func<ActionResult> onFailedAuthorization)
+        {
+            CanIConfiguration.ConfigureWith(configurator);
+            onFailedAuthorizationResultFactory = onFailedAuthorization;
+        }
+    }
+
+    public class MvcAbility : IMvcAbility
+    {
+        private readonly IAbility ability;
+        private readonly ActionResult onFailedAuthorizationResult;
+
+        public MvcAbility(IAbility ability, ActionResult onFailedAuthorizationResult)
+        {
+            this.ability = ability;
+            this.onFailedAuthorizationResult = onFailedAuthorizationResult;
+        }
+
+        public bool ICan(string action, string subject)
+        {
+            return ability.ICan(action, subject);
+        }
+
+        public ActionResult OnAuthorizationFailed()
+        {
+            return onFailedAuthorizationResult;
         }
     }
 }
