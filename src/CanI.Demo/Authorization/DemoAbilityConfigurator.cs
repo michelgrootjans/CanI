@@ -3,11 +3,11 @@ using CanI.Core;
 
 namespace CanI.Demo.Authorization
 {
-    public class DemoAbilityConfiguration : IAbilityConfigurator
+    public class DemoAbilityConfigurator : IAbilityConfigurator
     {
         private readonly IPrincipal principal;
 
-        public DemoAbilityConfiguration(IPrincipal principal)
+        public DemoAbilityConfigurator(IPrincipal principal)
         {
             this.principal = principal;
         }

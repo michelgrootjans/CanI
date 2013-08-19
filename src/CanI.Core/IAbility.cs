@@ -4,9 +4,4 @@
     {
         bool Allows(string action, string subject);
     }
-
-    public interface IAbilityConfiguration
-    {
-        void AllowTo(string action, string subject);
-    }
 }

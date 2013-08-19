@@ -7,7 +7,7 @@ namespace CanI.Mvc
 
         public static bool ICan(this HtmlHelper html, string action, string subject)
         {
-            var ability = CanIConfiguration.CreateAbility();
+            var ability = AbilityConfiguration.CreateAbility();
             return ability.Allows(action, subject);
         }
     }

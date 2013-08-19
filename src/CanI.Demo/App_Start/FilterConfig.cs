@@ -11,7 +11,7 @@ namespace CanI.Demo
             filters.Add(new HandleErrorAttribute());
 
             CanIMvcConfiguration.ConfigureWith(
-                () => new DemoAbilityConfiguration(new DummyUser("admin")),
+                () => new DemoAbilityConfigurator(new DummyUser("admin")),
                 () => new RedirectResult("/")
                 );
 

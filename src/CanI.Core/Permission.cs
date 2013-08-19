@@ -1,47 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-
-namespace CanI.Core
+﻿namespace CanI.Core
 {
-    public static class CanIConfiguration
-    {
-        private static Func<IAbilityConfigurator> configurationFactory;
-
-        public static void ConfigureWith(Func<IAbilityConfigurator> factory)
-        {
-            configurationFactory = factory;
-        }
-
-        public static IAbility CreateAbility()
-        {
-            return new Ability(configurationFactory());
-        }
-    }
-
-    public class Ability : IAbility, IAbilityConfiguration
-    {
-        private readonly List<Permission> permissions;
-
-        public Ability(IAbilityConfigurator configuration)
-        {
-            permissions = new List<Permission>();
-            configuration.Configure(this);
-        }
-
-        public void AllowTo(string action, string subject)
-        {
-            permissions.Add(new Permission(action, subject));
-        }
-
-        public bool Allows(string action, string subject)
-        {
-            return permissions.Any(p => p.Allows(action, subject));
-        }
-
-    }
-
     public class Permission
     {
         private readonly string action;
@@ -88,10 +46,5 @@ namespace CanI.Core
                     return action;
             }
         }
-    }
-
-    public interface IAbilityConfigurator
-    {
-        void Configure(IAbilityConfiguration userConfiguration);
     }
 }

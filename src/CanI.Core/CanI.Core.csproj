@@ -34,8 +34,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CanI.cs" />
+    <Compile Include="Ability.cs" />
+    <Compile Include="IAbilityConfiguration.cs" />
+    <Compile Include="IAbilityConfigurator.cs" />
+    <Compile Include="AbilityConfiguration.cs" />
     <Compile Include="IAbility.cs" />
+    <Compile Include="Permission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,9 +7,4 @@ namespace CanI.Mvc
     {
         ActionResult OnAuthorizationFailed();
     }
-
-    public interface IMvcAbilityConfiguration : IAbilityConfiguration
-    {
-        
-    }
 }
