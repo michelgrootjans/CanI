@@ -22,7 +22,6 @@ To add a generic filter over all the controllers, register the filter globally
 <pre lang='csharp'>
     public static void RegisterGlobalFilters(GlobalFilterCollection filters)
     {
-        filters.Add(new HandleErrorAttribute());
         filters.Add(new AuthorizeWithCanIFilter());
     }
 </pre>
