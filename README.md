@@ -10,10 +10,10 @@ This project is written in the RDD fashion: ReadMe Driven Development.
 
 Done:
 -----
-Setup a demo project
+- Setup a demo project
 
 ToDo:
 -----
-Add an action-based filter for controllers
-Add a view helper to check for permissions
-Add a plugin for NHibernate
+- Add an action-based filter for controllers
+- Add a view helper to check for permissions
+- Add a plugin for NHibernate
