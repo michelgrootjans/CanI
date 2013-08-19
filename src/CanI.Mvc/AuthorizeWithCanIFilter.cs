@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace CanI.Mvc
 {
-    public class AuthorizeWithCanIAttribute : IAuthorizationFilter
+    public class AuthorizeWithCanIFilter : IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationContext filterContext)
         {

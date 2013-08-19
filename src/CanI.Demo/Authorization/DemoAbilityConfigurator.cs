@@ -12,15 +12,15 @@ namespace CanI.Demo.Authorization
             this.principal = principal;
         }
 
-        public void Configure(IAbilityConfiguration userConfiguration)
+        public void Configure(IAbilityConfiguration configuration)
         {
             if (principal.IsInRole("admin"))
-                userConfiguration.AllowTo("manage", "all");
+                configuration.AllowTo("manage", "all");
 
             if (principal.IsInRole("home-owner"))
-                userConfiguration.AllowTo("manage", "home");
+                configuration.AllowTo("manage", "home");
 
-            userConfiguration.AllowTo("view", "home");
+            configuration.AllowTo("view", "home");
         }
     }
 }

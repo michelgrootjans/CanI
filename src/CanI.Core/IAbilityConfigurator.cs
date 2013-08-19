@@ -2,6 +2,6 @@
 {
     public interface IAbilityConfigurator
     {
-        void Configure(IAbilityConfiguration userConfiguration);
+        void Configure(IAbilityConfiguration configuration);
     }
 }
