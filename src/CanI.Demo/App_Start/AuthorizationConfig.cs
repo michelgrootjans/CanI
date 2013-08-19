@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using CanI.Demo.Authorization;
 using CanI.Mvc;
 
@@ -10,7 +9,7 @@ namespace CanI.Demo.App_Start
         public static void Configure()
         {
             CanIMvcConfiguration.ConfigureWith(
-                () => new DemoAbilityConfigurator(HttpContext.Current.User),
+                () => new DemoAbilityConfigurator(new DummyUser("admin")),
                 () => new RedirectResult("/")
                 );
         }

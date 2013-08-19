@@ -4,11 +4,16 @@
     <title>Can I?</title>
 </head>
     <body>
+        <div id="header">
+            @Html.Partial("Navigation")
+        </div>
+
         <div id="main">
             @RenderBody()
         </div>
-        <div id="navigation">
-            @Html.Partial("Navigation")
+
+        <div id="footer">
+            @Html.Partial("Footer")
         </div>
     </body>
 </html>
