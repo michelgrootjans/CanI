@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using CanI.Demo.Authorization;
 using CanI.Mvc;
 
 namespace CanI.Demo

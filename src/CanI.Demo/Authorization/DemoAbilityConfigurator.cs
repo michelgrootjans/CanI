@@ -14,13 +14,13 @@ namespace CanI.Demo.Authorization
 
         public void Configure(IAbilityConfiguration configuration)
         {
+            configuration.AllowTo("view", "home");
+
             if (principal.IsInRole("admin"))
                 configuration.AllowTo("manage", "all");
 
             if (principal.IsInRole("home-owner"))
                 configuration.AllowTo("manage", "home");
-
-            configuration.AllowTo("view", "home");
         }
     }
 }
