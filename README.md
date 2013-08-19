@@ -11,7 +11,7 @@ Loosely based on ruby's cancan gem.
 Usage for an MVC application
 ----------------------------
 In the global.asax, intialize the authorization like this:
-<pre lang='c-sharp'>
+<pre lang='csharp'>
   CanIMvcConfiguration.ConfigureWith(
     () => new DemoAbilityConfigurator(HttpContext.Current.User), // we'll come to that
     () => new RedirectResult("/") //action if authorization failed
@@ -19,7 +19,7 @@ In the global.asax, intialize the authorization like this:
 </pre>
 
 To add a generic filter over all the controllers, register the filter globally
-<pre lang='c-sharp'>
+<pre lang='csharp'>
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
@@ -28,7 +28,7 @@ To add a generic filter over all the controllers, register the filter globally
 </pre>
 
 Create a new class where you'll configure the authorization. In the demo application, I called it the DemoAbiltiyConfigurator:
-<pre lang='c-sharp'>
+<pre lang='csharp'>
     public class DemoAbilityConfigurator : IAbilityConfigurator
     {
         private readonly IPrincipal principal;
@@ -54,7 +54,7 @@ Create a new class where you'll configure the authorization. In the demo applica
 Now each request is automatically filtered based on the content of the DemoAbilityConfigurator.
 
 There is also a view helper to easily check for authorization.
-<pre lang='c-sharp'>
+<pre lang='csharp'>
   @if (Html.ICan("View", "Home"))
   {
     ... some html
@@ -63,7 +63,7 @@ There is also a view helper to easily check for authorization.
 
 Features:
 ---------
-- Setup a demo project
+- Contains a very simple demo project. Explore at leasure.
 - Action-based authorization filter for http requests (mvc only at the moment)
 - Simple viewhelper to show/hide controls
 
