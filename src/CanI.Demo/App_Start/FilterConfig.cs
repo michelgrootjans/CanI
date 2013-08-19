@@ -9,12 +9,6 @@ namespace CanI.Demo
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-
-            CanIMvcConfiguration.ConfigureWith(
-                () => new DemoAbilityConfigurator(new DummyUser("admin")),
-                () => new RedirectResult("/")
-                );
-
             filters.Add(new AuthorizeWithCanIAttribute());
         }
     }

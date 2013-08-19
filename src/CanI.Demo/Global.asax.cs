@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using CanI.Demo.App_Start;
 
 namespace CanI.Demo
 {
@@ -11,6 +12,8 @@ namespace CanI.Demo
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            AuthorizationConfig.Configure();
         }
     }
 }

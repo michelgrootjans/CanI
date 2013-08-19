@@ -1,0 +1,16 @@
+﻿@using CanI.Mvc
+
+@if (Html.ICan("View", "Home"))
+{
+    <a href="/Home/Index">Back home...</a>
+}
+
+@if (Html.ICan("AccessSecretData", "Home"))
+{
+    <a href="/Home/AccessSecretData">link to secret data ...</a>
+}
+
+@if (Html.ICan("View", "Secret"))
+{
+    <a href="/Secret">link to secret controller ...</a>
+}

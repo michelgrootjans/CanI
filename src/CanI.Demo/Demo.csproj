@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AuthorizationConfig.cs" />
     <Compile Include="Authorization\DummyUser.cs" />
     <Compile Include="Authorization\DemoAbilityConfigurator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -91,6 +92,9 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Secret\Index.cshtml" />
+    <Content Include="Views\Shared\SiteLayout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
