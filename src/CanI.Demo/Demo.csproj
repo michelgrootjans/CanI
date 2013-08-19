@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authorization\DummyUser.cs" />
     <Compile Include="Authorization\DemoAbility.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SecretController.cs" />
@@ -99,7 +100,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\SecretData.cshtml" />
+    <Content Include="Views\Home\AccessSecretData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CanI.Core\CanI.Core.csproj">

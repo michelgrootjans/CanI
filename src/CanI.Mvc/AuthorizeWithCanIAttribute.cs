@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Web.Mvc;
+using CanI.Core;
 
 namespace CanI.Mvc
 {
     public class AuthorizeWithCanIAttribute : IAuthorizationFilter
     {
-        // This class could be a singleton for the whole application
-        // Call this factory for each authorization call
-        private readonly Func<IMvcAbility> abiltiyFactory;
-
-        public AuthorizeWithCanIAttribute(Func<IMvcAbility> abiltiyFactory)
-        {
-            this.abiltiyFactory = abiltiyFactory;
-        }
-
         public void OnAuthorization(AuthorizationContext filterContext)
         {
-            var ability = abiltiyFactory();
+            var ability = CanIConfiguration.CreateAbility() as IMvcAbility;
+            if (ability == null)
+            {
+                throw new Exception("CanIConfiguration has not been configured with an IMvcAbilty");
+            }
+
             var action = filterContext.ActionDescriptor.ActionName;
             var subject = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
 

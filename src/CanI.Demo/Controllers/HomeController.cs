@@ -11,7 +11,7 @@ namespace CanI.Demo.Controllers
         }
 
         [HttpGet]
-        public ActionResult SecretData()
+        public ActionResult AccessSecretData()
         {
             return View();
         }
