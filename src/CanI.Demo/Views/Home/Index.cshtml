@@ -1,8 +1,15 @@
-﻿<h1>Can I?</h1>
+﻿@using CanI.Demo.Controllers
+<h1>Can I?</h1>
 Welcome to the Demo MVC site for CanI.
 
 You should be able to see this view, even when not authenticated.
 
 <br />
-<a href="/Home/SecretData">link to secret data ...</a> | 
-<a href="/Secret">link to secret controller ...</a>
+@if (Html.Can("SecretData", "Home"))
+{
+    <a href="/Home/SecretData">link to secret data ...</a>
+}
+@if (Html.Can("View", "Secret"))
+{
+    <a href="/Secret">link to secret controller ...</a>
+}

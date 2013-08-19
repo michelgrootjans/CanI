@@ -1,25 +1,29 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using CanI.Demo.Controllers;
 
 namespace CanI.Demo.Controllers
 {
-    // Warning: this class will be a singleton for the whole application !!
     public class AuthorizeWithCanIAttribute : IAuthorizationFilter
     {
-        private readonly IMvcAbility configuration;
+        // This class could be a singleton for the whole application
+        // Call this factory for each authorization call
+        private readonly Func<IMvcAbility> abiltiyFactory;
 
-        public AuthorizeWithCanIAttribute(IMvcAbility configuration)
+        public AuthorizeWithCanIAttribute(Func<IMvcAbility> abiltiyFactory)
         {
-            this.configuration = configuration;
+            this.abiltiyFactory = abiltiyFactory;
         }
 
         public void OnAuthorization(AuthorizationContext filterContext)
         {
-            var controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            var ability = abiltiyFactory();
             var action = filterContext.ActionDescriptor.ActionName;
+            var subject = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
 
-            if (configuration.Can(action, controller)) return;
+            if (ability.Can(action, subject)) return;
 
-            filterContext.Result = configuration.OnAuthorizationFailed();
+            filterContext.Result = ability.OnAuthorizationFailed();
         }
     }
 
@@ -30,6 +34,22 @@ namespace CanI.Demo.Controllers
 
     public interface IAbility
     {
-        bool Can(string action, string controller);
+        bool Can(string action, string subject);
+    }
+
+    public static class CanIHelper{
+
+        private static Func<IAbility> abilityFactory;
+
+        public static bool Can(this HtmlHelper html, string action, string subject)
+        {
+            var ability = abilityFactory();
+            return ability.Can(action, subject);
+        }
+
+        public static void ConfigureWith(Func<IAbility> factory)
+        {
+            abilityFactory = factory;
+        }
     }
 }
