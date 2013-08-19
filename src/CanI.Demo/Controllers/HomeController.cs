@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace CanI.Demo.Controllers
 {
@@ -17,13 +16,5 @@ namespace CanI.Demo.Controllers
             return View();
         }
 
-    }
-
-    public class AuthorizeWithCanIAttribute : FilterAttribute, IAuthorizationFilter
-    {
-        public void OnAuthorization(AuthorizationContext filterContext)
-        {
-            Console.WriteLine(filterContext.ActionDescriptor);
-        }
     }
 }
