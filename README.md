@@ -18,6 +18,7 @@ ToDo:
 -----
 Near Future
 ***********
+- Add authorization on ViewModels
 - Clean up the configuration to declare only abilities
 - Clean up the view helper
 
