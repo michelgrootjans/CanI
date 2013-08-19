@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
-using CanI.Demo.Controllers;
 
-namespace CanI.Demo.Controllers
+namespace CanI.Mvc
 {
     public class AuthorizeWithCanIAttribute : IAuthorizationFilter
     {
@@ -24,32 +23,6 @@ namespace CanI.Demo.Controllers
             if (ability.Can(action, subject)) return;
 
             filterContext.Result = ability.OnAuthorizationFailed();
-        }
-    }
-
-    public interface IMvcAbility : IAbility
-    {
-        ActionResult OnAuthorizationFailed();
-    }
-
-    public interface IAbility
-    {
-        bool Can(string action, string subject);
-    }
-
-    public static class CanIHelper{
-
-        private static Func<IAbility> abilityFactory;
-
-        public static bool Can(this HtmlHelper html, string action, string subject)
-        {
-            var ability = abilityFactory();
-            return ability.Can(action, subject);
-        }
-
-        public static void ConfigureWith(Func<IAbility> factory)
-        {
-            abilityFactory = factory;
         }
     }
 }
