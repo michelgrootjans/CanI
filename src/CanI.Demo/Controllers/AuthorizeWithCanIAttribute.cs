@@ -1,13 +1,18 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace CanI.Demo.Controllers
 {
-    public class AuthorizeWithCanIAttribute : AuthorizeAttribute
+    public class AuthorizeWithCanIAttribute : IAuthorizationFilter
     {
-        protected override bool AuthorizeCore(HttpContextBase httpContext)
+
+        public void OnAuthorization(AuthorizationContext filterContext)
         {
-            return true;
+            var controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            var action = filterContext.ActionDescriptor.ActionName;
+
+            if (controller == "Home" && action == "Index") return;
+
+            filterContext.Result = new RedirectResult("/");
         }
     }
 }
