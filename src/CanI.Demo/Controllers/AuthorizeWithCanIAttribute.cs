@@ -1,13 +1,13 @@
-﻿using System;
+﻿using System.Web;
 using System.Web.Mvc;
 
 namespace CanI.Demo.Controllers
 {
-    public class AuthorizeWithCanIAttribute : FilterAttribute, IAuthorizationFilter
+    public class AuthorizeWithCanIAttribute : AuthorizeAttribute
     {
-        public void OnAuthorization(AuthorizationContext filterContext)
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            Console.WriteLine(filterContext.ActionDescriptor);
+            return true;
         }
     }
 }
