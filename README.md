@@ -14,7 +14,7 @@ In the global.asax, intialize the authorization like this:
 <pre lang='csharp'>
     CanIMvcConfiguration.ConfigureWith(
         () => new DemoAbilityConfigurator(HttpContext.Current.User), // we'll come to that
-        () => new RedirectResult("/") //action if authorization failed
+        () => new RedirectResult("/") //action if authorization fails
   );
 </pre>
 
