@@ -12,19 +12,19 @@ Usage for an MVC application
 ----------------------------
 In the global.asax, intialize the authorization like this:
 <pre lang='csharp'>
-  CanIMvcConfiguration.ConfigureWith(
-    () => new DemoAbilityConfigurator(HttpContext.Current.User), // we'll come to that
-    () => new RedirectResult("/") //action if authorization failed
+    CanIMvcConfiguration.ConfigureWith(
+        () => new DemoAbilityConfigurator(HttpContext.Current.User), // we'll come to that
+        () => new RedirectResult("/") //action if authorization failed
   );
 </pre>
 
 To add a generic filter over all the controllers, register the filter globally
 <pre lang='csharp'>
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
-        {
-            filters.Add(new HandleErrorAttribute());
-            filters.Add(new AuthorizeWithCanIFilter());
-        }
+    public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+    {
+        filters.Add(new HandleErrorAttribute());
+        filters.Add(new AuthorizeWithCanIFilter());
+    }
 </pre>
 
 Create a new class where you'll configure the authorization. In the demo application, I called it the DemoAbiltiyConfigurator:
@@ -55,10 +55,10 @@ Now each request is automatically filtered based on the content of the DemoAbili
 
 There is also a view helper to easily check for authorization.
 <pre lang='csharp'>
-  @if (Html.ICan("View", "Home"))
-  {
-    ... some html
-  }
+	@if (Html.ICan("View", "Home"))
+	{
+		...some html
+	}
 </pre>
 
 Features:
