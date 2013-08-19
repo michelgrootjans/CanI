@@ -1,7 +1,5 @@
 ﻿using System.Security.Principal;
-using System.Web.Mvc;
 using CanI.Core;
-using CanI.Mvc;
 
 namespace CanI.Demo.Authorization
 {
@@ -12,7 +10,6 @@ namespace CanI.Demo.Authorization
         public DemoAbilityConfiguration(IPrincipal principal)
         {
             this.principal = principal;
-
         }
 
         public void Configure(IAbilityConfiguration userConfiguration)
@@ -25,27 +22,5 @@ namespace CanI.Demo.Authorization
 
             userConfiguration.AllowTo("view", "home");
         }
-
-//        public ActionResult OnAuthorizationFailed()
-//        {
-//            return new RedirectResult("/");
-//        }
-
-
-        //        public bool CanI(string action, string subject)
-
-//        {
-
-//            if (principal.IsInRole("admin"))
-
-//                return true;
-
-//            if (principal.IsInRole("home-owner"))
-
-//                return subject == "Home";
-
-//            return action == "Index" && subject == "Home";
-
-//        }
     }
 }

@@ -17,7 +17,7 @@ namespace CanI.Mvc
             var action = filterContext.ActionDescriptor.ActionName;
             var subject = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
 
-            if (ability.ICan(action, subject)) return;
+            if (ability.Allows(action, subject)) return;
 
             filterContext.Result = ability.OnAuthorizationFailed();
         }
@@ -50,9 +50,9 @@ namespace CanI.Mvc
             this.onFailedAuthorizationResult = onFailedAuthorizationResult;
         }
 
-        public bool ICan(string action, string subject)
+        public bool Allows(string action, string subject)
         {
-            return ability.ICan(action, subject);
+            return ability.Allows(action, subject);
         }
 
         public ActionResult OnAuthorizationFailed()

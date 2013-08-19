@@ -35,9 +35,9 @@ namespace CanI.Core
             permissions.Add(new Permission(action, subject));
         }
 
-        public bool ICan(string action, string subject)
+        public bool Allows(string action, string subject)
         {
-            return permissions.Any(p => p.ICan(action, subject));
+            return permissions.Any(p => p.Allows(action, subject));
         }
 
     }
@@ -53,39 +53,39 @@ namespace CanI.Core
             this.subject = subject.ToLower();
         }
 
-        public bool ICan(string a, string s)
+        public bool Allows(string action, string subject)
         {
-            var actionIsAllowed = MatchesAction(a.ToLower());
-            var subjectIsAllowed = MatchesSubject(s.ToLower());
+            var actionIsAllowed = MatchesAction(action.ToLower());
+            var subjectIsAllowed = MatchesSubject(subject.ToLower());
             return actionIsAllowed && subjectIsAllowed;
         }
 
-        private bool MatchesAction(string a)
+        private bool MatchesAction(string action)
         {
-            if (action == "manage") 
+            if (this.action == "manage") 
                 return true;
 
-            return TranslateAction(a) == action;
+            return this.action == TranslateAction(action);
         }
 
-        private bool MatchesSubject(string s)
+        private bool MatchesSubject(string subject)
         {
-            if (subject == "all") 
+            if (this.subject == "all") 
                 return true;
 
-            return s == subject;
+            return this.subject == subject;
         }
 
-        private string TranslateAction(string a)
+        private static string TranslateAction(string action)
         {
-            switch (a)
+            switch (action)
             {
                 case "index":
                 case "detail":
                 case "show":
                     return "view";
                 default:
-                    return a;
+                    return action;
             }
         }
     }

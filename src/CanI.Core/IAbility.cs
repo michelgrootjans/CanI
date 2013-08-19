@@ -2,7 +2,7 @@
 {
     public interface IAbility
     {
-        bool ICan(string action, string subject);
+        bool Allows(string action, string subject);
     }
 
     public interface IAbilityConfiguration

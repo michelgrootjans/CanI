@@ -13,10 +13,10 @@ namespace CanI.Demo.Authorization
             this.principal = principal;
         }
 
-        public ActionResult OnAuthorizationFailed()
-        {
-            return new RedirectResult("/");
-        }
+//        public ActionResult OnAuthorizationFailed()
+//        {
+//            return new RedirectResult("/");
+//        }
 
         public bool Can(string action, string subject)
         {
