@@ -4,24 +4,27 @@ Can I ?
 Goals:
 ------
 Create a .net  authorization component that can decouple authorization from roles/actions/...
-Loosely based on cancan
+Loosely based on ruby's cancan gem
 
+Usage for an MVC application
+----------------------------
+
+
+Features:
+---------
+- Setup a demo project
+- Action-based authorization filter for http requests (mvc only at the moment)
+- Simple viewhelper to show/hide controls
+
+Roadmap:
+--------
 This project is written in the RDD fashion: ReadMe Driven Development.
 
-Done:
------
-- Setup a demo project
-- Add an action-based filter for controllers
-- Add a view helper to check for permissions
-
-ToDo:
------
 Near Future
 ***********
 - Add authorization on ViewModels
-- Clean up the configuration to declare only abilities
-- Clean up the view helper
 
 Far Future
 **********
-- Add a plugin for NHibernate
+- Create NuGet package
+- Think about a plugin for NHibernate
