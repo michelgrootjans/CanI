@@ -69,7 +69,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AuthorizationConfig.cs" />
     <Compile Include="Authorization\DummyUser.cs" />
-    <Compile Include="Authorization\DemoAbilityConfigurator.cs" />
+    <Compile Include="Authorization\AbilityConfigurator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SecretController.cs" />
     <Compile Include="Global.asax.cs">

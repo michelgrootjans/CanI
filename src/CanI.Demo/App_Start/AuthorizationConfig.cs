@@ -9,7 +9,7 @@ namespace CanI.Demo.App_Start
         public static void Configure()
         {
             CanIMvcConfiguration.ConfigureWith(
-                () => new DemoAbilityConfigurator(new DummyUser("admin")),
+                () => new AbilityConfigurator(new DummyUser("admin")),
                 () => new RedirectResult("/")
                 );
         }
