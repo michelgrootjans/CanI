@@ -13,15 +13,16 @@ namespace CanI.Demo.Authorization
                 config.AllowTo("Manage", "All");
 
             if (principal.IsInRole("manager"))
-                config.Allow("Manage").On("Customer", "Customers");
+                config.AllowTo("Manage", "Customer");
 
             if (principal.IsInRole("callcenter"))
-                config.Allow("View", "Edit").On("Customer", "Customers");
+                config.Allow("View", "Edit").On("Customer");
 
             if (principal.IsInRole("viewer"))
-                config.Allow("View").On("Customer", "Customers");
+                config.Allow("View").On("Customer");
 
             config.IgnoreSubjectPostfix("ViewModel");
+            config.ConfigureSubjectAliases("Customer", "Customers");
         }
     }
 }
