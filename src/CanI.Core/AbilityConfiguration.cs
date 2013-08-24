@@ -38,5 +38,10 @@ namespace CanI.Core
             return ability;
         }
 
+        internal static void Reset()
+        {
+            configurationFactory = null;
+            configuratorFactory = null;
+        }
     }
 }

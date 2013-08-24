@@ -37,6 +37,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomAliasesAbiltyTests.cs" />
+    <Compile Include="DefaultEditAliasesAbiltyTests.cs" />
+    <Compile Include="DefaultViewAliasesAbiltyTests.cs" />
     <Compile Include="EntityAbiltyTests.cs" />
     <Compile Include="StringAbiltyTests.cs" />
     <Compile Include="PostFixAbiltyTest.cs" />

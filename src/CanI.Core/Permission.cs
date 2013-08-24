@@ -42,6 +42,8 @@
                 case "detail":
                 case "show":
                     return "view";
+                case "update":
+                    return "edit";
                 default:
                     return action;
             }

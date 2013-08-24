@@ -8,11 +8,13 @@ namespace CanI.Core
     {
         private readonly List<Permission> permissions;
         private readonly IList<string> ignoredPostfixes;
+        private readonly IDictionary<string, string> actionAliases;
 
         public Ability()
         {
             permissions = new List<Permission>();
             ignoredPostfixes = new List<string>();
+            actionAliases = new Dictionary<string, string>();
         }
 
         public Ability(IAbilityConfigurator configurator) : this()
@@ -23,8 +25,18 @@ namespace CanI.Core
 
         public bool Allows(string action, string subject)
         {
-            var cleanedSubject = RemoveAffixFrom(subject);
-            return permissions.Any(p => p.Allows(action, cleanedSubject));
+            var cleanedSubject = CleanupSubject(subject);
+            var cleanAction = CleanupAction(action);
+
+            return permissions.Any(p => p.Allows(cleanAction, cleanedSubject));
+        }
+
+        private string CleanupAction(string action)
+        {
+            var lowerCaseAction = action.ToLower();
+            if(actionAliases.ContainsKey(lowerCaseAction))
+                return actionAliases[lowerCaseAction];
+            return lowerCaseAction;
         }
 
         public void AllowTo(string action, string subject)
@@ -42,7 +54,14 @@ namespace CanI.Core
             ignoredPostfixes.Add(postfix.ToLower());
         }
 
-        private string RemoveAffixFrom(string subject)
+        public void ConfigureActionAlias(string intendedAction, params string[] aliases)
+        {
+            foreach (var alias in aliases)
+                actionAliases.Add(alias, intendedAction);
+
+        }
+
+        private string CleanupSubject(string subject)
         {
             var lowerCaseSubject = subject.ToLower();
             var matchingPostfix = ignoredPostfixes.FirstOrDefault(lowerCaseSubject.EndsWith);
