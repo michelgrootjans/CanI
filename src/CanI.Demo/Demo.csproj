@@ -70,6 +70,8 @@
     <Compile Include="App_Start\AuthorizationConfig.cs" />
     <Compile Include="Authorization\DummyUser.cs" />
     <Compile Include="Authorization\AbilityConfigurator.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SecretController.cs" />
     <Compile Include="Global.asax.cs">
@@ -82,6 +84,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Customers\Detail.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -19,8 +19,11 @@ namespace CanI.Demo.Authorization
             if (principal.IsInRole("admin"))
                 configuration.AllowTo("manage", "all");
 
-            if (principal.IsInRole("home-owner"))
-                configuration.AllowTo("manage", "home");
+            if (principal.IsInRole("manager"))
+                configuration.Allow("manage").On("customer", "customers");
+
+            if (principal.IsInRole("viewer"))
+                configuration.Allow("view").On("customer", "customers");
         }
     }
 }

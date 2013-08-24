@@ -39,6 +39,7 @@
     <Compile Include="IAbilityConfigurator.cs" />
     <Compile Include="AbilityConfiguration.cs" />
     <Compile Include="IAbility.cs" />
+    <Compile Include="IFluentAbilityActionConfiguration.cs" />
     <Compile Include="Permission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

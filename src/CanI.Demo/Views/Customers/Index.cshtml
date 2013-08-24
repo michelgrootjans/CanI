@@ -1,0 +1,13 @@
+﻿@model IEnumerable<CanI.Demo.Services.CustomerViewModel>
+
+<h2>Customers</h2>
+<table>
+@foreach (var customer in Model)
+{
+    <tr>
+        <td>
+            <a href="/Customers/Detail/@customer.Id">@customer.Name</a>
+        </td>
+    </tr>  
+}
+</table>

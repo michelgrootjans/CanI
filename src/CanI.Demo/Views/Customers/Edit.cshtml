@@ -1,0 +1,10 @@
+﻿@model CanI.Demo.Services.CustomerViewModel
+
+<h2>Edit customer</h2>
+
+<form action="/Customers/Update" method="put">
+    <input type="hidden" value="@Model.Id" name="id"/>
+    <label for="customerName">Name:</label>
+    <input type="text" value="@Model.Name" name="name"/>
+    <input type="submit" value="Update customer"/>
+</form>

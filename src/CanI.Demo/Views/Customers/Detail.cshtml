@@ -1,0 +1,9 @@
+﻿@using CanI.Mvc
+@model CanI.Demo.Services.CustomerViewModel
+
+<h2>@Model.Name</h2>
+
+@if (Html.ICan("edit", "customer"))
+{
+    <a href="/Customers/Edit/@Model.Id">Edit...</a>
+}
