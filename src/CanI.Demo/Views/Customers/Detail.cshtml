@@ -3,7 +3,7 @@
 
 <h2>@Model.Name</h2>
 
-@if (I.Can("edit", "customer"))
+@if (I.Can("edit", @Model))
 {
     <a href="/Customers/Edit/@Model.Id">Edit...</a>
 }
