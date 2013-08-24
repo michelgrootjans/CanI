@@ -1,4 +1,4 @@
-﻿@using CanI.Mvc
+﻿@using CanI.Core
 @model IEnumerable<CanI.Demo.Services.CustomerViewModel>
 
 <h2>Customers</h2>
@@ -13,7 +13,7 @@
     }
 </table>
 
-@if (Html.ICan("create", "customer"))
+@if (I.Can("create", "customer"))
 {
     <hr/>
     <a href="/Customers/New">Create new customer...</a>

@@ -2,6 +2,15 @@
 
 namespace CanI.Core
 {
+    public static class I
+    {
+        public static bool Can(string action, string subject)
+        {
+            var ability = AbilityConfiguration.CreateAbility();
+            return ability.Allows(action, subject);
+        }
+    }
+
     public static class AbilityConfiguration
     {
         private static Func<IAbilityConfigurator> configurationFactory;

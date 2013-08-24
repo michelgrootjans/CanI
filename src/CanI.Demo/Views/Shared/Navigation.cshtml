@@ -1,13 +1,13 @@
-﻿@using CanI.Mvc
+﻿@using CanI.Core
 
 <a href="/Home/Index">Home</a>
 
-@if (Html.ICan("View", "Customers"))
+@if (I.Can("View", "Customers"))
 {
     <a href="/Customers">Customers</a>
 }
 
-@if (Html.ICan("View", "Secret"))
+@if (I.Can("View", "Secret"))
 {
     <a href="/Secret">Admin</a>
 }
