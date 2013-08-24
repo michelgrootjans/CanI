@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using System.Web.Routing;
 using CanI.Demo.Services;
 
 namespace CanI.Demo.Controllers
@@ -20,10 +19,21 @@ namespace CanI.Demo.Controllers
             return View(customer);
         }
 
+        public ActionResult New()
+        {
+            return View();
+        }
+
         public ActionResult Edit(int id)
         {
             var customer = Service.Find(id);
             return View(customer);
+        }
+
+        public ActionResult Create(string name)
+        {
+            var id = Service.Create(name);
+            return RedirectToAction("Detail", new {id});
         }
 
         public ActionResult Update(int id, string name)

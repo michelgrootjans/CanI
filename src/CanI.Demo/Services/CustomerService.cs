@@ -31,6 +31,13 @@ namespace CanI.Demo.Services
         {
             Find(id).Name = name;
         }
+
+        public int Create(string name)
+        {
+            var customer = new CustomerViewModel(name);
+            customers.Add(customer);
+            return customer.Id;
+        }
     }
 
     public class CustomerViewModel

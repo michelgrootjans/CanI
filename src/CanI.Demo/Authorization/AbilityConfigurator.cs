@@ -22,6 +22,9 @@ namespace CanI.Demo.Authorization
             if (principal.IsInRole("manager"))
                 configuration.Allow("manage").On("customer", "customers");
 
+            if (principal.IsInRole("callcenter"))
+                configuration.Allow("view", "edit").On("customer", "customers");
+
             if (principal.IsInRole("viewer"))
                 configuration.Allow("view").On("customer", "customers");
         }

@@ -1,13 +1,20 @@
-﻿@model IEnumerable<CanI.Demo.Services.CustomerViewModel>
+﻿@using CanI.Mvc
+@model IEnumerable<CanI.Demo.Services.CustomerViewModel>
 
 <h2>Customers</h2>
 <table>
-@foreach (var customer in Model)
-{
-    <tr>
-        <td>
-            <a href="/Customers/Detail/@customer.Id">@customer.Name</a>
-        </td>
-    </tr>  
-}
+    @foreach (var customer in Model)
+    {
+        <tr>
+            <td>
+                <a href="/Customers/Detail/@customer.Id">@customer.Name</a>
+            </td>
+        </tr>  
+    }
 </table>
+
+@if (Html.ICan("create", "customer"))
+{
+    <hr/>
+    <a href="/Customers/New">Create new customer...</a>
+}
