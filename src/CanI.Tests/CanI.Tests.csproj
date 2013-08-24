@@ -37,14 +37,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomAliasesAbiltyTests.cs" />
-    <Compile Include="DefaultEditAliasesAbiltyTests.cs" />
-    <Compile Include="DefaultViewAliasesAbiltyTests.cs" />
-    <Compile Include="EntityAbiltyTests.cs" />
-    <Compile Include="StringAbiltyTests.cs" />
-    <Compile Include="PostFixAbiltyTest.cs" />
+    <Compile Include="Aliasing\CustomAliasesAbiltyTests.cs" />
+    <Compile Include="Aliasing\DefaultCreateAliasesAbiltyTests.cs" />
+    <Compile Include="Aliasing\DefaultEditAliasesAbiltyTests.cs" />
+    <Compile Include="Aliasing\DefaultViewAliasesAbiltyTests.cs" />
+    <Compile Include="Abilities\EntityAbiltyTests.cs" />
+    <Compile Include="Abilities\StringAbiltyTests.cs" />
+    <Compile Include="Abilities\PostFixAbiltyTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Then.cs" />
+    <Compile Include="TestUtilities\Then.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

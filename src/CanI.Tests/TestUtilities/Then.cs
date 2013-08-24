@@ -1,7 +1,7 @@
 ﻿using System;
 using CanI.Core;
 
-namespace CanI.Tests
+namespace CanI.Tests.TestUtilities
 {
     public static class Then
     {

@@ -23,7 +23,7 @@
             if (this.action == "manage") 
                 return true;
 
-            return this.action == TranslateAction(action);
+            return this.action == action;
         }
 
         private bool MatchesSubject(string subject)
@@ -32,21 +32,6 @@
                 return true;
 
             return this.subject == subject;
-        }
-
-        private static string TranslateAction(string action)
-        {
-            switch (action)
-            {
-                case "index":
-                case "detail":
-                case "show":
-                    return "view";
-                case "update":
-                    return "edit";
-                default:
-                    return action;
-            }
         }
     }
 }

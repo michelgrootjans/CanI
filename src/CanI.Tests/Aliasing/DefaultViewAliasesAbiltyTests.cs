@@ -1,7 +1,8 @@
 ﻿using CanI.Core;
+using CanI.Tests.TestUtilities;
 using NUnit.Framework;
 
-namespace CanI.Tests
+namespace CanI.Tests.Aliasing
 {
     [TestFixture]
     public class DefaultViewAliasesAbiltyTests
@@ -25,6 +26,13 @@ namespace CanI.Tests
         {
             AbilityConfiguration.ConfigureWith(c => c.AllowTo("view", "customer"));
             Then.IShouldBeAbleTo("detail", "customer");
+        }
+
+        [Test]
+        public void read_is_an_alias_for_view()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.AllowTo("view", "customer"));
+            Then.IShouldBeAbleTo("read", "customer");
         }
     }
 }

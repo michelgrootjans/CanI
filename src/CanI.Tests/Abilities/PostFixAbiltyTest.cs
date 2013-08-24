@@ -1,7 +1,8 @@
 ﻿using CanI.Core;
+using CanI.Tests.TestUtilities;
 using NUnit.Framework;
 
-namespace CanI.Tests
+namespace CanI.Tests.Abilities
 {
     [TestFixture]
     public class PostFixAbiltyTest

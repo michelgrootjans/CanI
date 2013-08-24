@@ -14,7 +14,18 @@ namespace CanI.Core
         {
             permissions = new List<Permission>();
             ignoredPostfixes = new List<string>();
-            actionAliases = new Dictionary<string, string>();
+            actionAliases = new Dictionary<string, string>
+            {
+                {"index", "view"},
+                {"show", "view"},
+                {"detail", "view"},
+                {"read", "view"},
+                {"insert", "create"},
+                {"update", "edit"},
+                {"change", "edit"},
+                {"remove", "delete"},
+                {"destroy", "delete"}
+            };
         }
 
         public Ability(IAbilityConfigurator configurator) : this()
