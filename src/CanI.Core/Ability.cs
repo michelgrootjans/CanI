@@ -28,12 +28,6 @@ namespace CanI.Core
             };
         }
 
-        public Ability(IAbilityConfigurator configurator) : this()
-        {
-            if(configurator != null) 
-                configurator.Configure(this);
-        }
-
         public bool Allows(string action, string subject)
         {
             var cleanedSubject = CleanupSubject(subject);

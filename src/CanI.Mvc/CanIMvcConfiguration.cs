@@ -8,9 +8,9 @@ namespace CanI.Mvc
     {
         private static Func<ActionResult> onFailedAuthorizationResultFactory;
 
-        public static void ConfigureWith(Func<IAbilityConfigurator> configurator, Func<ActionResult> onFailedAuthorization)
+        public static void ConfigureWith(Action<IAbilityConfiguration> configuration, Func<ActionResult> onFailedAuthorization)
         {
-            AbilityConfiguration.ConfigureWith(configurator);
+            AbilityConfiguration.ConfigureWith(configuration);
             onFailedAuthorizationResultFactory = onFailedAuthorization;
         }
 

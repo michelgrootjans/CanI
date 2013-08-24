@@ -36,7 +36,6 @@
   <ItemGroup>
     <Compile Include="Ability.cs" />
     <Compile Include="IAbilityConfiguration.cs" />
-    <Compile Include="IAbilityConfigurator.cs" />
     <Compile Include="AbilityConfiguration.cs" />
     <Compile Include="IAbility.cs" />
     <Compile Include="IFluentAbilityActionConfiguration.cs" />

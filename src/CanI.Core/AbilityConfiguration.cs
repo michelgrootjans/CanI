@@ -15,33 +15,25 @@ namespace CanI.Core
 
     public static class AbilityConfiguration
     {
-        private static Func<IAbilityConfigurator> configuratorFactory;
-        private static Action<IAbilityConfiguration> configurationFactory;
-
-        public static void ConfigureWith(Func<IAbilityConfigurator> factory)
-        {
-            configuratorFactory = factory;
-        }
+        private static Action<IAbilityConfiguration> configurationApplier;
 
         public static void ConfigureWith(Action<IAbilityConfiguration> configuration)
         {
-            configurationFactory = configuration;
+            AbilityConfiguration.configurationApplier = configuration;
         }
 
         public static IAbility CreateAbility()
         {
-            if (configuratorFactory != null)
-                return new Ability(configuratorFactory());
             var ability = new Ability();
-            if(configurationFactory != null)
-                configurationFactory(ability);
+            if (configurationApplier == null) return ability;
+
+            configurationApplier(ability);
             return ability;
         }
 
         internal static void Reset()
         {
-            configurationFactory = null;
-            configuratorFactory = null;
+            configurationApplier = null;
         }
     }
 }

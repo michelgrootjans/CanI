@@ -3,32 +3,25 @@ using CanI.Core;
 
 namespace CanI.Demo.Authorization
 {
-    public class AbilityConfigurator : IAbilityConfigurator
+    public class AbilityConfigurator
     {
-        private readonly IPrincipal principal;
-
-        public AbilityConfigurator(IPrincipal principal)
+        public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
         {
-            this.principal = principal;
-        }
-
-        public void Configure(IAbilityConfiguration configuration)
-        {
-            configuration.AllowTo("view", "home");
+            config.AllowTo("view", "home");
 
             if (principal.IsInRole("admin"))
-                configuration.AllowTo("manage", "all");
+                config.AllowTo("Manage", "All");
 
             if (principal.IsInRole("manager"))
-                configuration.Allow("manage").On("customer", "customers");
+                config.Allow("Manage").On("Customer", "Customers");
 
             if (principal.IsInRole("callcenter"))
-                configuration.Allow("view", "edit").On("customer", "customers");
+                config.Allow("View", "Edit").On("Customer", "Customers");
 
             if (principal.IsInRole("viewer"))
-                configuration.Allow("view").On("customer", "customers");
+                config.Allow("View").On("Customer", "Customers");
 
-            configuration.IgnoreSubjectPostfix("ViewModel");
+            config.IgnoreSubjectPostfix("ViewModel");
         }
     }
 }
