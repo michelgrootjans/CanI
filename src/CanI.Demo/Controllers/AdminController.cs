@@ -2,7 +2,7 @@
 
 namespace CanI.Demo.Controllers
 {
-    public class SecretController : Controller
+    public class AdminController : Controller
     {
         public ActionResult Index()
         {
