@@ -9,8 +9,8 @@ namespace CanI.Demo.App_Start
         public static void Configure()
         {
             CanIMvcConfiguration.ConfigureWith(
-                config => new AbilityConfigurator(config, new DummyUser("admin")), // admin, manager, callcenter, viewer, guest
-                () => new RedirectResult("/")
+                config => new AbilityConfigurator(config),
+                () => new RedirectResult("/") // ActionResult on failed authorization
                 );
         }
     }

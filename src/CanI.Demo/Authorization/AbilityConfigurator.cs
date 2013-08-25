@@ -1,12 +1,14 @@
-﻿using System.Security.Principal;
-using CanI.Core;
+﻿using CanI.Core;
 
 namespace CanI.Demo.Authorization
 {
     public class AbilityConfigurator
     {
-        public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
+        public AbilityConfigurator(IAbilityConfiguration config)
         {
+            var principal = System.Web.HttpContext.Current.User;
+
+            config.Allow("Login", "LogOff").On("Account");
             config.AllowTo("View", "Home");
 
             if (principal.IsInRole("admin"))

@@ -11,3 +11,18 @@
 {
     <a href="/Admin">Admin</a>
 }
+
+@if (User.Identity.IsAuthenticated)
+{
+    <text>Logged in as @User.Identity.Name</text>
+    <a href="/Account/LogOff">Log off</a>
+}
+else
+{
+    <text>Log in as: </text>
+    <a href="/Account/Login?roleName=guest">Guest</a>
+    <a href="/Account/Login?roleName=viewer">Viewer</a>
+    <a href="/Account/Login?roleName=callcenter">Callcenter</a>
+    <a href="/Account/Login?roleName=manager">Manager</a>
+    <a href="/Account/Login?roleName=admin">Admin</a>
+}
