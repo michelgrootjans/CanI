@@ -60,18 +60,18 @@ How to configure an MVC application
 -----------------------------------
 In the global.asax, intialize this new configuration class like this:
 <pre lang='csharp'>
-	CanIMvcConfiguration.ConfigureWith(
-		config => new AbilityConfigurator(config, System.Web.HttpContext.Current.User), //this is the custom class where you difine your authorizations
-		() => new RedirectResult("/") // ActionResult on failed authorization
+	AbilityConfiguration.ConfigureWith(
+		config => new AbilityConfigurator(config, System.Web.HttpContext.Current.User)
 	);
 </pre>
 
 To add a generic filter over all the controllers, register the filter globally
 <pre lang='csharp'>
-    public static void RegisterGlobalFilters(GlobalFilterCollection filters)
-    {
-        filters.Add(new AuthorizeWithCanIFilter());
-    }
+        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        {
+			// this is the default ActionResult on failed authorization
+            filters.Add(new AuthorizeWithCanIFilter(new RedirectResult("/")));
+        }
 </pre>
 Now each request is automatically filtered based on the content of the DemoAbilityConfigurator.
 
