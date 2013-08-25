@@ -7,9 +7,7 @@ namespace CanI.Core
         public static bool Can(string action, object subject)
         {
             var ability = AbilityConfiguration.CreateAbility();
-            if (subject is string)
-                return ability.Allows(action, subject as string);
-            return ability.Allows(action, subject.GetType().Name);
+            return ability.Allows(action, subject);
         }
     }
 
@@ -19,7 +17,7 @@ namespace CanI.Core
 
         public static void ConfigureWith(Action<IAbilityConfiguration> configuration)
         {
-            AbilityConfiguration.configurationApplier = configuration;
+            configurationApplier = configuration;
         }
 
         public static IAbility CreateAbility()

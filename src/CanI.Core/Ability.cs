@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace CanI.Core
 {
@@ -30,12 +30,15 @@ namespace CanI.Core
             };
         }
 
-        public bool Allows(string action, string subject)
+        public bool Allows(string action, object subject)
         {
             var cleanedSubject = CleanupSubject(subject);
             var cleanAction = CleanupAction(action);
 
-            return permissions.Any(p => p.Allows(cleanAction, cleanedSubject));
+            var actionIsAllowed = permissions.Any(p => p.Allows(cleanAction, cleanedSubject));
+            var subjectAllowsAction = SubjectAllowsAction(action, subject);
+
+            return actionIsAllowed && subjectAllowsAction;
         }
 
         public void AllowTo(string action, string subject)
@@ -66,9 +69,13 @@ namespace CanI.Core
                 subjectAliases.Add(alias, intendedSubject);
         }
 
-        private string CleanupSubject(string subject)
+        private string CleanupSubject(object subject)
         {
-            var lowerCaseSubject = subject.ToLower();
+            string lowerCaseSubject;
+            if (subject is string)
+                lowerCaseSubject = ((string)subject).ToLower();
+            else
+                lowerCaseSubject = subject.GetType().Name.ToLower();
             var matchingPostfix = ignoredPostfixes.FirstOrDefault(lowerCaseSubject.EndsWith);
             if(matchingPostfix != null)
                 lowerCaseSubject = lowerCaseSubject.Replace(matchingPostfix, "");
@@ -83,6 +90,17 @@ namespace CanI.Core
             if (actionAliases.ContainsKey(lowerCaseAction))
                 return actionAliases[lowerCaseAction];
             return lowerCaseAction;
+        }
+
+        private bool SubjectAllowsAction(string action, object subject)
+        {
+            const BindingFlags caseInsensitivePublicInstance = BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public;
+            var property = subject.GetType().GetProperty("can" + action, caseInsensitivePublicInstance);
+            if (property == null) return true;
+
+            var propertyValue = property.GetValue(subject);
+            var booleanValue = propertyValue as bool?;
+            return booleanValue.GetValueOrDefault();
         }
     }
 }
