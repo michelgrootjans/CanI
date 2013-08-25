@@ -74,6 +74,7 @@ This project is written in the RDD fashion: ReadMe Driven Development. These are
 
 Near Future
 ***********
+- plug in the real authenticated user, not some dummy implementation
 - fix hack, where an url can bypass state based authorization
 
 Far Future
