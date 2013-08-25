@@ -9,9 +9,7 @@ namespace CanI.Mvc
         {
             var ability = CanIMvcConfiguration.CreateAbility();
             if (ability == null)
-            {
                 throw new Exception("CanIMvcConfiguration has not been configured.");
-            }
 
             var action = filterContext.ActionDescriptor.ActionName;
             var subject = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;

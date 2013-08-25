@@ -9,7 +9,7 @@ namespace CanI.Demo.App_Start
         public static void Configure()
         {
             CanIMvcConfiguration.ConfigureWith(
-                config => new AbilityConfigurator(config, new DummyUser("callcenter")), // admin, manager, callcenter, viewer, guest
+                config => new AbilityConfigurator(config, new DummyUser("admin")), // admin, manager, callcenter, viewer, guest
                 () => new RedirectResult("/")
                 );
         }

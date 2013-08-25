@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace CanI.Demo.Services
 {
@@ -11,7 +12,7 @@ namespace CanI.Demo.Services
             customers = new List<CustomerViewModel>
             {
                 new CustomerViewModel("Apple"),
-                new CustomerViewModel("Microsoft"),
+                new CustomerViewModel("Microsoft"){CanDelete = false},
                 new CustomerViewModel("Amazon"),
                 new CustomerViewModel("Dropbox")
             };
@@ -38,6 +39,11 @@ namespace CanI.Demo.Services
             customers.Add(customer);
             return customer.Id;
         }
+
+        public void Remove(int id)
+        {
+            customers.RemoveAll(c => c.Id == id);
+        }
     }
 
     public class CustomerViewModel
@@ -46,11 +52,13 @@ namespace CanI.Demo.Services
 
         public int Id { get; private set; }
         public string Name { get; internal set; }
+        public bool CanDelete { get; internal set; }
 
         public CustomerViewModel(string name)
         {
             Id = counter++;
             Name = name;
+            CanDelete = true;
         }
     }
 

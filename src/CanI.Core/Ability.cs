@@ -66,7 +66,9 @@ namespace CanI.Core
         public void ConfigureSubjectAliases(string intendedSubject, params string[] aliases)
         {
             foreach (var alias in aliases)
-                subjectAliases.Add(alias, intendedSubject);
+            {
+                subjectAliases.Add(alias.ToLower(), intendedSubject.ToLower());
+            }
         }
 
         private string CleanupSubject(object subject)

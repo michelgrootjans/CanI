@@ -7,3 +7,7 @@
 {
     <a href="/Customers/Edit/@Model.Id">Edit...</a>
 }
+@if (I.Can("delete", @Model))
+{
+    <a href="/Customers/Delete/@Model.Id">Delete</a>
+}

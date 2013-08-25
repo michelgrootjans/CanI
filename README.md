@@ -12,32 +12,34 @@ Usage for an MVC application
 ----------------------------
 In the global.asax, intialize the authorization like this:
 <pre lang='csharp'>
-    CanIMvcConfiguration.ConfigureWith(
-        () => new AbilityConfigurator(HttpContext.Current.User), // we'll get to this class
-        () => new RedirectResult("/") //action if authorization fails
-  );
+	CanIMvcConfiguration.ConfigureWith(
+		config => new AbilityConfigurator(config, new DummyUser("admin")), // admin, manager, callcenter, viewer, guest
+		() => new RedirectResult("/")
+	);
 </pre>
 
 Create a new class where you'll configure the authorization. In the demo application, I called it the AbiltiyConfigurator:
 <pre lang='csharp'>
-    public class AbilityConfigurator : IAbilityConfigurator
+    public class AbilityConfigurator
     {
-        private readonly IPrincipal principal;
-
-        public AbilityConfigurator(IPrincipal principal)
+        public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
         {
-            this.principal = principal;
-        }
-
-        public void Configure(IAbilityConfiguration configuration)
-        {
-            configuration.AllowTo("view", "home");
+            config.AllowTo("view", "home");
 
             if (principal.IsInRole("admin"))
-                configuration.AllowTo("manage", "all");
+                config.AllowTo("Manage", "All");
 
-            if (principal.IsInRole("home-owner"))
-                configuration.AllowTo("manage", "home");
+            if (principal.IsInRole("manager"))
+                config.AllowTo("Manage", "Customer");
+
+            if (principal.IsInRole("callcenter"))
+                config.Allow("View", "Edit").On("Customer");
+
+            if (principal.IsInRole("viewer"))
+                config.Allow("View").On("Customer");
+
+            config.IgnoreSubjectPostfix("ViewModel");
+            config.ConfigureSubjectAliases("Customer", "Customers");
         }
     }
 </pre>
@@ -53,7 +55,7 @@ Now each request is automatically filtered based on the content of the DemoAbili
 
 There is also a view helper to easily check for authorization.
 <pre lang='csharp'>
-	@if (Html.ICan("View", "Home"))
+	@if (Html.ICan("edit", @Model)) //where Model is a customer
 	{
 		...some html
 	}
@@ -62,8 +64,9 @@ There is also a view helper to easily check for authorization.
 Features:
 ---------
 - Action-based authorization filter for http requests (mvc only at the moment)
-- Simple viewhelper to show/hide controls
-- Contains a very simple demo project. Explore at leasure.
+- Simple viewhelper to show/hide controls parts of the HTLM based on the authorization
+- Contains a very simple demo project. Explore at leisure.
+- State based authorization
 
 Roadmap:
 --------
@@ -71,7 +74,7 @@ This project is written in the RDD fashion: ReadMe Driven Development. These are
 
 Near Future
 ***********
-- Add authorization on ViewModels
+- fix hack, where an url can bypass state based authorization
 
 Far Future
 **********

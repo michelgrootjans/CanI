@@ -14,7 +14,7 @@ namespace CanI.Mvc
             this.onFailedAuthorizationResult = onFailedAuthorizationResult;
         }
 
-        public bool Allows(string action, string subject)
+        public bool Allows(string action, object subject)
         {
             return ability.Allows(action, subject);
         }

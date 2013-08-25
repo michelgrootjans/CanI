@@ -41,6 +41,12 @@ namespace CanI.Demo.Controllers
             Service.Update(id, name);
             return RedirectToAction("Detail", new {id});
         }
+
+        public ActionResult Delete(int id)
+        {
+            Service.Remove(id);
+            return RedirectToAction("Index");
+        }
     }
 
 }
