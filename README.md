@@ -10,14 +10,6 @@ Loosely based on ruby's cancan gem.
 
 Usage for an MVC application
 ----------------------------
-In the global.asax, intialize the authorization like this:
-<pre lang='csharp'>
-	CanIMvcConfiguration.ConfigureWith(
-		config => new AbilityConfigurator(config, new DummyUser("admin")), // admin, manager, callcenter, viewer, guest
-		() => new RedirectResult("/")
-	);
-</pre>
-
 Create a new class where you'll configure the authorization. In the demo application, I called it the AbiltiyConfigurator:
 <pre lang='csharp'>
     public class AbilityConfigurator
@@ -42,6 +34,14 @@ Create a new class where you'll configure the authorization. In the demo applica
             config.ConfigureSubjectAliases("Customer", "Customers");
         }
     }
+</pre>
+
+In the global.asax, intialize this new configuration class like this:
+<pre lang='csharp'>
+	CanIMvcConfiguration.ConfigureWith(
+		config => new AbilityConfigurator(config, new DummyUser("admin")), // admin, manager, callcenter, viewer, guest
+		() => new RedirectResult("/")
+	);
 </pre>
 
 To add a generic filter over all the controllers, register the filter globally
