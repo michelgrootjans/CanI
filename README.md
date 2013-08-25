@@ -16,7 +16,7 @@ Create a new class where you'll configure the authorization. In the demo applica
     {
         public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
         {
-            config.AllowTo("view", "home");
+            config.AllowTo("View", "Home");
 
             if (principal.IsInRole("admin"))
                 config.AllowTo("Manage", "All");
