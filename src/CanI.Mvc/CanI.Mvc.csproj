@@ -36,9 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthorizeWithCanIFilter.cs" />
-    <Compile Include="CanIMvcConfiguration.cs" />
-    <Compile Include="IMvcAbility.cs" />
-    <Compile Include="MvcAbility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

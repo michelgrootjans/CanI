@@ -8,7 +8,7 @@ namespace CanI.Demo
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new AuthorizeWithCanIFilter());
+            filters.Add(new AuthorizeWithCanIFilter(new RedirectResult("/")));
         }
     }
 }
