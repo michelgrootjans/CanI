@@ -9,9 +9,9 @@ namespace CanI.Demo.App_Start
         public static void Configure()
         {
             CanIMvcConfiguration.ConfigureWith(
-                config => new AbilityConfigurator(config),
+                config => new AbilityConfigurator(config, System.Web.HttpContext.Current.User),
                 () => new RedirectResult("/") // ActionResult on failed authorization
-                );
+            );
         }
     }
 }

@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AuthorizationConfig.cs" />
-    <Compile Include="Authorization\DummyUser.cs" />
     <Compile Include="Authorization\AbilityConfigurator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
