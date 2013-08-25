@@ -16,6 +16,7 @@ Create a new class where you'll configure the authorization. In the demo applica
     {
         public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
         {
+            config.Allow("Login", "LogOff").On("Account");
             config.AllowTo("View", "Home");
 
             if (principal.IsInRole("admin"))
@@ -36,11 +37,32 @@ Create a new class where you'll configure the authorization. In the demo applica
     }
 </pre>
 
+There is also a view helper to easily check for authorization. The next piece of code only checks if the action is allowed for the current user:
+<pre lang='csharp'>
+	@if (I.Can("edit", "customer")) // doesn't check state
+	{
+		...some html
+	}
+</pre>
+
+The next piece of code also verifies if the action is allowed on the @Model. In this case, two checks will be applied:
+- is the user allowed to 'edit' a 'customer'
+- if the @Model has a property 'CanEdit' that returns a boolean, this property has to be true
+If both these conditions are met, the HTML will be rendered
+<pre lang='csharp'>
+	@if (I.Can("edit", @Model)) // where Model is a viewmodel, also checks state
+	{
+		...some html
+	}
+</pre>
+
+How to configure an MVC application
+-----------------------------------
 In the global.asax, intialize this new configuration class like this:
 <pre lang='csharp'>
 	CanIMvcConfiguration.ConfigureWith(
-		config => new AbilityConfigurator(config, new DummyUser("admin")), // admin, manager, callcenter, viewer, guest
-		() => new RedirectResult("/")
+		config => new AbilityConfigurator(config, System.Web.HttpContext.Current.User), //this is the custom class where you difine your authorizations
+		() => new RedirectResult("/") // ActionResult on failed authorization
 	);
 </pre>
 
@@ -53,13 +75,6 @@ To add a generic filter over all the controllers, register the filter globally
 </pre>
 Now each request is automatically filtered based on the content of the DemoAbilityConfigurator.
 
-There is also a view helper to easily check for authorization.
-<pre lang='csharp'>
-	@if (Html.ICan("edit", @Model)) //where Model is a customer
-	{
-		...some html
-	}
-</pre>
 
 Features:
 ---------
@@ -70,11 +85,11 @@ Features:
 
 Roadmap:
 --------
-This project is written in the RDD fashion: ReadMe Driven Development. These are the features I'm planning:
+This project is written in the RDD fashion: Readme Driven Development. These are the features I'm planning:
 
 Near Future
 ***********
-- plug in the real authenticated user, not some dummy implementation
+- Make the demo site a little more appealing
 - fix hack, where an url can bypass state based authorization
 
 Far Future
