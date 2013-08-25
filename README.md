@@ -48,6 +48,7 @@ There is also a view helper to easily check for authorization. The next piece of
 The next piece of code also verifies if the action is allowed on the @Model. In this case, two checks will be applied:
 - is the user allowed to 'edit' a 'customer'
 - if the @Model has a property 'CanEdit' that returns a boolean, this property has to be true
+
 If both these conditions are met, the HTML will be rendered
 <pre lang='csharp'>
 	@if (I.Can("edit", @Model)) // where Model is a viewmodel, also checks state
