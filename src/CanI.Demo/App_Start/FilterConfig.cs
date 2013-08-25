@@ -8,6 +8,8 @@ namespace CanI.Demo
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+
+            // this is the default ActionResult on failed authorization
             filters.Add(new AuthorizeWithCanIFilter(new RedirectResult("/")));
         }
     }
