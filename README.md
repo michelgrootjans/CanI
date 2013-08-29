@@ -6,7 +6,7 @@ Goals:
 A .net authorization component that decouples authorization from roles/actions/...
 This assumes a few conventions over configuration.
 
-Loosely based on ruby's cancan gem.
+Loosely based on ruby's [cancan gem](https://github.com/ryanb/cancan).
 
 Usage for an MVC application
 ----------------------------
