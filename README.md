@@ -74,15 +74,15 @@ To add a generic filter over all the controllers, register the filter globally
             filters.Add(new AuthorizeWithCanIFilter(new RedirectResult("/")));
         }
 </pre>
-Now each request is automatically filtered based on the content of the DemoAbilityConfigurator.
+Now each request is automatically filtered based on the content of the AbilityConfigurator.
 
 
 Features:
 ---------
 - Action-based authorization filter for http requests (mvc only at the moment)
-- Simple viewhelper to show/hide controls parts of the HTLM based on the authorization
-- Contains a very simple demo project. Explore at leisure.
+- Simple viewhelper to show/hide html based on the authorization
 - State based authorization
+- Contains a very simple demo project. Explore at leisure
 
 Roadmap:
 --------
