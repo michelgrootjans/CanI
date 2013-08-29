@@ -10,7 +10,7 @@ namespace CanI.Demo
             filters.Add(new HandleErrorAttribute());
 
             // this is the default ActionResult on failed authorization
-            filters.Add(new AuthorizeWithCanIFilter(new RedirectResult("/")));
+            filters.Add(new AuthorizeWithCanIFilter(context => new RedirectResult("/")));
         }
     }
 }

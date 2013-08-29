@@ -6,11 +6,11 @@ namespace CanI.Mvc
 {
     public class AuthorizeWithCanIFilter : IAuthorizationFilter
     {
-        private readonly ActionResult resultOnAuthorizationFailure;
+        private readonly Func<AuthorizationContext, ActionResult> resultOnFailedAuthorization;
 
-        public AuthorizeWithCanIFilter(ActionResult resultOnAuthorizationFailure)
+        public AuthorizeWithCanIFilter(Func<AuthorizationContext, ActionResult> resultOnFailedAuthorization)
         {
-            this.resultOnAuthorizationFailure = resultOnAuthorizationFailure;
+            this.resultOnFailedAuthorization = resultOnFailedAuthorization;
         }
 
         public void OnAuthorization(AuthorizationContext filterContext)
@@ -24,7 +24,7 @@ namespace CanI.Mvc
 
             if (ability.Allows(action, subject)) return;
 
-            filterContext.Result = resultOnAuthorizationFailure;
+            filterContext.Result = resultOnFailedAuthorization(filterContext);
         }
     }
 }
