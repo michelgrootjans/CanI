@@ -88,12 +88,8 @@ Roadmap:
 --------
 This project is written in the RDD fashion: Readme Driven Development. These are the features I'm planning:
 
-Near Future
-***********
+- Add authorization based on external state
 - Make the demo site a little more appealing
 - fix hack, where an url can bypass state based authorization
-
-Far Future
-**********
 - Create NuGet package
 - Think about a plugin for NHibernate
