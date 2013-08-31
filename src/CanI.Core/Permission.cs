@@ -9,21 +9,25 @@ namespace CanI.Core
     {
         private readonly string action;
         private readonly string subject;
-        private IList<Func<bool>> positivePredicates;
+        private readonly IList<IAuthorizationPredicate> authorizationPredicates;
 
         public Permission(string action, string subject)
         {
             this.action = action.ToLower();
             this.subject = subject.ToLower();
-            positivePredicates = new List<Func<bool>>();
+            authorizationPredicates = new List<IAuthorizationPredicate>();
         }
 
         public void If(Func<bool> predicate)
         {
-            positivePredicates.Add(predicate);
+            authorizationPredicates.Add(new PlainAuthorizationPredicate(predicate));
         }
 
-        //private?
+        public void If<T>(Func<T, bool> predicate)
+        {
+            authorizationPredicates.Add(new GenericPredicate<T>(predicate));
+        }
+
         public bool Authorizes(string action, string subject)
         {
             return MatchesAction(action.ToLower())
@@ -49,13 +53,13 @@ namespace CanI.Core
 
         public bool IsAllowedOn(object subject)
         {
-            return ContextAllowsAction() 
+            return ContextAllowsAction(subject) 
                 && SubjectAllowsAction(subject);
         }
 
-        private bool ContextAllowsAction()
+        private bool ContextAllowsAction(object subject)
         {
-            return positivePredicates.All(p => p());
+            return authorizationPredicates.All(p => p.Allows(subject));
         }
 
         private bool SubjectAllowsAction(object subject)
@@ -68,5 +72,42 @@ namespace CanI.Core
             var booleanValue = propertyValue as bool?;
             return booleanValue.GetValueOrDefault();
         }
+    }
+
+    public class GenericPredicate<T> : IAuthorizationPredicate
+    {
+        private readonly Func<T, bool> predicate;
+
+        public GenericPredicate(Func<T, bool> predicate)
+        {
+            this.predicate = predicate;
+        }
+
+        public bool Allows(object subject)
+        {
+            if(typeof(T).IsInstanceOfType(subject))
+                return predicate((T) subject);
+            return true;
+        }
+    }
+
+    public class PlainAuthorizationPredicate : IAuthorizationPredicate
+    {
+        private readonly Func<bool> predicate;
+
+        public PlainAuthorizationPredicate(Func<bool> predicate)
+        {
+            this.predicate = predicate;
+        }
+
+        public bool Allows(dynamic subject)
+        {
+            return predicate();
+        }
+    }
+
+    internal interface IAuthorizationPredicate
+    {
+        bool Allows(object subject);
     }
 }
