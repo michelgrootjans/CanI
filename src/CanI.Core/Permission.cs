@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace CanI.Core
 {
@@ -23,11 +24,10 @@ namespace CanI.Core
         }
 
         //private?
-        public bool Allows(string action, string subject)
+        public bool Authorizes(string action, string subject)
         {
-            return MatchesAction(action.ToLower()) 
-                && MatchesSubject(subject.ToLower())
-                && ContextAllowsAction();
+            return MatchesAction(action.ToLower())
+                   && MatchesSubject(subject.ToLower());
         }
 
         private bool MatchesAction(string action)
@@ -46,10 +46,29 @@ namespace CanI.Core
             return this.subject == subject;
         }
 
+
+        public bool IsAllowedOn(object subject)
+        {
+
+//            return true;
+            return ContextAllowsAction() 
+                && SubjectAllowsAction(subject);
+        }
+
         private bool ContextAllowsAction()
         {
             return positivePredicates.All(p => p());
         }
 
+        private bool SubjectAllowsAction(object subject)
+        {
+            const BindingFlags caseInsensitivePublicInstance = BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public;
+            var property = subject.GetType().GetProperty("can" + action, caseInsensitivePublicInstance);
+            if (property == null) return true;
+
+            var propertyValue = property.GetValue(subject);
+            var booleanValue = propertyValue as bool?;
+            return booleanValue.GetValueOrDefault();
+        }
     }
 }

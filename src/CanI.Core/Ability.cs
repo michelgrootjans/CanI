@@ -35,10 +35,10 @@ namespace CanI.Core
             var cleanedSubject = CleanupSubject(subject);
             var cleanAction = CleanupAction(action);
 
-            var actionIsAllowed = permissions.Any(p => p.Allows(cleanAction, cleanedSubject));
-            var subjectAllowsAction = SubjectAllowsAction(action, subject);
-
-            return actionIsAllowed && subjectAllowsAction;
+            var permission = permissions.Find(p => p.Authorizes(cleanAction, cleanedSubject));
+            if (permission == null) 
+                return false;
+            return permission.IsAllowedOn(subject);
         }
 
         public IPermissionConfiguration AllowTo(string action, string subject)
@@ -93,17 +93,6 @@ namespace CanI.Core
             if (actionAliases.ContainsKey(lowerCaseAction))
                 return actionAliases[lowerCaseAction];
             return lowerCaseAction;
-        }
-
-        private bool SubjectAllowsAction(string action, object subject)
-        {
-            const BindingFlags caseInsensitivePublicInstance = BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public;
-            var property = subject.GetType().GetProperty("can" + action, caseInsensitivePublicInstance);
-            if (property == null) return true;
-
-            var propertyValue = property.GetValue(subject);
-            var booleanValue = propertyValue as bool?;
-            return booleanValue.GetValueOrDefault();
         }
     }
 }
