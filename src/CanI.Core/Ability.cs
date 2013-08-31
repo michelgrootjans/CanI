@@ -7,14 +7,14 @@ namespace CanI.Core
     public class Ability : IAbility, IAbilityConfiguration
     {
         private readonly List<Permission> permissions;
-        private readonly IList<string> ignoredPostfixes;
+        private readonly IList<string> ignoredSubjectPostfixes;
         private readonly IDictionary<string, string> actionAliases;
         private readonly IDictionary<string, string> subjectAliases;
 
         public Ability()
         {
             permissions = new List<Permission>();
-            ignoredPostfixes = new List<string>();
+            ignoredSubjectPostfixes = new List<string>();
             subjectAliases = new Dictionary<string, string>();
             actionAliases = new Dictionary<string, string>
             {
@@ -55,14 +55,13 @@ namespace CanI.Core
 
         public void IgnoreSubjectPostfix(string postfix)
         {
-            ignoredPostfixes.Add(postfix.ToLower());
+            ignoredSubjectPostfixes.Add(postfix.ToLower());
         }
 
         public void ConfigureActionAlias(string intendedAction, params string[] aliases)
         {
             foreach (var alias in aliases)
                 actionAliases.Add(alias, intendedAction);
-
         }
 
         public void ConfigureSubjectAliases(string intendedSubject, params string[] aliases)
@@ -80,7 +79,7 @@ namespace CanI.Core
                 lowerCaseSubject = ((string)subject).ToLower();
             else
                 lowerCaseSubject = subject.GetType().Name.ToLower();
-            var matchingPostfix = ignoredPostfixes.FirstOrDefault(lowerCaseSubject.EndsWith);
+            var matchingPostfix = ignoredSubjectPostfixes.FirstOrDefault(lowerCaseSubject.EndsWith);
             if(matchingPostfix != null)
                 lowerCaseSubject = lowerCaseSubject.Replace(matchingPostfix, "");
             if(subjectAliases.ContainsKey(lowerCaseSubject))

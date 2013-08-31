@@ -7,7 +7,7 @@ namespace CanI.Tests.Abilities
     [TestFixture]
     public class StateBasedAbilityTests
     {
-        public class Order
+        private class Order
         {
             public bool CanSend { get; set; }
         }
