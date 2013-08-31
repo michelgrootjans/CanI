@@ -83,12 +83,12 @@ Features:
 - Simple viewhelper to show/hide html based on the authorization
 - State based authorization
 - Contains a very simple demo project. Explore at leisure
+- Contains authorization based on external state
 
 Roadmap:
 --------
 This project is written in the RDD fashion: Readme Driven Development. These are the features I'm planning:
 
-- Add authorization based on external state
 - Make the demo site a little more appealing
 - fix hack, where an url can bypass state based authorization
 - Create NuGet package
