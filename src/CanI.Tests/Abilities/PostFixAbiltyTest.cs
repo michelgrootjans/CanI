@@ -11,6 +11,12 @@ namespace CanI.Tests.Abilities
         {
         }
 
+        [SetUp]
+        public void SetUp()
+        {
+            AbilityConfiguration.Reset();
+        }
+
         [Test]
         public void abilities_dont_ignore_postfixes_by_default()
         {

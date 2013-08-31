@@ -11,6 +11,12 @@ namespace CanI.Tests.Abilities
         {
         }
 
+        [SetUp]
+        public void SetUp()
+        {
+            AbilityConfiguration.Reset();
+        }
+
         [Test]
         public void an_ability_can_be_checked_with_an_entity()
         {

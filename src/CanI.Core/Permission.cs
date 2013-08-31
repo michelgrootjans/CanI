@@ -1,21 +1,33 @@
-﻿namespace CanI.Core
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CanI.Core
 {
-    public class Permission
+    public class Permission : IPermissionConfiguration
     {
         private readonly string action;
         private readonly string subject;
+        private IList<Func<bool>> positivePredicates;
 
         public Permission(string action, string subject)
         {
             this.action = action.ToLower();
             this.subject = subject.ToLower();
+            positivePredicates = new List<Func<bool>>();
         }
 
+        public void If(Func<bool> predicate)
+        {
+            positivePredicates.Add(predicate);
+        }
+
+        //private?
         public bool Allows(string action, string subject)
         {
-            var actionIsAllowed = MatchesAction(action.ToLower());
-            var subjectIsAllowed = MatchesSubject(subject.ToLower());
-            return actionIsAllowed && subjectIsAllowed;
+            return MatchesAction(action.ToLower()) 
+                && MatchesSubject(subject.ToLower())
+                && ContextAllowsAction();
         }
 
         private bool MatchesAction(string action)
@@ -33,5 +45,11 @@
 
             return this.subject == subject;
         }
+
+        private bool ContextAllowsAction()
+        {
+            return positivePredicates.All(p => p());
+        }
+
     }
 }

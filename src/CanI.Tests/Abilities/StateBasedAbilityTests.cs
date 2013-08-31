@@ -12,6 +12,12 @@ namespace CanI.Tests.Abilities
             public bool CanSend { get; set; }
         }
 
+        [SetUp]
+        public void SetUp()
+        {
+            AbilityConfiguration.Reset();
+        }
+
         [Test]
         public void positive_state_allows_action()
         {

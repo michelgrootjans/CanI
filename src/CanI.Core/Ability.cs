@@ -41,9 +41,11 @@ namespace CanI.Core
             return actionIsAllowed && subjectAllowsAction;
         }
 
-        public void AllowTo(string action, string subject)
+        public IPermissionConfiguration AllowTo(string action, string subject)
         {
-            permissions.Add(new Permission(action, subject));
+            var permission = new Permission(action, subject);
+            permissions.Add(permission);
+            return permission;
         }
 
         public IFluentAbilityActionConfiguration Allow(params string[] actions)
