@@ -49,8 +49,6 @@ namespace CanI.Core
 
         public bool IsAllowedOn(object subject)
         {
-
-//            return true;
             return ContextAllowsAction() 
                 && SubjectAllowsAction(subject);
         }

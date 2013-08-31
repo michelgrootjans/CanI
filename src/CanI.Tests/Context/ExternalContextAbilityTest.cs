@@ -16,15 +16,31 @@ namespace CanI.Tests.Context
         [Test]
         public void with_positive_context_allows_its_action()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("view", "customer").If(() => true));
-            Then.IShouldBeAbleTo("view", "customer");
+            AbilityConfiguration.ConfigureWith(c => 
+                c.AllowTo("view", "order")
+                 .If(() => true)
+                 );
+            Then.IShouldBeAbleTo("view", "order");
         }
 
         [Test]
         public void with_negative_context_denies_its_action()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("view", "customer").If(() => false));
-            Then.IShouldNotBeAbleTo("view", "customer");
+            AbilityConfiguration.ConfigureWith(c =>
+                c.AllowTo("view", "order")
+                 .If(() => false)
+                 );
+            Then.IShouldNotBeAbleTo("view", "order");
+        }
+
+        [Test]
+        public void with_subject_sensitive_context_allows_its_action()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+                c.AllowTo("view", "order")
+                 .If(() => true)
+                 );
+            Then.IShouldBeAbleTo("view", "order");
         }
 
     }
