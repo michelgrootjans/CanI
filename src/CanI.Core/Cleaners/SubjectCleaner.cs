@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace CanI.Core
+namespace CanI.Core.Cleaners
 {
     public class SubjectCleaner
     {

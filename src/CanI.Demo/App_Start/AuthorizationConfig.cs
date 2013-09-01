@@ -1,4 +1,4 @@
-﻿using CanI.Core;
+﻿using CanI.Core.Configuration;
 using CanI.Demo.Authorization;
 
 namespace CanI.Demo.App_Start

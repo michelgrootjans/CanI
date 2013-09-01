@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using CanI.Core.Cleaners;
+using CanI.Core.Configuration;
+using CanI.Core.Predicates;
 
-namespace CanI.Core
+namespace CanI.Core.Authorization
 {
     public class Permission : IPermissionConfiguration
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using CanI.Core;
+using CanI.Core.Authorization;
 
 namespace CanI.Tests.TestUtilities
 {

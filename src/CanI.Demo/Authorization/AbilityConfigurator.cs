@@ -1,5 +1,5 @@
 ﻿using System.Security.Principal;
-using CanI.Core;
+using CanI.Core.Configuration;
 
 namespace CanI.Demo.Authorization
 {

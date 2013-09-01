@@ -1,4 +1,4 @@
-﻿namespace CanI.Core
+﻿namespace CanI.Core.Predicates
 {
     internal interface IAuthorizationPredicate
     {

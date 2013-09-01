@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CanI.Core
+namespace CanI.Core.Predicates
 {
     public class GenericPredicate<T> : IAuthorizationPredicate
     {

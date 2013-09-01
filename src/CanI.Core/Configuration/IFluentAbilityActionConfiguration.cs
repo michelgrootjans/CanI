@@ -1,4 +1,4 @@
-﻿namespace CanI.Core
+﻿namespace CanI.Core.Configuration
 {
     public interface IFluentAbilityActionConfiguration
     {

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CanI.Core.Cleaners;
+using CanI.Core.Configuration;
 
-namespace CanI.Core
+namespace CanI.Core.Authorization
 {
     public class Ability : IAbility, IAbilityConfiguration
     {

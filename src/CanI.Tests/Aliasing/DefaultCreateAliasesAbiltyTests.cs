@@ -1,4 +1,4 @@
-﻿using CanI.Core;
+﻿using CanI.Core.Configuration;
 using CanI.Tests.TestUtilities;
 using NUnit.Framework;
 

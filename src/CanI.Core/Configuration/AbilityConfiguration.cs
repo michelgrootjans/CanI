@@ -1,16 +1,8 @@
 ﻿using System;
+using CanI.Core.Authorization;
 
-namespace CanI.Core
+namespace CanI.Core.Configuration
 {
-    public static class I
-    {
-        public static bool Can(string action, object subject)
-        {
-            var ability = AbilityConfiguration.CreateAbility();
-            return ability.Allows(action, subject);
-        }
-    }
-
     public static class AbilityConfiguration
     {
         private static Action<IAbilityConfiguration> configurationApplier;

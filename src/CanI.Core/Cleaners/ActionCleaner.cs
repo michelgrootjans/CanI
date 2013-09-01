@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CanI.Core
+namespace CanI.Core.Cleaners
 {
     public class ActionCleaner
     {

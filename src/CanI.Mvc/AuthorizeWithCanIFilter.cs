@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
-using CanI.Core;
+using CanI.Core.Configuration;
 
 namespace CanI.Mvc
 {
