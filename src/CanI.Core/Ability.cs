@@ -82,22 +82,31 @@ namespace CanI.Core
         private string CleanupSubject(object subject)
         {
             var stringSubject = SubjectToString(subject);
-            var matchingPostfix = ignoredSubjectPostfixes.FirstOrDefault(stringSubject.EndsWith);
-            if(matchingPostfix != null)
-                stringSubject = stringSubject.Replace(matchingPostfix, "");
-            if(subjectAliases.ContainsKey(stringSubject))
-                stringSubject = subjectAliases[stringSubject];
+            stringSubject = RemoveSubjectAffixes(stringSubject);
+            stringSubject = ReplaceSubjectAliases(stringSubject);
             return stringSubject;
         }
 
         private static string SubjectToString(object subject)
         {
-            string lowerCaseSubject;
             if (subject is string)
-                lowerCaseSubject = ((string) subject).ToLower();
-            else
-                lowerCaseSubject = subject.GetType().Name.ToLower();
-            return lowerCaseSubject;
+                return ((string) subject).ToLower();
+            return subject.GetType().Name.ToLower();
+        }
+
+        private string RemoveSubjectAffixes(string subject)
+        {
+            var matchingPostfix = ignoredSubjectPostfixes.FirstOrDefault(subject.EndsWith);
+            if (matchingPostfix != null)
+                return  subject.Replace(matchingPostfix, "");
+            return subject;
+        }
+
+        private string ReplaceSubjectAliases(string subject)
+        {
+            if (subjectAliases.ContainsKey(subject))
+                subject = subjectAliases[subject];
+            return subject;
         }
     }
 }
