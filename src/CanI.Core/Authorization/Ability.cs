@@ -52,9 +52,9 @@ namespace CanI.Core.Authorization
             subjectCleaner.AddSubjectAliases(intendedSubject, aliases);
         }
 
-        public void ConfigureCommandConvention(string commandConvention)
+        public void ConfigureCommandConvention(string convention)
         {
-            commandConventions.Add(commandConvention.ToLower());
+            commandConventions.Add(convention.ToLower());
         }
 
         public void IgnoreSubjectPostfixes(params string[] postfixes)
