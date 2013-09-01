@@ -10,14 +10,14 @@ namespace CanI.Core.Authorization
         private readonly ICollection<Permission> permissions;
         private readonly ActionCleaner actionCleaner;
         private readonly SubjectCleaner subjectCleaner;
-        private string commandConvention;
+        private List<string> commandConventions;
 
         public Ability()
         {
             permissions = new List<Permission>();
             actionCleaner = new ActionCleaner();
             subjectCleaner = new SubjectCleaner();
-            commandConvention = "";
+            commandConventions = new List<string>();
         }
 
         public bool Allows(string action, object subject)
@@ -27,23 +27,12 @@ namespace CanI.Core.Authorization
 
         public bool AllowsExecutionOf(object command)
         {
-            var commandName = command.GetType().Name.ToLower();
-            foreach (var permission in permissions)
-            {
-                var permissionCommand =
-                    commandConvention
-                        .Replace("{action}", permission.Action)
-                        .Replace("{subject}", permission.Subject);
-
-                if (commandName == permissionCommand)
-                    return true;
-            }
-            return false;
+            return permissions.Any(p => p.AllowsExecutionOf(command));
         }
 
         public IPermissionConfiguration AllowTo(string action, string subject)
         {
-            var permission = new Permission(action, subject, actionCleaner, subjectCleaner);
+            var permission = new Permission(action, subject, actionCleaner, subjectCleaner, commandConventions);
             permissions.Add(permission);
             return permission;
         }
@@ -65,7 +54,7 @@ namespace CanI.Core.Authorization
 
         public void ConfigureCommandConvention(string commandConvention)
         {
-            this.commandConvention = commandConvention.ToLower();
+            commandConventions.Add(commandConvention.ToLower());
         }
 
         public void IgnoreSubjectPostfixes(params string[] postfixes)

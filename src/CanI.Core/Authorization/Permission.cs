@@ -10,24 +10,23 @@ namespace CanI.Core.Authorization
 {
     public class Permission : IPermissionConfiguration
     {
-        private readonly string action;
-        private readonly string subject;
+        private string Action { get; set; }
+        private string Subject { get; set; }
         private readonly ActionCleaner actionCleaner;
         private readonly SubjectCleaner subjectCleaner;
+        private readonly IEnumerable<string> commandConventions;
         private readonly IList<IAuthorizationPredicate> authorizationPredicates;
 
-        public Permission(string action, string subject, ActionCleaner actionCleaner, SubjectCleaner subjectCleaner)
+        public Permission(string action, string subject, ActionCleaner actionCleaner, SubjectCleaner subjectCleaner, IEnumerable<string> commandConventions)
         {
             this.actionCleaner = actionCleaner;
             this.subjectCleaner = subjectCleaner;
-            this.action = actionCleaner.Clean(action);
-            this.subject = subjectCleaner.Clean(subject);
+            this.commandConventions = commandConventions;
+            Action = actionCleaner.Clean(action);
+            Subject = subjectCleaner.Clean(subject);
 
             authorizationPredicates = new List<IAuthorizationPredicate>();
         }
-
-        public string Action { get{return action;} }
-        public string Subject { get{return subject;} }
 
         public void If(Func<bool> predicate)
         {
@@ -49,18 +48,18 @@ namespace CanI.Core.Authorization
 
         private bool MatchesAction(string requestedAction)
         {
-            if (action == "manage") 
+            if (Action == "manage") 
                 return true;
 
-            return action == actionCleaner.Clean(requestedAction);
+            return Action == actionCleaner.Clean(requestedAction);
         }
 
         private bool MatchesSubject(object requestedSubject)
         {
-            if (subject == "all") 
+            if (Subject == "all") 
                 return true;
 
-            return subject == subjectCleaner.Clean(requestedSubject);
+            return Subject == subjectCleaner.Clean(requestedSubject);
         }
 
 
@@ -72,12 +71,28 @@ namespace CanI.Core.Authorization
         private bool SubjectAllowsAction(object requestedSubject)
         {
             const BindingFlags caseInsensitivePublicInstance = BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public;
-            var property = requestedSubject.GetType().GetProperty("can" + action, caseInsensitivePublicInstance);
+            var property = requestedSubject.GetType().GetProperty("can" + Action, caseInsensitivePublicInstance);
             if (property == null) return true;
 
             var propertyValue = property.GetValue(requestedSubject);
             var booleanValue = propertyValue as bool?;
             return booleanValue.GetValueOrDefault();
+        }
+
+        public bool AllowsExecutionOf(object command)
+        {
+            var commandName = command.GetType().Name.ToLower();
+            foreach (var commandConvention in commandConventions)
+            foreach (var actionAlias in actionCleaner.AliasesFor(Action))
+            {
+                var permissionCommand =
+                    commandConvention
+                        .Replace("{action}", actionAlias)
+                        .Replace("{subject}", Subject);
+
+                if (commandName == permissionCommand) return true;
+            }
+            return false;
         }
     }
 }

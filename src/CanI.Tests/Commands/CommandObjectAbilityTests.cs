@@ -30,10 +30,21 @@ namespace CanI.Tests.Commands
             });
             Then.IShouldBeAbleToExecute(new EditOrderCommand());
         }
+        private class EditOrderCommand { }
 
-        private class EditOrderCommand
+        [Test]
+        public void allows_command_by_convention_with_action_alias()
         {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.AllowTo("edit", "order");
+                c.ConfigureCommandConvention("{action}{subject}Command");
+            });
+            Then.IShouldBeAbleToExecute(new UpdateOrderCommand());
         }
-    }
+        private class UpdateOrderCommand { }
+
+
+   }
 
 }
