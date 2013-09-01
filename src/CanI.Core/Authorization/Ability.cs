@@ -7,20 +7,38 @@ namespace CanI.Core.Authorization
 {
     public class Ability : IAbility, IAbilityConfiguration
     {
-        private readonly List<Permission> permissions;
+        private readonly ICollection<Permission> permissions;
         private readonly ActionCleaner actionCleaner;
         private readonly SubjectCleaner subjectCleaner;
+        private string commandConvention;
 
         public Ability()
         {
             permissions = new List<Permission>();
             actionCleaner = new ActionCleaner();
             subjectCleaner = new SubjectCleaner();
+            commandConvention = "";
         }
 
         public bool Allows(string action, object subject)
         {
             return permissions.Any(p => p.Authorizes(action, subject));
+        }
+
+        public bool AllowsExecutionOf(object command)
+        {
+            var commandName = command.GetType().Name.ToLower();
+            foreach (var permission in permissions)
+            {
+                var permissionCommand =
+                    commandConvention
+                        .Replace("{action}", permission.Action)
+                        .Replace("{subject}", permission.Subject);
+
+                if (commandName == permissionCommand)
+                    return true;
+            }
+            return false;
         }
 
         public IPermissionConfiguration AllowTo(string action, string subject)
@@ -43,6 +61,11 @@ namespace CanI.Core.Authorization
         public void ConfigureSubjectAliases(string intendedSubject, params string[] aliases)
         {
             subjectCleaner.AddSubjectAliases(intendedSubject, aliases);
+        }
+
+        public void ConfigureCommandConvention(string commandConvention)
+        {
+            this.commandConvention = commandConvention.ToLower();
         }
 
         public void IgnoreSubjectPostfixes(params string[] postfixes)

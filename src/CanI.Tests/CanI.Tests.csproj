@@ -45,6 +45,7 @@
     <Compile Include="Abilities\EntityAbiltyTests.cs" />
     <Compile Include="Abilities\StringAbiltyTests.cs" />
     <Compile Include="Abilities\PostFixAbiltyTest.cs" />
+    <Compile Include="Commands\CommandObjectAbilityTests.cs" />
     <Compile Include="Context\ExternalContextAbilityTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUtilities\Then.cs" />

@@ -11,6 +11,7 @@ namespace CanI.Core.Configuration
 
         void IgnoreSubjectPostfixes(params string[] postfixes);
         void ConfigureSubjectAliases(string intendedSubject, params string[] aliases);
+        void ConfigureCommandConvention(string commandConvention);
     }
 
     public interface IPermissionConfiguration

@@ -18,5 +18,19 @@ namespace CanI.Tests.TestUtilities
             if (permission)
                 throw new Exception(string.Format("Expected not to be able to [{0}] [{1}], but I was.", action, subject));
         }
+
+        public static void IShouldBeAbleToExecute(object command)
+        {
+            var permission = I.CanExecute(command);
+            if (!permission)
+                throw new Exception(string.Format("Expected to be able to execute [{0}], but I wasn't.", command));
+        }
+
+        public static void IShouldNotBeAbleToExecute(object command)
+        {
+            var permission = I.CanExecute(command);
+            if (permission)
+                throw new Exception(string.Format("Expected not to be able to execute [{0}], but I was.", command));
+        }
     }
 }

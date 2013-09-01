@@ -9,5 +9,11 @@ namespace CanI.Core.Authorization
             var ability = AbilityConfiguration.CreateAbility();
             return ability.Allows(action, subject);
         }
+
+        public static bool CanExecute(object command)
+        {
+            var ability = AbilityConfiguration.CreateAbility();
+            return ability.AllowsExecutionOf(command);
+        }
     }
 }

@@ -26,6 +26,9 @@ namespace CanI.Core.Authorization
             authorizationPredicates = new List<IAuthorizationPredicate>();
         }
 
+        public string Action { get{return action;} }
+        public string Subject { get{return subject;} }
+
         public void If(Func<bool> predicate)
         {
             authorizationPredicates.Add(new PlainAuthorizationPredicate(predicate));
