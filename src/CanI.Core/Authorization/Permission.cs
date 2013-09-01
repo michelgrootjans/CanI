@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using CanI.Core.Cleaners;
 using CanI.Core.Configuration;
 using CanI.Core.Predicates;
@@ -81,19 +82,23 @@ namespace CanI.Core.Authorization
 
         public bool AllowsExecutionOf(object command)
         {
-            var requestedCommand = command.GetType().Name.ToLower();
+            var requestedCommand = command.GetType().Name;
 
             //I prefer foreach over LINQ in this case
-            foreach (var commandConvention in commandConventions)
             foreach (var actionAlias in actionCleaner.AliasesFor(Action))
             {
-                var allowedCommand =
-                    commandConvention
-                        .Replace("{action}", actionAlias)
-                        .Replace("{subject}", Subject);
+                foreach (var commandConvention in commandConventions)
+                {
+                    var allowedCommand =
+                        commandConvention
+                            .Replace("{action}", actionAlias == "manage" ? ".+" : actionAlias)
+                            .Replace("{subject}", Subject == "all" ? ".+" : Subject);
+                    var match = Regex.Match(requestedCommand, allowedCommand, RegexOptions.IgnoreCase);
 
-                if (requestedCommand == allowedCommand) return true;
+                    if (match.Success) return true;
+                }
             }
+
             return false;
         }
     }

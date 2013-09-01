@@ -47,6 +47,7 @@ namespace CanI.Core.Cleaners
 
         public IEnumerable<string> AliasesFor(string action)
         {
+            if (action == "manage") return new List<string>{"manage"};
             var referenceAction = actionAliases[action];
             return actionAliases
                 .Where(entry => entry.Value == referenceAction)

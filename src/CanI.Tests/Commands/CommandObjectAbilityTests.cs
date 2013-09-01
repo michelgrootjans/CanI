@@ -44,6 +44,38 @@ namespace CanI.Tests.Commands
         }
         private class UpdateOrderCommand { }
 
+        [Test]
+        public void allows_command_by_convention_for_manage_action()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.AllowTo("manage", "order");
+                c.ConfigureCommandConvention("{action}{subject}Command");
+            });
+            Then.IShouldBeAbleToExecute(new EditOrderCommand());
+        }
+
+        [Test]
+        public void allows_command_by_convention_for_edit_all_subjects()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.AllowTo("edit", "all");
+                c.ConfigureCommandConvention("{action}{subject}Command");
+            });
+            Then.IShouldBeAbleToExecute(new EditOrderCommand());
+        }
+
+        [Test]
+        public void allows_command_by_convention_for_manage_all_subjects()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.AllowTo("manage", "all");
+                c.ConfigureCommandConvention("{action}{subject}Command");
+            });
+            Then.IShouldBeAbleToExecute(new EditOrderCommand());
+        }
 
    }
 
