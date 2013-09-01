@@ -7,6 +7,9 @@ namespace CanI.Tests.Commands
     [TestFixture]
     public class CommandObjectAbilityTests
     {
+        private class EditOrderCommand { }
+        private class UpdateOrderCommand { }
+
         [SetUp]
         public void SetUp()
         {
@@ -30,7 +33,6 @@ namespace CanI.Tests.Commands
             });
             Then.IShouldBeAbleToExecute(new EditOrderCommand());
         }
-        private class EditOrderCommand { }
 
         [Test]
         public void allows_command_by_convention_with_action_alias()
@@ -42,7 +44,6 @@ namespace CanI.Tests.Commands
             });
             Then.IShouldBeAbleToExecute(new UpdateOrderCommand());
         }
-        private class UpdateOrderCommand { }
 
         [Test]
         public void allows_command_by_convention_for_manage_action()
