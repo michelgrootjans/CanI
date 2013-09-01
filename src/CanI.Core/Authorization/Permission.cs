@@ -81,16 +81,18 @@ namespace CanI.Core.Authorization
 
         public bool AllowsExecutionOf(object command)
         {
-            var commandName = command.GetType().Name.ToLower();
+            var requestedCommand = command.GetType().Name.ToLower();
+
+            //I prefer foreach over LINQ in this case
             foreach (var commandConvention in commandConventions)
             foreach (var actionAlias in actionCleaner.AliasesFor(Action))
             {
-                var permissionCommand =
+                var allowedCommand =
                     commandConvention
                         .Replace("{action}", actionAlias)
                         .Replace("{subject}", Subject);
 
-                if (commandName == permissionCommand) return true;
+                if (requestedCommand == allowedCommand) return true;
             }
             return false;
         }
