@@ -1,28 +1,14 @@
 ﻿@using CanI.Core
 
-<a href="/Home/Index">Home</a>
+@Html.ActionLink("Home", "Index", "Home")
 
 @if (I.Can("View", "Customers"))
 {
-    <a href="/Customers">Customers</a>
+    @Html.ActionLink("Customers", "Index", "Customers")
 }
 
 @if (I.Can("View", "Admin"))
 {
-    <a href="/Admin">Admin</a>
+    @Html.ActionLink("Administration", "Index", "Admin")
 }
 
-@if (User.Identity.IsAuthenticated)
-{
-    <text>Logged in as @User.Identity.Name</text>
-    <a href="/Account/LogOff">Log off</a>
-}
-else
-{
-    <text>Log in as: </text>
-    <a href="/Account/Login?roleName=guest">Guest</a>
-    <a href="/Account/Login?roleName=viewer">Viewer</a>
-    <a href="/Account/Login?roleName=callcenter">Callcenter</a>
-    <a href="/Account/Login?roleName=manager">Manager</a>
-    <a href="/Account/Login?roleName=admin">Admin</a>
-}

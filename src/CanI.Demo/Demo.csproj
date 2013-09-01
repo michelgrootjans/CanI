@@ -78,6 +78,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Assets\images\warning.png" />
+    <Content Include="Assets\images\error.png" />
+    <Content Include="Assets\images\info.png" />
+    <Content Include="Assets\images\success.png" />
+    <Content Include="Assets\stylesheets\notifications.css" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -88,6 +93,7 @@
     <Content Include="Views\Customers\Detail.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Customers\New.cshtml" />
+    <Content Include="Views\Account\SignIn.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -105,7 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

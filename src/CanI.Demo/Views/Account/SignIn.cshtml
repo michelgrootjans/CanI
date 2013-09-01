@@ -1,0 +1,29 @@
+﻿<h2>Sign In</h2>
+
+
+@using(Html.BeginForm("SignIn", "Account", FormMethod.Post))
+{
+    <div>
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" />
+    </div>    
+    <div>
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" />
+    </div>
+    <div>
+        <input type="submit" value="Sign In"/>
+    </div>
+}
+
+<div class="info">
+    Choose between the following logins:
+    <ul>
+        <li>guest</li>
+        <li>viewer</li>
+        <li>callcenter</li>
+        <li>manager</li>
+        <li>admin</li>
+    </ul>
+    Since this is just a demo application. Passwords are ignored.
+</div>

@@ -5,13 +5,20 @@ namespace CanI.Demo.Controllers
 {
     public class AccountController : Controller
     {
-        public ActionResult LogIn(string roleName)
+        [HttpGet]
+        public ActionResult SignIn()
         {
-            FormsAuthentication.SetAuthCookie(roleName, false);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SignIn(string userName)
+        {
+            FormsAuthentication.SetAuthCookie(userName, false);
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult LogOff()
+        public ActionResult SignOut()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
