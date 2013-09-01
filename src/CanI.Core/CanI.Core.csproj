@@ -36,11 +36,14 @@
   <ItemGroup>
     <Compile Include="Ability.cs" />
     <Compile Include="ActionCleaner.cs" />
+    <Compile Include="GenericPredicate.cs" />
     <Compile Include="IAbilityConfiguration.cs" />
     <Compile Include="AbilityConfiguration.cs" />
     <Compile Include="IAbility.cs" />
+    <Compile Include="IAuthorizationPredicate.cs" />
     <Compile Include="IFluentAbilityActionConfiguration.cs" />
     <Compile Include="Permission.cs" />
+    <Compile Include="PlainAuthorizationPredicate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubjectCleaner.cs" />
   </ItemGroup>

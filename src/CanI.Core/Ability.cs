@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace CanI.Core
 {
@@ -17,15 +18,12 @@ namespace CanI.Core
 
         public bool Allows(string action, object subject)
         {
-            var permission = permissions.Find(p => p.Authorizes(actionCleaner.Clean(action), subjectCleaner.Clean(subject)));
-            if (permission == null) 
-                return false;
-            return permission.IsAllowedOn(subject);
+            return permissions.Any(p => p.Authorizes(action, subject));
         }
 
         public IPermissionConfiguration AllowTo(string action, string subject)
         {
-            var permission = new Permission(action, subject);
+            var permission = new Permission(action, subject, actionCleaner, subjectCleaner);
             permissions.Add(permission);
             return permission;
         }
