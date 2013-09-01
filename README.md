@@ -81,15 +81,15 @@ Features:
 ---------
 - Action-based authorization filter for http requests (mvc only at the moment)
 - Simple viewhelper to show/hide html based on the authorization
-- State based authorization
+- Convention-based subject state authorization
+- Authorize command objects based on conventions
+- Authorization based on external state
 - Contains a very simple demo project. Explore at leisure
-- Contains authorization based on external state
 
 Roadmap:
 --------
 This project is written in the RDD fashion: Readme Driven Development. These are the features I'm planning:
 
-- Authorize command objects based on conventions
 - Authorize MVC actions based on verb
   - GET => authorize on view
   - POST => authorize on create
