@@ -20,7 +20,7 @@ namespace CanI.Tests.Aliasing
             AbilityConfiguration.ConfigureWith(c =>
             {
                 c.AllowTo("view", "customer");
-                c.ConfigureActionAlias("view", "consult");
+                c.ConfigureActionAliases("view", "consult");
             });
             Then.IShouldBeAbleTo("consult", "customer");
         }

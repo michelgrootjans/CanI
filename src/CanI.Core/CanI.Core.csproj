@@ -35,12 +35,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ability.cs" />
+    <Compile Include="ActionCleaner.cs" />
     <Compile Include="IAbilityConfiguration.cs" />
     <Compile Include="AbilityConfiguration.cs" />
     <Compile Include="IAbility.cs" />
     <Compile Include="IFluentAbilityActionConfiguration.cs" />
     <Compile Include="Permission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubjectCleaner.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

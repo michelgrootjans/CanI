@@ -31,7 +31,7 @@ namespace CanI.Tests.Abilities
             AbilityConfiguration.ConfigureWith(c =>
             {
                 c.AllowTo("view", "customer");
-                c.IgnoreSubjectPostfix("ViewModel");
+                c.IgnoreSubjectPostfixes("ViewModel");
             });
 
             Then.IShouldBeAbleTo("view", new CustomerViewModel());
@@ -43,7 +43,7 @@ namespace CanI.Tests.Abilities
             AbilityConfiguration.ConfigureWith(c =>
             {
                 c.AllowTo("view", "customer");
-                c.IgnoreSubjectPostfix("viewmodel");
+                c.IgnoreSubjectPostfixes("viewmodel");
             });
 
             Then.IShouldBeAbleTo("view", new CustomerViewModel());

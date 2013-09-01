@@ -22,7 +22,7 @@ namespace CanI.Demo.Authorization
             if (principal.IsInRole("viewer"))
                 config.Allow("View").On("Customer");
 
-            config.IgnoreSubjectPostfix("ViewModel");
+            config.IgnoreSubjectPostfixes("ViewModel");
             config.ConfigureSubjectAliases("Customer", "Customers");
         }
     }
