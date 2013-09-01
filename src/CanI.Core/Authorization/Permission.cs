@@ -93,9 +93,9 @@ namespace CanI.Core.Authorization
                         commandConvention
                             .Replace("{action}", actionAlias == "manage" ? ".+" : actionAlias)
                             .Replace("{subject}", Subject == "all" ? ".+" : Subject);
-                    var match = Regex.Match(requestedCommand, allowedCommand, RegexOptions.IgnoreCase);
 
-                    if (match.Success) return true;
+                    if (Regex.IsMatch(requestedCommand, allowedCommand, RegexOptions.IgnoreCase))
+                        return true;
                 }
             }
 
