@@ -89,6 +89,7 @@ Roadmap:
 --------
 This project is written in the RDD fashion: Readme Driven Development. These are the features I'm planning:
 
+- Authorize command objects based on conventions
 - Make the demo site a little more appealing
 - fix hack, where an url can bypass state based authorization
 - Create NuGet package
