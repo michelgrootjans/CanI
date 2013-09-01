@@ -71,27 +71,33 @@ namespace CanI.Core
             }
         }
 
-        private string CleanupSubject(object subject)
-        {
-            string lowerCaseSubject;
-            if (subject is string)
-                lowerCaseSubject = ((string)subject).ToLower();
-            else
-                lowerCaseSubject = subject.GetType().Name.ToLower();
-            var matchingPostfix = ignoredSubjectPostfixes.FirstOrDefault(lowerCaseSubject.EndsWith);
-            if(matchingPostfix != null)
-                lowerCaseSubject = lowerCaseSubject.Replace(matchingPostfix, "");
-            if(subjectAliases.ContainsKey(lowerCaseSubject))
-                lowerCaseSubject = subjectAliases[lowerCaseSubject];
-            return lowerCaseSubject;
-        }
-
         private string CleanupAction(string action)
         {
             var lowerCaseAction = action.ToLower();
             if (actionAliases.ContainsKey(lowerCaseAction))
                 return actionAliases[lowerCaseAction];
             return lowerCaseAction;
+        }
+
+        private string CleanupSubject(object subject)
+        {
+            var stringSubject = SubjectToString(subject);
+            var matchingPostfix = ignoredSubjectPostfixes.FirstOrDefault(stringSubject.EndsWith);
+            if(matchingPostfix != null)
+                stringSubject = stringSubject.Replace(matchingPostfix, "");
+            if(subjectAliases.ContainsKey(stringSubject))
+                stringSubject = subjectAliases[stringSubject];
+            return stringSubject;
+        }
+
+        private static string SubjectToString(object subject)
+        {
+            string lowerCaseSubject;
+            if (subject is string)
+                lowerCaseSubject = ((string) subject).ToLower();
+            else
+                lowerCaseSubject = subject.GetType().Name.ToLower();
+            return lowerCaseSubject;
         }
     }
 }

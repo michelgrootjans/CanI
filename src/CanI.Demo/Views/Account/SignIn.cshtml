@@ -1,5 +1,9 @@
-﻿<h2>Sign In</h2>
+﻿<div class="info">
+    Choose between the following logins: <b>guest</b>, <b>viewer</b>, <b>callcenter</b>, <b>manager</b> or <b>admin</b>.
+    Since this is just a demo application, passwords are ignored.
+</div>
 
+<h2>Sign In</h2>
 
 @using(Html.BeginForm("SignIn", "Account", FormMethod.Post))
 {
@@ -15,15 +19,3 @@
         <input type="submit" value="Sign In"/>
     </div>
 }
-
-<div class="info">
-    Choose between the following logins:
-    <ul>
-        <li>guest</li>
-        <li>viewer</li>
-        <li>callcenter</li>
-        <li>manager</li>
-        <li>admin</li>
-    </ul>
-    Since this is just a demo application. Passwords are ignored.
-</div>
