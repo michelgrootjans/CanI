@@ -12,6 +12,7 @@
         {
             Id = counter++;
             Name = name;
+            CanDelete = true;
         }
 
     }
