@@ -24,6 +24,7 @@ namespace CanI.Demo.Authorization
 
             config.IgnoreSubjectPostfixes("ViewModel");
             config.ConfigureSubjectAliases("Customer", "Customers");
+            config.ConfigureCommandConvention("{action}{subject}Command");
         }
     }
 }

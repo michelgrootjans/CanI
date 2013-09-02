@@ -9,13 +9,6 @@ namespace CanI.Demo.Services
 
         public CustomerService()
         {
-            customers = new List<CustomerViewModel>
-            {
-                new CustomerViewModel("Apple"),
-                new CustomerViewModel("Microsoft"){CanDelete = false},
-                new CustomerViewModel("Amazon"),
-                new CustomerViewModel("Dropbox")
-            };
         }
 
         public IEnumerable<CustomerViewModel> All()
@@ -35,7 +28,7 @@ namespace CanI.Demo.Services
 
         public int Create(string name)
         {
-            var customer = new CustomerViewModel(name);
+            var customer = new CustomerViewModel();
             customers.Add(customer);
             return customer.Id;
         }
@@ -48,18 +41,10 @@ namespace CanI.Demo.Services
 
     public class CustomerViewModel
     {
-        private static int counter;
 
-        public int Id { get; private set; }
-        public string Name { get; internal set; }
-        public bool CanDelete { get; internal set; }
-
-        public CustomerViewModel(string name)
-        {
-            Id = counter++;
-            Name = name;
-            CanDelete = true;
-        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool CanDelete { get; set; }
     }
 
 }

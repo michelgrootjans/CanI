@@ -71,6 +71,8 @@
     <Compile Include="Authorization\AbilityConfigurator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Domain\Customer.cs" />
+    <Compile Include="Domain\StaticInMemoryRepository.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
