@@ -44,7 +44,7 @@ namespace CanI.Core.Authorization
             return MatchesAction(requestedAction)
                    && MatchesSubject(requestedSubject)
                    && ContextAllowsAction(requestedSubject) 
-                   && SubjectAllowsAction(requestedSubject);
+                   && SubjectAllowsAction(requestedAction, requestedSubject);
         }
 
         private bool MatchesAction(string requestedAction)
@@ -69,10 +69,10 @@ namespace CanI.Core.Authorization
             return authorizationPredicates.All(p => p.Allows(requestedSubject));
         }
 
-        private bool SubjectAllowsAction(object requestedSubject)
+        private bool SubjectAllowsAction(string requestedAction, object requestedSubject)
         {
             const BindingFlags caseInsensitivePublicInstance = BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public;
-            var property = requestedSubject.GetType().GetProperty("can" + Action, caseInsensitivePublicInstance);
+            var property = requestedSubject.GetType().GetProperty("can" + requestedAction, caseInsensitivePublicInstance);
             if (property == null) return true;
 
             var propertyValue = property.GetValue(requestedSubject);

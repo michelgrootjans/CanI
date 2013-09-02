@@ -1,4 +1,6 @@
-﻿using CanI.Demo.Domain.Commands;
+﻿using System;
+using CanI.Core.Authorization;
+using CanI.Demo.Domain.Commands;
 
 namespace CanI.Demo.Authorization
 {
@@ -13,6 +15,8 @@ namespace CanI.Demo.Authorization
 
         public void Dispatch<TCommand>(TCommand command)
         {
+            if (!I.CanExecute(command))
+                throw new Exception(string.Format("You are not allowed to execute a {0}", command.GetType().Name));
             commandDispatcher.Dispatch(command);
         }
     }
