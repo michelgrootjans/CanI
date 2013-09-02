@@ -16,7 +16,7 @@ Create a new class where you'll configure the authorization. In the demo applica
     {
         public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
         {
-            config.Allow("Login", "LogOff").On("Account");
+            config.Allow("SignIn", "SignOut").On("Account");
             config.AllowTo("View", "Home");
 
             if (principal.IsInRole("admin"))
@@ -31,8 +31,9 @@ Create a new class where you'll configure the authorization. In the demo applica
             if (principal.IsInRole("viewer"))
                 config.Allow("View").On("Customer");
 
-            config.IgnoreSubjectPostfix("ViewModel");
+            config.IgnoreSubjectPostfixes("ViewModel");
             config.ConfigureSubjectAliases("Customer", "Customers");
+            config.ConfigureCommandConvention("{action}{subject}Command");
         }
     }
 </pre>
