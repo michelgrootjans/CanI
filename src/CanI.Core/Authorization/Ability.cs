@@ -10,7 +10,7 @@ namespace CanI.Core.Authorization
         private readonly ICollection<Permission> permissions;
         private readonly ActionCleaner actionCleaner;
         private readonly SubjectCleaner subjectCleaner;
-        private List<string> commandConventions;
+        private readonly List<string> commandConventions;
 
         public Ability()
         {
