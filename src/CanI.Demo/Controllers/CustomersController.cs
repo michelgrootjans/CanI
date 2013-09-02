@@ -22,7 +22,7 @@ namespace CanI.Demo.Controllers
 
         public ActionResult Detail(int id)
         {
-            var customer = repository.Find<Customer>(c => c.Id == id);
+            var customer = repository.FindOne<Customer>(c => c.Id == id);
             var viewModel = Map(customer);
             return View(viewModel);
         }
@@ -34,7 +34,7 @@ namespace CanI.Demo.Controllers
 
         public ActionResult Edit(int id)
         {
-            var customer = repository.Find<Customer>(c => c.Id == id);
+            var customer = repository.FindOne<Customer>(c => c.Id == id);
             var viewModel = Map(customer);
             return View(viewModel);
         }
@@ -57,9 +57,14 @@ namespace CanI.Demo.Controllers
             return RedirectToAction("Index");
         }
 
-        private static CustomerViewModel Map(Customer c)
+        private static CustomerViewModel Map(Customer customer)
         {
-            return new CustomerViewModel { Id = c.Id, Name = c.Name, CanDelete = c.CanDelete };
+            return new CustomerViewModel
+            {
+                Id = customer.Id, 
+                Name = customer.Name, 
+                CanDelete = customer.CanDelete
+            };
         }
     }
 
