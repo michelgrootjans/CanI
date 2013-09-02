@@ -70,10 +70,16 @@
     <Compile Include="App_Start\AuthorizationConfig.cs" />
     <Compile Include="Authorization\AbilityConfigurator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Authorization\AuthorizationCommandDispatcher.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Models\CustomerViewModel.cs" />
+    <Compile Include="Domain\Commands\CreateCustomer.cs" />
+    <Compile Include="Domain\Commands\DeleteCustomer.cs" />
+    <Compile Include="Domain\Commands\ICommandHandler.cs" />
+    <Compile Include="Domain\Commands\UpdateCustomer.cs" />
     <Compile Include="Domain\Customer.cs" />
+    <Compile Include="Domain\Commands\ICommandDispatcher.cs" />
     <Compile Include="Domain\StaticInMemoryRepository.cs" />
-    <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Global.asax.cs">

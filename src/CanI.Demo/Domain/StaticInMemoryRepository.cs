@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +7,7 @@ namespace CanI.Demo.Domain
     public interface IRepository
     {
         IEnumerable<T> FindAll<T>();
-        T Find<T>(Func<T, bool> predicate);
+        T FindOne<T>(Func<T, bool> predicate);
     }
 
     public class StaticInMemoryRepository : IRepository
@@ -33,15 +32,27 @@ namespace CanI.Demo.Domain
             return GetListOf<T>();
         }
 
-        public T Find<T>(Func<T, bool> predicate)
+        public T FindOne<T>(Func<T, bool> predicate)
         {
             var objects = GetListOf<T>();
             return objects == null ? default(T) : objects.FirstOrDefault(predicate);
         }
 
+        public void Add<T>(T t)
+        {
+            GetListOf<T>().Add(t);
+        }
+
+        public void Remove<T>(Func<T, bool> predicate)
+        {
+            var list = GetListOf<T>();
+            var element = list.First(predicate);
+            list.Remove(element);
+        }
+
         private static IList<T> GetListOf<T>()
         {
-            return Database[typeof (T)] as IList<T> ?? new List<T>();
+            return Database[typeof(T)] as IList<T> ?? new List<T>();
         }
     }
 }
