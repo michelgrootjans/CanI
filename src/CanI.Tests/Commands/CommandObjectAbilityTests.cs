@@ -46,7 +46,7 @@ namespace CanI.Tests.Commands
             Then.IShouldBeAbleToExecute(new UpdateOrderCommand());
         }
 
-        [Test, Ignore]
+        [Test]
         public void allows_command_with_reverse_name()
         {
             AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "order"));

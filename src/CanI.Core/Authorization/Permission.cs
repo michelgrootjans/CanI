@@ -81,9 +81,9 @@ namespace CanI.Core.Authorization
             {
                 var allowedAction = actionAlias == "manage" ? ".+" : actionAlias;
                 var allowedSubject = Subject == "all" ? ".+" : Subject;
-                var allowedCommandName = allowedAction + allowedSubject;
 
-                if (Regex.IsMatch(requestedCommandName, allowedCommandName, RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(requestedCommandName, allowedAction, RegexOptions.IgnoreCase)
+                 && Regex.IsMatch(requestedCommandName, allowedSubject, RegexOptions.IgnoreCase))
                     return true;
             }
 
