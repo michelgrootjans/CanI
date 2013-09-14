@@ -17,10 +17,10 @@ Create a new class where you'll configure the authorization. In the demo applica
         public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
         {
             if (principal.IsInRole("admin"))
-                config.AllowTo("Manage", "All");
+                config.AllowAnything().OnEverything();
 
             if (principal.IsInRole("manager"))
-                config.AllowTo("Manage", "Customer");
+                config.AllowAnything().On("Customer");
 
             if (principal.IsInRole("callcenter"))
                 config.Allow("View", "Edit").On("Customer");
@@ -28,7 +28,6 @@ Create a new class where you'll configure the authorization. In the demo applica
             if (principal.IsInRole("viewer"))
                 config.Allow("View").On("Customer");
 
-            config.IgnoreSubjectPostfixes("ViewModel");
             config.ConfigureSubjectAliases("Customer", "Customers");
         }
     }
