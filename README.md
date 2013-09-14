@@ -30,10 +30,10 @@ Create a new class where you'll configure the authorization. In the demo applica
 
             config.IgnoreSubjectPostfixes("ViewModel");
             config.ConfigureSubjectAliases("Customer", "Customers");
-            config.ConfigureCommandConvention("{action}{subject}Command");
         }
     }
 </pre>
+You can implement this class however you want. If you want to have dynamic rules, you could get your configuration from the database.
 
 There is also a view helper to easily check for authorization. The next piece of code only checks if the action is allowed for the current user:
 <pre lang='csharp'>
