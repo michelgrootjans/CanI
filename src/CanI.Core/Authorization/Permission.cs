@@ -39,28 +39,22 @@ namespace CanI.Core.Authorization
 
         public bool Authorizes(string requestedAction, object requestedSubject)
         {
-            return MatchesAction(requestedAction)
-                   && MatchesSubject(requestedSubject)
+            return Matches(requestedAction, requestedSubject)
                    && ContextAllowsAction(requestedSubject) 
                    && SubjectAllowsAction(requestedAction, requestedSubject);
         }
 
-        private bool MatchesAction(string requestedAction)
+        private bool Matches(string action, object subject)
         {
-            if (Action == "manage") 
-                return true;
+            var requestedSubject = subjectCleaner.Clean(subject);
+            var requestedAction = actionCleaner.Clean(action);
 
-            return Action == actionCleaner.Clean(requestedAction);
+            var allowedAction = Action == "manage" ? ".+" : Action;
+            var allowedSubject = Subject == "all" ? ".+" : Subject;
+
+            return Regex.IsMatch(requestedSubject, allowedSubject, RegexOptions.IgnoreCase)
+                && Regex.IsMatch(requestedAction,  allowedAction,  RegexOptions.IgnoreCase);
         }
-
-        private bool MatchesSubject(object requestedSubject)
-        {
-            if (Subject == "all") 
-                return true;
-
-            return Subject == subjectCleaner.Clean(requestedSubject);
-        }
-
 
         private bool ContextAllowsAction(object requestedSubject)
         {
@@ -85,7 +79,9 @@ namespace CanI.Core.Authorization
             //I prefer foreach instead of LINQ in this case
             foreach (var actionAlias in actionCleaner.AliasesFor(Action))
             {
-                var allowedCommandName = (actionAlias == "manage" ? ".+" : actionAlias) + (Subject == "all" ? ".+" : Subject);
+                var allowedAction = actionAlias == "manage" ? ".+" : actionAlias;
+                var allowedSubject = Subject == "all" ? ".+" : Subject;
+                var allowedCommandName = allowedAction + allowedSubject;
 
                 if (Regex.IsMatch(requestedCommandName, allowedCommandName, RegexOptions.IgnoreCase))
                     return true;

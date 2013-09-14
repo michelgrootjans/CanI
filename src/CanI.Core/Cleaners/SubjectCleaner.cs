@@ -5,20 +5,20 @@ namespace CanI.Core.Cleaners
 {
     public class SubjectCleaner
     {
-        private readonly IList<string> ignoredSubjectPostfixes;
+//        private readonly IList<string> ignoredSubjectPostfixes;
         private readonly IDictionary<string, string> subjectAliases;
 
         public SubjectCleaner()
         {
-            ignoredSubjectPostfixes = new List<string>();
+//            ignoredSubjectPostfixes = new List<string>();
             subjectAliases = new Dictionary<string, string>();
         }
 
-        public void IgnorePostfix(params string[] postfixes)
-        {
-            foreach (var postfix in postfixes)
-                ignoredSubjectPostfixes.Add(postfix.ToLower());
-        }
+//        public void IgnorePostfix(params string[] postfixes)
+//        {
+//            foreach (var postfix in postfixes)
+//                ignoredSubjectPostfixes.Add(postfix.ToLower());
+//        }
 
         public void AddSubjectAliases(string intendedSubject, string[] aliases)
         {
@@ -31,7 +31,7 @@ namespace CanI.Core.Cleaners
         public string Clean(object subject)
         {
             var stringSubject = SubjectToString(subject);
-            stringSubject = RemoveSubjectAffixes(stringSubject);
+//            stringSubject = RemoveSubjectAffixes(stringSubject);
             stringSubject = ReplaceSubjectAliases(stringSubject);
             return stringSubject;
         }
@@ -43,13 +43,13 @@ namespace CanI.Core.Cleaners
             return subject.GetType().Name.ToLower();
         }
 
-        private string RemoveSubjectAffixes(string subject)
-        {
-            var matchingPostfix = ignoredSubjectPostfixes.FirstOrDefault(subject.EndsWith);
-            if (matchingPostfix != null)
-                return subject.Replace(matchingPostfix, "");
-            return subject;
-        }
+//        private string RemoveSubjectAffixes(string subject)
+//        {
+//            var matchingPostfix = ignoredSubjectPostfixes.FirstOrDefault(subject.EndsWith);
+//            if (matchingPostfix != null)
+//                return subject.Replace(matchingPostfix, "");
+//            return subject;
+//        }
 
         private string ReplaceSubjectAliases(string subject)
         {

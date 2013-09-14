@@ -19,7 +19,6 @@ namespace CanI.Demo.Authorization
             if (principal.IsInRole("viewer"))
                 config.Allow("View").On("Customer");
 
-            config.IgnoreSubjectPostfixes("ViewModel");
             config.ConfigureSubjectAliases("Customer", "Customers");
         }
     }

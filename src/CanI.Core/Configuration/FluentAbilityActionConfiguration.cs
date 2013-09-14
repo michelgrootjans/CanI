@@ -1,11 +1,11 @@
 ﻿namespace CanI.Core.Configuration
 {
-    internal class FluentAbilityActionConfiguration : IFluentAbilityActionConfiguration
+    internal class AbilityActionConfiguration : IAbilityActionConfiguration
     {
         private readonly string[] actions;
         private readonly IAbilityConfiguration ability;
 
-        public FluentAbilityActionConfiguration(string[] actions, IAbilityConfiguration ability)
+        public AbilityActionConfiguration(string[] actions, IAbilityConfiguration ability)
         {
             this.actions = actions;
             this.ability = ability;

@@ -7,9 +7,11 @@ namespace CanI.Tests.Abilities
     [TestFixture]
     public class PostFixAbiltyTest
     {
-        private class CustomerViewModel
-        {
-        }
+        private class CustomerViewModel {}
+        private class EditCustomer {}
+        private class UpdateCustomer { }
+        private class EditCustomerViewModel { }
+        private class CustomerEditViewModel { }
 
         [SetUp]
         public void SetUp()
@@ -18,35 +20,38 @@ namespace CanI.Tests.Abilities
         }
 
         [Test]
-        public void abilities_dont_ignore_postfixes_by_default()
+        public void abilities_ignore_postfixes_by_default()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("view", "customer"));
-
-            Then.IShouldNotBeAbleTo("view", new CustomerViewModel());
+            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "customer"));
+            Then.IShouldBeAbleTo("edit", new CustomerViewModel());
         }
 
         [Test]
-        public void abilities_ignore_postfixes()
+        public void abilities_ignore_prefixes_by_default()
         {
-            AbilityConfiguration.ConfigureWith(c =>
-            {
-                c.AllowTo("view", "customer");
-                c.IgnoreSubjectPostfixes("ViewModel");
-            });
-
-            Then.IShouldBeAbleTo("view", new CustomerViewModel());
+            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "customer"));
+            Then.IShouldBeAbleTo("edit", new EditCustomer());
         }
 
         [Test]
-        public void abilities_ignore_postfixes_case_insensitive()
+        public void abilities_ignore_prefixes_aliases_by_default()
         {
-            AbilityConfiguration.ConfigureWith(c =>
-            {
-                c.AllowTo("view", "customer");
-                c.IgnoreSubjectPostfixes("viewmodel");
-            });
+            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "customer"));
+            Then.IShouldBeAbleTo("edit", new UpdateCustomer());
+        }
 
-            Then.IShouldBeAbleTo("view", new CustomerViewModel());
+        [Test]
+        public void abilities_ignore_prefixes_and_postfixes_by_default()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "customer"));
+            Then.IShouldBeAbleTo("edit", new EditCustomerViewModel());
+        }
+
+        [Test]
+        public void abilities_ignore_reversed_prefixes_and_postfixes_by_default()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "customer"));
+            Then.IShouldBeAbleTo("edit", new CustomerEditViewModel());
         }
 
     }

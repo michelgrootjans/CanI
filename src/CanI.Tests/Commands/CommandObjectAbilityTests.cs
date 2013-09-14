@@ -9,6 +9,7 @@ namespace CanI.Tests.Commands
     {
         private class EditOrder { }
         private class EditOrderCommand { }
+        private class OrderEditCommand { }
         private class UpdateOrderCommand { }
         private class ExecuteUpdateOrder { }
 
@@ -43,6 +44,13 @@ namespace CanI.Tests.Commands
         {
             AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "order"));
             Then.IShouldBeAbleToExecute(new UpdateOrderCommand());
+        }
+
+        [Test, Ignore]
+        public void allows_command_with_reverse_name()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "order"));
+            Then.IShouldBeAbleToExecute(new OrderEditCommand());
         }
 
         [Test]

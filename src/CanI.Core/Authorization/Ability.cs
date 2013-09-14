@@ -35,14 +35,14 @@ namespace CanI.Core.Authorization
             return permission;
         }
 
-        public IFluentAbilityActionConfiguration Allow(params string[] actions)
+        public IAbilityActionConfiguration Allow(params string[] actions)
         {
-            return new FluentAbilityActionConfiguration(actions, this);
+            return new AbilityActionConfiguration(actions, this);
         }
 
-        public IFluentAbilityActionConfiguration AllowAll()
+        public IAbilityActionConfiguration AllowAll()
         {
-            return new FluentAbilityActionConfiguration(new[] {"manage"}, this);
+            return new AbilityActionConfiguration(new[] {"manage"}, this);
         }
 
         public void ConfigureActionAliases(string intendedAction, params string[] aliases)
@@ -53,11 +53,6 @@ namespace CanI.Core.Authorization
         public void ConfigureSubjectAliases(string intendedSubject, params string[] aliases)
         {
             subjectCleaner.AddSubjectAliases(intendedSubject, aliases);
-        }
-
-        public void IgnoreSubjectPostfixes(params string[] postfixes)
-        {
-            subjectCleaner.IgnorePostfix(postfixes);
         }
     }
 }
