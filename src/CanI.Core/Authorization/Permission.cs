@@ -106,11 +106,9 @@ namespace CanI.Core.Authorization
         {
             var commandType = command.GetType();
             var attribute = commandType.GetCustomAttribute<AuthorizeIfICanAttribute>();
-            if (attribute != null)
-                return attribute.Action + attribute.Subject;
-            
-            var requestedCommandName = commandType.Name;
-            return requestedCommandName;
+            return attribute == null 
+                ? commandType.Name 
+                : attribute.Action + attribute.Subject;
         }
     }
 }
