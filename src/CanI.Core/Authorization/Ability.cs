@@ -42,7 +42,7 @@ namespace CanI.Core.Authorization
 
         public IAbilityActionConfiguration AllowAll()
         {
-            return new AbilityActionConfiguration(new[] {"manage"}, this);
+            return new AbilityActionConfiguration(new[] {".+"}, this);
         }
 
         public void ConfigureActionAliases(string intendedAction, params string[] aliases)

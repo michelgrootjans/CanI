@@ -8,10 +8,10 @@ namespace CanI.Demo.Authorization
         public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
         {
             if (principal.IsInRole("admin"))
-                config.AllowTo("Manage", "All");
+                config.AllowAll().OnEverything();
 
             if (principal.IsInRole("manager"))
-                config.AllowTo("Manage", "Customer");
+                config.AllowAll().On("Customer");
 
             if (principal.IsInRole("callcenter"))
                 config.Allow("View", "Edit").On("Customer");

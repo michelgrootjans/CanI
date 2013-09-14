@@ -20,7 +20,7 @@
 
         public void OnEverything()
         {
-            On("all");
+            On(".+");
         }
     }
 }

@@ -11,8 +11,8 @@ namespace CanI.Core.Authorization
 {
     public class Permission : IPermissionConfiguration
     {
-        private string Action { get; set; }
-        private string Subject { get; set; }
+        private string AllowedAction { get; set; }
+        private string AllowedSubject { get; set; }
         private readonly ActionCleaner actionCleaner;
         private readonly SubjectCleaner subjectCleaner;
         private readonly IList<IAuthorizationPredicate> authorizationPredicates;
@@ -21,8 +21,8 @@ namespace CanI.Core.Authorization
         {
             this.actionCleaner = actionCleaner;
             this.subjectCleaner = subjectCleaner;
-            Action = actionCleaner.Clean(action);
-            Subject = subjectCleaner.Clean(subject);
+            AllowedAction = actionCleaner.Clean(action);
+            AllowedSubject = subjectCleaner.Clean(subject);
 
             authorizationPredicates = new List<IAuthorizationPredicate>();
         }
@@ -49,11 +49,8 @@ namespace CanI.Core.Authorization
             var requestedSubject = subjectCleaner.Clean(subject);
             var requestedAction = actionCleaner.Clean(action);
 
-            var allowedAction = Action == "manage" ? ".+" : Action;
-            var allowedSubject = Subject == "all" ? ".+" : Subject;
-
-            return Regex.IsMatch(requestedSubject, allowedSubject, RegexOptions.IgnoreCase)
-                && Regex.IsMatch(requestedAction,  allowedAction,  RegexOptions.IgnoreCase);
+            return Regex.IsMatch(requestedSubject, AllowedSubject, RegexOptions.IgnoreCase)
+                && Regex.IsMatch(requestedAction,  AllowedAction,  RegexOptions.IgnoreCase);
         }
 
         private bool ContextAllowsAction(object requestedSubject)
@@ -76,14 +73,11 @@ namespace CanI.Core.Authorization
         {
             var requestedCommandName = GetRequestedCommandName(command);
 
-            //I prefer foreach instead of LINQ in this case
-            foreach (var actionAlias in actionCleaner.AliasesFor(Action))
+            // I prefer 'foreach' instead of LINQ in this case
+            foreach (var actionAlias in actionCleaner.AliasesFor(AllowedAction))
             {
-                var allowedAction = actionAlias == "manage" ? ".+" : actionAlias;
-                var allowedSubject = Subject == "all" ? ".+" : Subject;
-
-                if (Regex.IsMatch(requestedCommandName, allowedAction, RegexOptions.IgnoreCase)
-                 && Regex.IsMatch(requestedCommandName, allowedSubject, RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(requestedCommandName, actionAlias, RegexOptions.IgnoreCase)
+                 && Regex.IsMatch(requestedCommandName, AllowedSubject, RegexOptions.IgnoreCase))
                     return true;
             }
 
