@@ -91,6 +91,7 @@ Roadmap:
 --------
 This project is written in the RDD fashion: Readme Driven Development. These are the features I'm planning:
 
+- Attribute-based custom authorization
 - Authorize MVC actions based on verb
   - GET => authorize on view
   - POST => authorize on create
