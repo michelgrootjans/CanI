@@ -17,7 +17,7 @@ namespace CanI.Mvc
         {
             var ability = AbilityConfiguration.CreateAbility();
             if (ability == null)
-                throw new Exception("CanIMvcConfiguration has not been configured.");
+                throw new Exception("AbilityConfiguration has not been configured.");
 
             var action = filterContext.ActionDescriptor.ActionName;
             var subject = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;

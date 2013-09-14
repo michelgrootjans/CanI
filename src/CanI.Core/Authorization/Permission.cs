@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using CanI.Core.Cleaners;
-using CanI.Core.Configuration;
+using CanI.Core.Configuration; 
 using CanI.Core.Predicates;
 
 namespace CanI.Core.Authorization
