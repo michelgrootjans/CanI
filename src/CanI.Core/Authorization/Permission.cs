@@ -84,7 +84,7 @@ namespace CanI.Core.Authorization
         {
             var requestedCommand = command.GetType().Name;
 
-            //I prefer foreach over LINQ in this case
+            //I prefer foreach instead of LINQ in this case
             foreach (var actionAlias in actionCleaner.AliasesFor(Action))
             {
                 foreach (var commandConvention in commandConventions)

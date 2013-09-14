@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\Copy of StringAbiltyTests.cs" />
     <Compile Include="Abilities\StateBasedAbilityTests.cs" />
     <Compile Include="Aliasing\CustomAliasesAbiltyTests.cs" />
     <Compile Include="Aliasing\DefaultCreateAliasesAbiltyTests.cs" />

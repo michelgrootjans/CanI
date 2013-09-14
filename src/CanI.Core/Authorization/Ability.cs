@@ -17,7 +17,7 @@ namespace CanI.Core.Authorization
             permissions = new List<Permission>();
             actionCleaner = new ActionCleaner();
             subjectCleaner = new SubjectCleaner();
-            commandConventions = new List<string>();
+            commandConventions = new List<string>{"{action}{subject}"};
         }
 
         public bool Allows(string action, object subject)
