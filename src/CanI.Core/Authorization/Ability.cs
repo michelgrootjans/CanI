@@ -40,6 +40,11 @@ namespace CanI.Core.Authorization
             return new FluentAbilityActionConfiguration(actions, this);
         }
 
+        public IFluentAbilityActionConfiguration AllowAll()
+        {
+            return new FluentAbilityActionConfiguration(new[] {"manage"}, this);
+        }
+
         public void ConfigureActionAliases(string intendedAction, params string[] aliases)
         {
             actionCleaner.ConfigureAliases(intendedAction, aliases);

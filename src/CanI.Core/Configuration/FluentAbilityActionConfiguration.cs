@@ -1,10 +1,5 @@
 ﻿namespace CanI.Core.Configuration
 {
-    public interface IFluentAbilityActionConfiguration
-    {
-        void On(params string[] subjects);
-    }
-
     internal class FluentAbilityActionConfiguration : IFluentAbilityActionConfiguration
     {
         private readonly string[] actions;
@@ -21,6 +16,11 @@
             foreach (var subject in subjects)
                 foreach (var action in actions)
                     ability.AllowTo(action, subject);
+        }
+
+        public void OnEverything()
+        {
+            On("all");
         }
     }
 }

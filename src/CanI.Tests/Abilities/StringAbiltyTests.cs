@@ -42,7 +42,7 @@ namespace CanI.Tests.Abilities
         }
 
         [Test]
-        public void if_you_can_manage__you_can_do_anything()
+        public void if_you_can_manage__you_can_do_anything_on_the_subject()
         {
             AbilityConfiguration.ConfigureWith(c => c.AllowTo("manage", "customer"));
             Then.IShouldBeAbleTo("view", "customer");
@@ -50,6 +50,37 @@ namespace CanI.Tests.Abilities
             Then.IShouldBeAbleTo("edit", "customer");
             Then.IShouldBeAbleTo("delete", "customer");
             Then.IShouldBeAbleTo("discombobulate", "customer");
+            Then.IShouldNotBeAbleTo("view", "order");
+        }
+
+        [Test]
+        public void allow_all__allows_anything_on_the_subject()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.AllowAll().On("customer"));
+            Then.IShouldBeAbleTo("view", "customer");
+            Then.IShouldBeAbleTo("create", "customer");
+            Then.IShouldBeAbleTo("edit", "customer");
+            Then.IShouldBeAbleTo("delete", "customer");
+            Then.IShouldBeAbleTo("discombobulate", "customer");
+            Then.IShouldNotBeAbleTo("view", "order");
+        }
+
+        [Test]
+        public void if_subject_is_all__you_can_do_the_action_on_everything()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.AllowTo("view", "all"));
+            Then.IShouldBeAbleTo("view", "customer");
+            Then.IShouldBeAbleTo("view", "order");
+            Then.IShouldNotBeAbleTo("edit", "customer");
+        }
+
+        [Test]
+        public void allow_all_on_anything__allows_everything()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.Allow("view").OnEverything());
+            Then.IShouldBeAbleTo("view", "customer");
+            Then.IShouldBeAbleTo("view", "order");
+            Then.IShouldNotBeAbleTo("edit", "customer");
         }
 
 

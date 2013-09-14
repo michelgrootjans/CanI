@@ -6,10 +6,10 @@ namespace CanI.Core.Configuration
     {
         IPermissionConfiguration AllowTo(string action, string subject);
         IFluentAbilityActionConfiguration Allow(params string[] actions);
+        IFluentAbilityActionConfiguration AllowAll();
         
-        void ConfigureActionAliases(string intendedAction, params string[] aliases);
-
         void IgnoreSubjectPostfixes(params string[] postfixes);
+        void ConfigureActionAliases(string intendedAction, params string[] aliases);
         void ConfigureSubjectAliases(string intendedSubject, params string[] aliases);
     }
 
@@ -17,5 +17,11 @@ namespace CanI.Core.Configuration
     {
         void If(Func<bool> predicate);
         void If<T>(Func<T, bool> predicate);
+    }
+
+    public interface IFluentAbilityActionConfiguration
+    {
+        void On(params string[] subjects);
+        void OnEverything();
     }
 }

@@ -43,7 +43,7 @@
     <Compile Include="Configuration\AbilityConfiguration.cs" />
     <Compile Include="Authorization\IAbility.cs" />
     <Compile Include="Predicates\IAuthorizationPredicate.cs" />
-    <Compile Include="Configuration\IFluentAbilityActionConfiguration.cs" />
+    <Compile Include="Configuration\FluentAbilityActionConfiguration.cs" />
     <Compile Include="Authorization\Permission.cs" />
     <Compile Include="Predicates\PlainAuthorizationPredicate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
