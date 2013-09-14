@@ -33,7 +33,7 @@ namespace CanI.Tests.Abilities
         }
 
         [Test]
-        public void negative_state_allows_action_with_manage_action()
+        public void negative_state_deniess_action__even_with_manage_action()
         {
             AbilityConfiguration.ConfigureWith(c => c.AllowAll().OnEverything());
             Then.IShouldNotBeAbleTo("send", new Order { CanSend = false });
