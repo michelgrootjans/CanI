@@ -8,7 +8,7 @@ using CanI.Mvc;
 
 namespace CanI.Demo.Controllers
 {
-    [AuthorizeWithCanIFilter("/")]
+    [AuthorizeWithCanIFilter]
     public class CustomersController : Controller
     {
         // I know about DI, and I use it exclusively in all my projects.

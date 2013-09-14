@@ -72,7 +72,7 @@ To add a generic filter over all the controllers, register the filter globally
             filters.Add(new AuthorizeWithCanIFilter(new RedirectResult("/")));
         }
 </pre>
-Now each request is automatically filtered based on the content of the AbilityConfigurator.
+Now each request is automatically filtered based on the content of the AbilityConfigurator. When a request is not authorized, the user will be redirected to the configured URL. In this case, this will be the root of the site: "/".
 
 If you do not want to add a generic filter over all the controllers, you can add them individually to each controller
 <pre lang='csharp'>
@@ -80,6 +80,18 @@ If you do not want to add a generic filter over all the controllers, you can add
     public class CustomersController : Controller
     {
 		// controller actions ...
+	}
+</pre>
+
+You can also apply the authorization filter to individual controller actions:
+<pre lang='csharp'>
+    public class CustomersController : Controller
+    {
+        [AuthorizeWithCanIFilter("/")]
+        public ActionResult Delete(int id)
+        {
+			// code ...
+        }
 	}
 </pre>
 

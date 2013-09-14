@@ -18,6 +18,11 @@ namespace CanI.Mvc
         {
         }
 
+        public AuthorizeWithCanIFilter()
+            : this("/")
+        {
+        }
+
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             var ability = AbilityConfiguration.CreateAbility();

@@ -3,7 +3,7 @@ using CanI.Mvc;
 
 namespace CanI.Demo.Controllers
 {
-    [AuthorizeWithCanIFilter("/")]
+    [AuthorizeWithCanIFilter]
     public class AdminController : Controller
     {
         public ActionResult Index()
