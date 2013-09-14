@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\Ability.cs" />
+    <Compile Include="Authorization\AuthorizeIfICanAttribute.cs" />
     <Compile Include="Cleaners\ActionCleaner.cs" />
     <Compile Include="Authorization\I.cs" />
     <Compile Include="Predicates\GenericPredicate.cs" />

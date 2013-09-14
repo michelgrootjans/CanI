@@ -82,24 +82,35 @@ namespace CanI.Core.Authorization
 
         public bool AllowsExecutionOf(object command)
         {
-            var requestedCommand = command.GetType().Name;
+            var requestedCommandName = GetRequestedCommandName(command);
 
             //I prefer foreach instead of LINQ in this case
             foreach (var actionAlias in actionCleaner.AliasesFor(Action))
             {
                 foreach (var commandConvention in commandConventions)
                 {
-                    var allowedCommand =
+                    var allowedCommandName =
                         commandConvention
                             .Replace("{action}", actionAlias == "manage" ? ".+" : actionAlias)
                             .Replace("{subject}", Subject == "all" ? ".+" : Subject);
 
-                    if (Regex.IsMatch(requestedCommand, allowedCommand, RegexOptions.IgnoreCase))
+                    if (Regex.IsMatch(requestedCommandName, allowedCommandName, RegexOptions.IgnoreCase))
                         return true;
                 }
             }
 
             return false;
+        }
+
+        private static string GetRequestedCommandName(object command)
+        {
+            var commandType = command.GetType();
+            var attribute = commandType.GetCustomAttribute<AuthorizeIfICanAttribute>();
+            if (attribute != null)
+                return attribute.Action + attribute.Subject;
+            
+            var requestedCommandName = commandType.Name;
+            return requestedCommandName;
         }
     }
 }

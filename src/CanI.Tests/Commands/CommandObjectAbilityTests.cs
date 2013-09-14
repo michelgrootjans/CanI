@@ -10,6 +10,7 @@ namespace CanI.Tests.Commands
         private class EditOrder { }
         private class EditOrderCommand { }
         private class UpdateOrderCommand { }
+        private class ExecuteUpdateOrder { }
 
         [SetUp]
         public void SetUp()
@@ -42,6 +43,13 @@ namespace CanI.Tests.Commands
         {
             AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "order"));
             Then.IShouldBeAbleToExecute(new UpdateOrderCommand());
+        }
+
+        [Test]
+        public void allows_execute_by_convention_with_action_alias()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "order"));
+            Then.IShouldBeAbleToExecute(new ExecuteUpdateOrder());
         }
 
         [Test]
