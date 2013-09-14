@@ -6,7 +6,7 @@
 <hr />
 @if (User.Identity.IsAuthenticated)
 {
-    <text>Signed in as @User.Identity.Name</text>
+    <text>Signed in as [@User.Identity.Name]</text>
     @Html.ActionLink("Sign out", "SignOut", "Account")
     <text> | You have the following roles: [@User.PrintRoles()]</text>
 }
