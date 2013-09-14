@@ -6,7 +6,7 @@ namespace CanI.Core.Configuration
     {
         IPermissionConfiguration AllowTo(string action, string subject);
         IAbilityActionConfiguration Allow(params string[] actions);
-        IAbilityActionConfiguration AllowAll();
+        IAbilityActionConfiguration AllowAnything();
         
         void ConfigureActionAliases(string intendedAction, params string[] aliases);
         void ConfigureSubjectAliases(string intendedSubject, params string[] aliases);

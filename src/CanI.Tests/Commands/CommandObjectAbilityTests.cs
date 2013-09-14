@@ -63,7 +63,7 @@ namespace CanI.Tests.Commands
         [Test]
         public void allows_command_by_convention_for_manage_action()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowAll().On("order"));
+            AbilityConfiguration.ConfigureWith(c => c.AllowAnything().On("order"));
             Then.IShouldBeAbleToExecute(new EditOrderCommand());
         }
 
@@ -77,7 +77,7 @@ namespace CanI.Tests.Commands
         [Test]
         public void allows_command_by_convention_for_manage_all_subjects()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowAll().OnEverything());
+            AbilityConfiguration.ConfigureWith(c => c.AllowAnything().OnEverything());
             Then.IShouldBeAbleToExecute(new EditOrderCommand());
         }
 

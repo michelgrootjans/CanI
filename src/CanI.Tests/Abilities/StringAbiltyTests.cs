@@ -44,7 +44,7 @@ namespace CanI.Tests.Abilities
         [Test]
         public void allow_all__allows_anything_on_the_subject()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowAll().On("customer"));
+            AbilityConfiguration.ConfigureWith(c => c.AllowAnything().On("customer"));
             Then.IShouldBeAbleTo("view", "customer");
             Then.IShouldBeAbleTo("create", "customer");
             Then.IShouldBeAbleTo("edit", "customer");

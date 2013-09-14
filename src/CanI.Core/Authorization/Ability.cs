@@ -40,7 +40,7 @@ namespace CanI.Core.Authorization
             return new AbilityActionConfiguration(actions, this);
         }
 
-        public IAbilityActionConfiguration AllowAll()
+        public IAbilityActionConfiguration AllowAnything()
         {
             return new AbilityActionConfiguration(new[] {".+"}, this);
         }
