@@ -15,14 +15,12 @@ namespace CanI.Core.Authorization
         private string Subject { get; set; }
         private readonly ActionCleaner actionCleaner;
         private readonly SubjectCleaner subjectCleaner;
-        private readonly IEnumerable<string> commandConventions;
         private readonly IList<IAuthorizationPredicate> authorizationPredicates;
 
-        public Permission(string action, string subject, ActionCleaner actionCleaner, SubjectCleaner subjectCleaner, IEnumerable<string> commandConventions)
+        public Permission(string action, string subject, ActionCleaner actionCleaner, SubjectCleaner subjectCleaner)
         {
             this.actionCleaner = actionCleaner;
             this.subjectCleaner = subjectCleaner;
-            this.commandConventions = commandConventions;
             Action = actionCleaner.Clean(action);
             Subject = subjectCleaner.Clean(subject);
 
@@ -87,16 +85,10 @@ namespace CanI.Core.Authorization
             //I prefer foreach instead of LINQ in this case
             foreach (var actionAlias in actionCleaner.AliasesFor(Action))
             {
-                foreach (var commandConvention in commandConventions)
-                {
-                    var allowedCommandName =
-                        commandConvention
-                            .Replace("{action}", actionAlias == "manage" ? ".+" : actionAlias)
-                            .Replace("{subject}", Subject == "all" ? ".+" : Subject);
+                var allowedCommandName = (actionAlias == "manage" ? ".+" : actionAlias) + (Subject == "all" ? ".+" : Subject);
 
-                    if (Regex.IsMatch(requestedCommandName, allowedCommandName, RegexOptions.IgnoreCase))
-                        return true;
-                }
+                if (Regex.IsMatch(requestedCommandName, allowedCommandName, RegexOptions.IgnoreCase))
+                    return true;
             }
 
             return false;

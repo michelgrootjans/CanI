@@ -10,14 +10,12 @@ namespace CanI.Core.Authorization
         private readonly ICollection<Permission> permissions;
         private readonly ActionCleaner actionCleaner;
         private readonly SubjectCleaner subjectCleaner;
-        private readonly List<string> commandConventions;
 
         public Ability()
         {
             permissions = new List<Permission>();
             actionCleaner = new ActionCleaner();
             subjectCleaner = new SubjectCleaner();
-            commandConventions = new List<string>{"{action}{subject}"};
         }
 
         public bool Allows(string action, object subject)
@@ -32,7 +30,7 @@ namespace CanI.Core.Authorization
 
         public IPermissionConfiguration AllowTo(string action, string subject)
         {
-            var permission = new Permission(action, subject, actionCleaner, subjectCleaner, commandConventions);
+            var permission = new Permission(action, subject, actionCleaner, subjectCleaner);
             permissions.Add(permission);
             return permission;
         }
@@ -50,11 +48,6 @@ namespace CanI.Core.Authorization
         public void ConfigureSubjectAliases(string intendedSubject, params string[] aliases)
         {
             subjectCleaner.AddSubjectAliases(intendedSubject, aliases);
-        }
-
-        public void ConfigureCommandConvention(string convention)
-        {
-            commandConventions.Add(convention.ToLower());
         }
 
         public void IgnoreSubjectPostfixes(params string[] postfixes)
