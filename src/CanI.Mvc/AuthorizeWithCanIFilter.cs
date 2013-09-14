@@ -4,7 +4,7 @@ using CanI.Core.Configuration;
 
 namespace CanI.Mvc
 {
-    public class AuthorizeWithCanIFilter : IAuthorizationFilter
+    public class AuthorizeWithCanIFilter : AuthorizeAttribute
     {
         private readonly Func<AuthorizationContext, ActionResult> resultOnFailedAuthorization;
 
@@ -13,7 +13,12 @@ namespace CanI.Mvc
             this.resultOnFailedAuthorization = resultOnFailedAuthorization;
         }
 
-        public void OnAuthorization(AuthorizationContext filterContext)
+        public AuthorizeWithCanIFilter(string redirectUrl)
+            : this(context => new RedirectResult(redirectUrl))
+        {
+        }
+
+        public override void OnAuthorization(AuthorizationContext filterContext)
         {
             var ability = AbilityConfiguration.CreateAbility();
             if (ability == null)

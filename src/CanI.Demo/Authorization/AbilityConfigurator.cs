@@ -7,9 +7,6 @@ namespace CanI.Demo.Authorization
     {
         public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
         {
-            config.Allow("SignIn", "SignOut").On("Account");
-            config.AllowTo("View", "Home");
-
             if (principal.IsInRole("admin"))
                 config.AllowTo("Manage", "All");
 

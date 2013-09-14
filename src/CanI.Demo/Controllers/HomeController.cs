@@ -9,12 +9,5 @@ namespace CanI.Demo.Controllers
         {
             return View();
         }
-
-        [HttpGet]
-        public ActionResult AccessSecretData()
-        {
-            return View();
-        }
-
     }
 }

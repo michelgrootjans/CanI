@@ -16,9 +16,6 @@ Create a new class where you'll configure the authorization. In the demo applica
     {
         public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
         {
-            config.Allow("SignIn", "SignOut").On("Account");
-            config.AllowTo("View", "Home");
-
             if (principal.IsInRole("admin"))
                 config.AllowTo("Manage", "All");
 
@@ -77,6 +74,14 @@ To add a generic filter over all the controllers, register the filter globally
 </pre>
 Now each request is automatically filtered based on the content of the AbilityConfigurator.
 
+If you do not want to add a generic filter over all the controllers, you can add them individually to each controller
+<pre lang='csharp'>
+    [AuthorizeWithCanIFilter("/")]
+    public class CustomersController : Controller
+    {
+		// controller actions ...
+	}
+</pre>
 
 Features:
 ---------

@@ -1,35 +1,34 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using CanI.Demo.Authorization;
 using CanI.Demo.Domain;
 using CanI.Demo.Domain.Commands;
 using CanI.Demo.Models;
+using CanI.Mvc;
 
 namespace CanI.Demo.Controllers
 {
+    [AuthorizeWithCanIFilter("/")]
     public class CustomersController : Controller
     {
         // I know about DI, and I use it exclusively in all my projects.
         // However that is not the focus of this demo
-
         private readonly ICommandDispatcher dispatcher =
             new AuthorizationCommandDispatcher(new HardCodedCommandDispatcher());
-
         private readonly IRepository repository = new StaticInMemoryRepository();
 
         public ActionResult Index()
         {
-            IEnumerable<CustomerViewModel> customers = repository.FindAll<Customer>()
-                .Select(Map);
+            var viewModels = repository.FindAll<Customer>()
+                                       .Select(Map);
 
-            return View(customers);
+            return View(viewModels);
         }
 
         public ActionResult Detail(int id)
         {
             var customer = repository.FindOne<Customer>(c => c.Id == id);
-            CustomerViewModel viewModel = Map(customer);
+            var viewModel = Map(customer);
             return View(viewModel);
         }
 
@@ -41,7 +40,7 @@ namespace CanI.Demo.Controllers
         public ActionResult Edit(int id)
         {
             var customer = repository.FindOne<Customer>(c => c.Id == id);
-            CustomerViewModel viewModel = Map(customer);
+            var viewModel = Map(customer);
             return View(viewModel);
         }
 

@@ -124,9 +124,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\AccessSecretData.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CanI.Core\CanI.Core.csproj">
       <Project>{29B59305-5214-4212-ABFD-571E0F22D3AB}</Project>
       <Name>CanI.Core</Name>
