@@ -22,7 +22,7 @@ namespace CanI.Tests.Abilities
         [Test]
         public void a_simple_ability_allows_its_action()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("view", "customer"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("view").On("customer"));
             Then.IShouldBeAbleTo("view", "customer");
         }
 
@@ -31,8 +31,8 @@ namespace CanI.Tests.Abilities
         {
             AbilityConfiguration.ConfigureWith(c =>
             {
-                c.AllowTo("create", "customer");
-                c.AllowTo("edit", "order");
+                c.Allow("create").On("customer");
+                c.Allow("edit").On("order");
             });
             Then.IShouldBeAbleTo("create", "customer");
             Then.IShouldBeAbleTo("edit", "order");

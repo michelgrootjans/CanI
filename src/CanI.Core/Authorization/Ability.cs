@@ -35,14 +35,14 @@ namespace CanI.Core.Authorization
             return permission;
         }
 
-        public IAbilityActionConfiguration Allow(params string[] actions)
+        public IActionConfiguration Allow(params string[] actions)
         {
-            return new AbilityActionConfiguration(actions, this);
+            return new ActionConfiguration(actions, this);
         }
 
-        public IAbilityActionConfiguration AllowAnything()
+        public IActionConfiguration AllowAnything()
         {
-            return new AbilityActionConfiguration(new[] {".+"}, this);
+            return new ActionConfiguration(new[] {".+"}, this);
         }
 
         public void ConfigureActionAliases(string intendedAction, params string[] aliases)

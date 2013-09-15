@@ -4,17 +4,14 @@ namespace CanI.Core.Configuration
 {
     public interface IAbilityConfiguration
     {
-        [Obsolete("This method will soon be removed. Please use Allow('action').On('subject')")]
-        IPermissionConfiguration AllowTo(string action, string subject);
-
-        IAbilityActionConfiguration Allow(params string[] actions);
-        IAbilityActionConfiguration AllowAnything();
+        IActionConfiguration Allow(params string[] actions);
+        IActionConfiguration AllowAnything();
         
         void ConfigureActionAliases(string intendedAction, params string[] aliases);
         void ConfigureSubjectAliases(string intendedSubject, params string[] aliases);
     }
 
-    public interface IAbilityActionConfiguration
+    public interface IActionConfiguration
     {
         IPermissionConfiguration On(params string[] subjects);
         IPermissionConfiguration OnEverything();

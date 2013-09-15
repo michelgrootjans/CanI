@@ -28,35 +28,35 @@ namespace CanI.Tests.Commands
         [Test]
         public void allows_simple_command_objects_by_default()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "order"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("edit").On("order"));
             Then.IShouldBeAbleToExecute(new EditOrder());
         }
 
         [Test]
         public void allows_command_by_convention()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "order"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("edit").On("order"));
             Then.IShouldBeAbleToExecute(new EditOrderCommand());
         }
 
         [Test]
         public void allows_command_by_convention_with_action_alias()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "order"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("edit").On("order"));
             Then.IShouldBeAbleToExecute(new UpdateOrderCommand());
         }
 
         [Test]
         public void allows_command_with_reverse_name()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "order"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("edit").On("order"));
             Then.IShouldBeAbleToExecute(new OrderEditCommand());
         }
 
         [Test]
         public void allows_execute_by_convention_with_action_alias()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "order"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("edit").On("order"));
             Then.IShouldBeAbleToExecute(new ExecuteUpdateOrder());
         }
 

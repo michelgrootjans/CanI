@@ -10,14 +10,14 @@ namespace CanI.Tests.Aliasing
         [Test]
         public void update_is_an_alias_for_edit()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "customer"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("edit").On("customer"));
             Then.IShouldBeAbleTo("update", "customer");
         }
 
         [Test]
         public void change_is_an_alias_for_edit()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("edit", "customer"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("edit").On("customer"));
             Then.IShouldBeAbleTo("change", "customer");
         }
     }

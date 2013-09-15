@@ -10,7 +10,7 @@ namespace CanI.Tests.Aliasing
         [Test]
         public void unconfigured_alias_doesnt_work()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("view", "customer"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("view").On("customer"));
             Then.IShouldNotBeAbleTo("consult", "customer");
         }
 
@@ -19,7 +19,7 @@ namespace CanI.Tests.Aliasing
         {
             AbilityConfiguration.ConfigureWith(c =>
             {
-                c.AllowTo("view", "customer");
+                c.Allow("view").On("customer");
                 c.ConfigureActionAliases("view", "consult");
             });
             Then.IShouldBeAbleTo("consult", "customer");

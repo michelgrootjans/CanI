@@ -20,14 +20,14 @@ namespace CanI.Tests.Abilities
         [Test]
         public void an_ability_can_be_checked_with_an_entity()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("view", "Customer"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("view").On("Customer"));
             Then.IShouldBeAbleTo("view", new Customer());
         }
 
         [Test]
         public void an_ability_can_be_checked_with_an_entity_case_insensitive()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("view", "customer"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("view").On("customer"));
             Then.IShouldBeAbleTo("view", new Customer());
         }
 
@@ -36,7 +36,7 @@ namespace CanI.Tests.Abilities
         {
             AbilityConfiguration.ConfigureWith(c =>
             {
-                c.AllowTo("view", "customer");
+                c.Allow("view").On("customer");
                 c.ConfigureSubjectAliases("customer", "customers");
             });
             Then.IShouldBeAbleTo("view", "customers");

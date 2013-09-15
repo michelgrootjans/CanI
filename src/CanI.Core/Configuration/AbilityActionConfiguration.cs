@@ -1,14 +1,16 @@
-﻿namespace CanI.Core.Configuration
+﻿using CanI.Core.Authorization;
+
+namespace CanI.Core.Configuration
 {
-    internal class AbilityActionConfiguration : IAbilityActionConfiguration
+    internal class ActionConfiguration : IActionConfiguration
     {
         private readonly string[] actions;
-        private readonly IAbilityConfiguration ability;
+        private readonly Ability abilityConfiguration;
 
-        public AbilityActionConfiguration(string[] actions, IAbilityConfiguration ability)
+        public ActionConfiguration(string[] actions, Ability abilityConfiguration)
         {
             this.actions = actions;
-            this.ability = ability;
+            this.abilityConfiguration = abilityConfiguration;
         }
 
         public IPermissionConfiguration On(params string[] subjects)
@@ -16,7 +18,7 @@
             var configurations = new MultiplePermissionConfiguration();
             foreach (var subject in subjects)
                 foreach (var action in actions)
-                    configurations.Add(ability.AllowTo(action, subject));
+                    configurations.Add(abilityConfiguration.AllowTo(action, subject));
 
             return configurations;
         }

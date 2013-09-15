@@ -29,21 +29,21 @@ namespace CanI.Tests.Attributes
         [Test]
         public void following_the_convention_allows_an_action()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("promote", "customer"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("promote").On("customer"));
             Then.IShouldBeAbleToExecute(new PromoteCustomerCommand());
         }
 
         [Test]
         public void not_following_the_convention_denies_its_action()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("promoteToGold", "customer"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("promoteToGold").On("customer"));
             Then.IShouldNotBeAbleToExecute(new PromoteCustomerToGoldCommand());
         }
 
         [Test]
         public void not_following_the_convention_with_an_attribute_allows_its_action()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("promoteToGold", "customer"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("promoteToGold").On("customer"));
             Then.IShouldBeAbleToExecute(new PromoteCustomerToGoldCommand_WithAttribute());
         }
 

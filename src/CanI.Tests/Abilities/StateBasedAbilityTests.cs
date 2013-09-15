@@ -21,19 +21,19 @@ namespace CanI.Tests.Abilities
         [Test]
         public void positive_state_allows_action()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("send", "order"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("send").On("order"));
             Then.IShouldBeAbleTo("send", new Order{CanSend = true});
         }
 
         [Test]
         public void negative_state_denies_action()
         {
-            AbilityConfiguration.ConfigureWith(c => c.AllowTo("send", "order"));
-            Then.IShouldNotBeAbleTo("send", new Order{CanSend = false});
+            AbilityConfiguration.ConfigureWith(c => c.Allow("send").On("order"));
+            Then.IShouldNotBeAbleTo("send", new Order { CanSend = false });
         }
 
         [Test]
-        public void negative_state_deniess_action__even_with_manage_action()
+        public void negative_state_denies_action__even_with_manage_action()
         {
             AbilityConfiguration.ConfigureWith(c => c.AllowAnything().OnEverything());
             Then.IShouldNotBeAbleTo("send", new Order { CanSend = false });
