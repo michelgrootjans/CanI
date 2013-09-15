@@ -1,13 +1,11 @@
-﻿using CanI.Core.Authorization;
-
-namespace CanI.Core.Configuration
+﻿namespace CanI.Core.Configuration
 {
     internal class ActionConfiguration : IActionConfiguration
     {
         private readonly string[] actions;
-        private readonly Ability abilityConfiguration;
+        private readonly IInternalAbilityConfiguration abilityConfiguration;
 
-        public ActionConfiguration(string[] actions, Ability abilityConfiguration)
+        public ActionConfiguration(string[] actions, IInternalAbilityConfiguration abilityConfiguration)
         {
             this.actions = actions;
             this.abilityConfiguration = abilityConfiguration;

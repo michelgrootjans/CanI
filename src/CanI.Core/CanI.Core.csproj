@@ -38,6 +38,7 @@
     <Compile Include="Authorization\AuthorizeIfICanAttribute.cs" />
     <Compile Include="Cleaners\ActionCleaner.cs" />
     <Compile Include="Authorization\I.cs" />
+    <Compile Include="Configuration\IInternalAbilityConfiguration.cs" />
     <Compile Include="Configuration\MultiplePermissionConfiguration.cs" />
     <Compile Include="Predicates\GenericPredicate.cs" />
     <Compile Include="Configuration\IAbilityConfiguration.cs" />

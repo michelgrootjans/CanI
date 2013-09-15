@@ -5,7 +5,7 @@ using CanI.Core.Configuration;
 
 namespace CanI.Core.Authorization
 {
-    public class Ability : IAbility, IAbilityConfiguration
+    public class Ability : IAbility, IAbilityConfiguration, IInternalAbilityConfiguration
     {
         private readonly ICollection<Permission> permissions;
         private readonly ActionCleaner actionCleaner;
