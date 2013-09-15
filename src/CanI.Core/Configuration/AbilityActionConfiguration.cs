@@ -23,7 +23,7 @@
 
         public IPermissionConfiguration OnEverything()
         {
-            return On(".+");
+            return On(".+"); // that's regex for 'anything'
         }
     }
 }

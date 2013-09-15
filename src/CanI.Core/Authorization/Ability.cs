@@ -42,7 +42,7 @@ namespace CanI.Core.Authorization
 
         public IActionConfiguration AllowAnything()
         {
-            return new ActionConfiguration(new[] {".+"}, this);
+            return new ActionConfiguration(new[] { ".+" }, this); // that's regex for 'anything'
         }
 
         public void ConfigureActionAliases(string intendedAction, params string[] aliases)
