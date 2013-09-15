@@ -38,12 +38,13 @@
     <Compile Include="Authorization\AuthorizeIfICanAttribute.cs" />
     <Compile Include="Cleaners\ActionCleaner.cs" />
     <Compile Include="Authorization\I.cs" />
+    <Compile Include="Configuration\MultiplePermissionConfiguration.cs" />
     <Compile Include="Predicates\GenericPredicate.cs" />
     <Compile Include="Configuration\IAbilityConfiguration.cs" />
     <Compile Include="Configuration\AbilityConfiguration.cs" />
     <Compile Include="Authorization\IAbility.cs" />
     <Compile Include="Predicates\IAuthorizationPredicate.cs" />
-    <Compile Include="Configuration\FluentAbilityActionConfiguration.cs" />
+    <Compile Include="Configuration\AbilityActionConfiguration.cs" />
     <Compile Include="Authorization\Permission.cs" />
     <Compile Include="Predicates\PlainAuthorizationPredicate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

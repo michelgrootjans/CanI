@@ -17,7 +17,7 @@ namespace CanI.Tests.Context
         public void with_positive_context_allows_its_action()
         {
             AbilityConfiguration.ConfigureWith(c => 
-                c.AllowTo("edit", "order")
+                c.Allow("edit").On("order")
                  .If(() => true)
                  );
             Then.IShouldBeAbleTo("edit", "order");
@@ -44,10 +44,20 @@ namespace CanI.Tests.Context
         }
 
         [Test]
-        public void with_negative_subject_context_allows_its_action()
+        public void with_negative_subject_context_denies_its_action()
         {
             AbilityConfiguration.ConfigureWith(c =>
                 c.AllowTo("edit", "order")
+                 .If<Order>(o => o.IsPending)
+                );
+            Then.IShouldNotBeAbleTo("edit", new Order{IsPending = false});
+        }
+
+        [Test]
+        public void with_negative_subject_context_with_full_access_still_denies_its_action()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+                c.AllowAnything().OnEverything()
                  .If<Order>(o => o.IsPending)
                 );
             Then.IShouldNotBeAbleTo("edit", new Order{IsPending = false});

@@ -11,16 +11,19 @@
             this.ability = ability;
         }
 
-        public void On(params string[] subjects)
+        public IPermissionConfiguration On(params string[] subjects)
         {
+            var configurations = new MultiplePermissionConfiguration();
             foreach (var subject in subjects)
                 foreach (var action in actions)
-                    ability.AllowTo(action, subject);
+                    configurations.Add(ability.AllowTo(action, subject));
+
+            return configurations;
         }
 
-        public void OnEverything()
+        public IPermissionConfiguration OnEverything()
         {
-            On(".+");
+            return On(".+");
         }
     }
 }
