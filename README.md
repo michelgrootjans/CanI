@@ -36,8 +36,11 @@ You can implement this class however you want. If you want to have dynamic rules
 
 There is also a view helper to easily check for authorization. The next piece of code only checks if the action is allowed for the current user:
 <pre lang='csharp'>
-	@if (I.Can("edit", "customer")) // doesn't check state
+	@if (I.Can("edit", "customer"))
 	{
+		// with the above configuration, this will only render
+		// for users with a role of 
+		// admin, manager or callcenter
 		...some html
 	}
 </pre>
@@ -48,7 +51,7 @@ The next piece of code also verifies if the action is allowed on the @Model. In 
 
 If both these conditions are met, the HTML will be rendered
 <pre lang='csharp'>
-	@if (I.Can("edit", @Model)) // where Model is a viewmodel, also checks state
+	@if (I.Can("edit", @Model))
 	{
 		...some html
 	}
