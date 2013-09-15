@@ -18,9 +18,9 @@ namespace CanI.Core.Authorization
             subjectCleaner = new SubjectCleaner();
         }
 
-        public bool Allows(string action, object subject)
+        public bool Allows(string requestedAction, object requestedSubject)
         {
-            return permissions.Any(p => p.Authorizes(action, subject));
+            return permissions.Any(p => p.Authorizes(requestedAction, requestedSubject));
         }
 
         public bool AllowsExecutionOf(object command)

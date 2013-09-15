@@ -2,7 +2,7 @@
 
 namespace CanI.Core.Authorization
 {
-    internal class AuthorizeIfICanAttribute : Attribute
+    public class AuthorizeIfICanAttribute : Attribute
     {
         public string Action { get; private set; }
         public string Subject { get; private set; }

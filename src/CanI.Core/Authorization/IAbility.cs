@@ -2,7 +2,7 @@
 {
     public interface IAbility
     {
-        bool Allows(string action, object subject);
+        bool Allows(string requestedAction, object requestedSubject);
         bool AllowsExecutionOf(object command);
     }
 }

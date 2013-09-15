@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using CanI.Core.Authorization;
 using CanI.Core.Configuration;
 
 namespace CanI.Mvc
@@ -29,12 +30,39 @@ namespace CanI.Mvc
             if (ability == null)
                 throw new Exception("AbilityConfiguration has not been configured.");
 
-            var action = filterContext.ActionDescriptor.ActionName;
-            var subject = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            var actionAndSubject = GetActionAndSubject(filterContext);
 
-            if (ability.Allows(action, subject)) return;
+            if (ability.Allows(actionAndSubject.Action, actionAndSubject.Subject)) 
+                return;
 
             filterContext.Result = resultOnFailedAuthorization(filterContext);
+        }
+
+        private ActionAndSubject GetActionAndSubject(AuthorizationContext filterContext)
+        {
+            var customAttributes = filterContext.ActionDescriptor.GetCustomAttributes(typeof (AuthorizeIfICanAttribute), true);
+            if (customAttributes.Length > 0)
+            {
+                var attribute = customAttributes[0] as AuthorizeIfICanAttribute;
+                if (attribute != null) 
+                    return new ActionAndSubject(attribute.Action, attribute.Subject);
+            }
+
+            var requestAction = filterContext.ActionDescriptor.ActionName;
+            var requestSubject = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            return new ActionAndSubject(requestAction, requestSubject);
+        }
+
+        private class ActionAndSubject
+        {
+            public string Action { get; private set; }
+            public string Subject { get; private set; }
+
+            public ActionAndSubject(string action, string subject)
+            {
+                Action = action;
+                Subject = subject;
+            }
         }
     }
 }

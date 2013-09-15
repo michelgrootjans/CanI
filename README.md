@@ -75,11 +75,11 @@ To add a generic filter over all the controllers, register the filter globally
             filters.Add(new AuthorizeWithCanIFilter(new RedirectResult("/")));
         }
 </pre>
-Now each request is automatically filtered based on the content of the AbilityConfigurator. When a request is not authorized, the user will be redirected to the configured URL. In this case, this will be the root of the site: "/".
+Now each request is automatically filtered based on the content of the AbilityConfigurator. When a request is not authorized, the user will be redirected to the configured URL. In this case, this will be the root of the site: "/" (the default).
 
 If you do not want to add a generic filter over all the controllers, you can add them individually to each controller
 <pre lang='csharp'>
-    [AuthorizeWithCanIFilter("/")]
+    [AuthorizeWithCanIFilter]
     public class CustomersController : Controller
     {
 		// controller actions ...
@@ -90,8 +90,22 @@ You can also apply the authorization filter to individual controller actions:
 <pre lang='csharp'>
     public class CustomersController : Controller
     {
-        [AuthorizeWithCanIFilter("/")]
+        [AuthorizeWithCanIFilter]
         public ActionResult Delete(int id)
+        {
+			// code ...
+        }
+	}
+</pre>
+
+If some controller action doesn't follow naming conventions, you can still indicate what the rules are with a custom attribute like this:
+<pre lang='csharp'>
+    public class CustomerController : Controller
+    {
+		// Without the attribute, this would check if you can "discombobulate" a "customer"
+		// With the attribute, this will check if you can "eat" a "hamburger"
+        [AuthorizeIfICan("eat", "hamburger")] 
+        public ActionResult Discombobulate(int id)
         {
 			// code ...
         }
@@ -106,12 +120,12 @@ Features:
 - Authorize command objects based on conventions
 - Authorization based on external state
 - Contains a very simple demo project. Explore at leisure
+- Attribute-based custom authorization
 
 Roadmap:
 --------
 This project is written in the RDD fashion: Readme Driven Development. These are the features I'm planning:
 
-- Attribute-based custom authorization
 - Authorize MVC actions based on verb
   - GET => authorize on view
   - POST => authorize on create
