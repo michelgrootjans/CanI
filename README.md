@@ -8,8 +8,8 @@ This assumes a few conventions over configuration.
 
 Inspired by ruby's [cancan gem](https://github.com/ryanb/cancan).
 
-Usage for an MVC application
-----------------------------
+Usage
+-----
 Create a new class where you'll configure the authorization. In the demo application, I called it the AbiltiyConfigurator:
 <pre lang='csharp'>
     public class AbilityConfigurator
@@ -34,38 +34,39 @@ Create a new class where you'll configure the authorization. In the demo applica
 </pre>
 You can implement this class however you want. If you want to have dynamic rules, you could get your configuration from the database.
 
-There is also a view helper to easily check for authorization. The next piece of code only checks if the action is allowed for the current user:
+There is also a helper to easily check for authorization. The next piece of code only checks if the action is allowed for the current user. This can be called in a view to show/hide parts of the view.
 <pre lang='csharp'>
-	@if (I.Can("edit", "customer"))
+	if (I.Can("edit", "customer"))
 	{
-		// with the above configuration, this will only render
-		// for users with a role of 
-		// admin, manager or callcenter
-		...some html
+		// with the above configuration, this will only execute
+		// for users with a role of admin, manager or callcenter
+		...some code
 	}
 </pre>
 
-The next piece of code also verifies if the action is allowed on the @Model. In this case, two checks will be applied:
+The next piece of code also verifies if the action is allowed on the Model. In this case, two checks will be applied:
 - is the user allowed to 'edit' a 'customer'
-- if the @Model has a property 'CanEdit' that returns a boolean, this property has to be true
+- if the Model has a property 'CanEdit' that returns a boolean, this property has to be true
 
 If both these conditions are met, the HTML will be rendered
 <pre lang='csharp'>
-	@if (I.Can("edit", @Model))
+	if (I.Can("edit", Model)) // where Model is any .net class
 	{
 		...some html
 	}
 </pre>
 
-How to configure an MVC application
------------------------------------
-In the global.asax, intialize this new configuration class like this:
+Configuration
+-------------
+To configure an asp.net application (mvc or not), just execute the following at startup (typically in global.asax):
 <pre lang='csharp'>
 	AbilityConfiguration.ConfigureWith(
 		config => new AbilityConfigurator(config, System.Web.HttpContext.Current.User)
 	);
 </pre>
 
+Extra configuration for an asp.net mvc application
+--------------------------------------------------
 To add a generic filter over all the controllers, register the filter globally
 <pre lang='csharp'>
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
