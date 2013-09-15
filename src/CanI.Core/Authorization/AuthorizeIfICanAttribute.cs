@@ -2,6 +2,7 @@
 
 namespace CanI.Core.Authorization
 {
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class AuthorizeIfICanAttribute : Attribute
     {
         public string Action { get; private set; }
