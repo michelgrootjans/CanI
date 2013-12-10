@@ -33,6 +33,13 @@ namespace CanI.Tests.Commands
         }
 
         [Test]
+        public void allows_string_command_objects_by_default()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.Allow("edit").On("order"));
+            Then.IShouldBeAbleToExecute("EditOrder");
+        }
+
+        [Test]
         public void allows_command_by_convention()
         {
             AbilityConfiguration.ConfigureWith(c => c.Allow("edit").On("order"));
@@ -44,6 +51,43 @@ namespace CanI.Tests.Commands
         {
             AbilityConfiguration.ConfigureWith(c => c.Allow("edit").On("order"));
             Then.IShouldBeAbleToExecute(new UpdateOrderCommand());
+        }
+
+        private class DiscombobulateCustomerCommand { }
+        [Test]
+        public void allows_command_by_custom_action_alias()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("edit").On("customer");
+                c.ConfigureActionAliases("edit", "discombobulate");
+            });
+            Then.IShouldBeAbleToExecute(new DiscombobulateCustomerCommand());
+        }
+
+        private class EditClientCommand { }
+        [Test]
+        public void allows_command_by_custom_subject_alias()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("edit").On("customer");
+                c.ConfigureSubjectAliases("customer", "client");
+            });
+            Then.IShouldBeAbleToExecute(new EditClientCommand());
+        }
+
+        private class DiscombobulateClientCommand { }
+        [Test]
+        public void allows_command_by_custom_action_and_subject_alias()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("edit").On("customer");
+                c.ConfigureActionAliases("edit", "discombobulate");
+                c.ConfigureSubjectAliases("customer", "client");
+            });
+            Then.IShouldBeAbleToExecute(new DiscombobulateClientCommand());
         }
 
         [Test]

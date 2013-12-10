@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using CanI.Core.Cleaners;
-using CanI.Core.Configuration; 
+using CanI.Core.Configuration;
 using CanI.Core.Predicates;
 
 namespace CanI.Core.Authorization
@@ -40,7 +40,7 @@ namespace CanI.Core.Authorization
         public bool Authorizes(string requestedAction, object requestedSubject)
         {
             return Matches(requestedAction, requestedSubject)
-                   && ContextAllowsAction(requestedSubject) 
+                   && ContextAllowsAction(requestedSubject)
                    && SubjectAllowsAction(requestedAction, requestedSubject);
         }
 
@@ -50,7 +50,7 @@ namespace CanI.Core.Authorization
             var requestedAction = actionCleaner.Clean(action);
 
             return Regex.IsMatch(requestedSubject, AllowedSubject, RegexOptions.IgnoreCase)
-                && Regex.IsMatch(requestedAction,  AllowedAction,  RegexOptions.IgnoreCase);
+                && Regex.IsMatch(requestedAction, AllowedAction, RegexOptions.IgnoreCase);
         }
 
         private bool ContextAllowsAction(object requestedSubject)
@@ -74,10 +74,11 @@ namespace CanI.Core.Authorization
             var requestedCommandName = GetRequestedCommandName(command);
 
             // I prefer 'foreach' instead of LINQ in this case
+            foreach (var subjectAlias in subjectCleaner.AliasesFor(AllowedSubject))
             foreach (var actionAlias in actionCleaner.AliasesFor(AllowedAction))
             {
                 if (Regex.IsMatch(requestedCommandName, actionAlias, RegexOptions.IgnoreCase)
-                 && Regex.IsMatch(requestedCommandName, AllowedSubject, RegexOptions.IgnoreCase))
+                    && Regex.IsMatch(requestedCommandName, subjectAlias, RegexOptions.IgnoreCase))
                     return true;
             }
 
@@ -86,10 +87,11 @@ namespace CanI.Core.Authorization
 
         private static string GetRequestedCommandName(object command)
         {
+            if (command is string) return command.ToString();
             var commandType = command.GetType();
             var attribute = commandType.GetCustomAttribute<AuthorizeIfICanAttribute>();
-            return attribute == null 
-                ? commandType.Name 
+            return attribute == null
+                ? commandType.Name
                 : attribute.Action + attribute.Subject;
         }
     }

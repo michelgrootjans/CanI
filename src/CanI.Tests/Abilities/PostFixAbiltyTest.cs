@@ -47,6 +47,30 @@ namespace CanI.Tests.Abilities
             Then.IShouldBeAbleTo("edit", new EditCustomerViewModel());
         }
 
+        private class ClientDto { }
+        [Test]
+        public void abilities_ignore_postfixes_with_subjectAlieas()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("edit").On("customer");
+                c.ConfigureSubjectAliases("customer", "client");
+            });
+            Then.IShouldBeAbleTo("edit", new ClientDto());
+        }
+
+        private class GetClientDetailDto { }
+        [Test]
+        public void abilities_ignore_prefixes_and_postfixes_by_default_with_subjectAlieas()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("edit").On("customer");
+                c.ConfigureSubjectAliases("customer", "client");
+            });
+            Then.IShouldBeAbleTo("edit", new GetClientDetailDto());
+        }
+
         [Test]
         public void abilities_ignore_reversed_prefixes_and_postfixes_by_default()
         {

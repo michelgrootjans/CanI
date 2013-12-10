@@ -5,20 +5,12 @@ namespace CanI.Core.Cleaners
 {
     public class SubjectCleaner
     {
-//        private readonly IList<string> ignoredSubjectPostfixes;
         private readonly IDictionary<string, string> subjectAliases;
 
         public SubjectCleaner()
         {
-//            ignoredSubjectPostfixes = new List<string>();
             subjectAliases = new Dictionary<string, string>();
         }
-
-//        public void IgnorePostfix(params string[] postfixes)
-//        {
-//            foreach (var postfix in postfixes)
-//                ignoredSubjectPostfixes.Add(postfix.ToLower());
-//        }
 
         public void AddSubjectAliases(string intendedSubject, string[] aliases)
         {
@@ -31,7 +23,6 @@ namespace CanI.Core.Cleaners
         public string Clean(object subject)
         {
             var stringSubject = SubjectToString(subject);
-//            stringSubject = RemoveSubjectAffixes(stringSubject);
             stringSubject = ReplaceSubjectAliases(stringSubject);
             return stringSubject;
         }
@@ -43,19 +34,22 @@ namespace CanI.Core.Cleaners
             return subject.GetType().Name.ToLower();
         }
 
-//        private string RemoveSubjectAffixes(string subject)
-//        {
-//            var matchingPostfix = ignoredSubjectPostfixes.FirstOrDefault(subject.EndsWith);
-//            if (matchingPostfix != null)
-//                return subject.Replace(matchingPostfix, "");
-//            return subject;
-//        }
-
         private string ReplaceSubjectAliases(string subject)
         {
             if (subjectAliases.ContainsKey(subject))
                 subject = subjectAliases[subject];
+            foreach (var alias in subjectAliases)
+                subject = subject.Replace(alias.Key, alias.Value);
             return subject;
+        }
+
+        public IEnumerable<string> AliasesFor(string allowedSubject)
+        {
+            yield return allowedSubject;
+            foreach (var subjectAlias in subjectAliases.Where(subjectAlias => subjectAlias.Value == allowedSubject))
+            {
+                yield return subjectAlias.Key;
+            }
         }
     }
 }
