@@ -21,7 +21,7 @@ namespace CanI.Core.Configuration
             return ability;
         }
 
-        internal static void Reset()
+        public static void Reset()
         {
             configurationApplier = null;
         }
