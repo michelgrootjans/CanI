@@ -62,6 +62,13 @@ namespace CanI.Tests.Abilities
             Then.IShouldNotBeAbleTo("edit", "customer");
         }
 
+        [Test]
+        public void postfix_on_action_is_not_allowed()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.Allow("view").On("customer"));
+            Then.IShouldNotBeAbleTo("view_special", "order");
+        }
+
 
     }
 }
