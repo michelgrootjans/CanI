@@ -24,5 +24,16 @@ namespace CanI.Tests.Aliasing
             });
             Then.IShouldBeAbleTo("consult", "customer");
         }
+
+        [Test]
+        public void configured_alias_is_case_insensitive()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("view").On("customer");
+                c.ConfigureActionAliases("view", "Consult");
+            });
+            Then.IShouldBeAbleTo("consult", "customer");
+        }
     }
 }

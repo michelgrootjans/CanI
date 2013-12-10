@@ -41,7 +41,7 @@ namespace CanI.Core.Cleaners
         public void ConfigureAliases(string intendedAction, params string[] aliases)
         {
             foreach (var alias in aliases)
-                actionAliases.Add(alias, intendedAction);
+                actionAliases.Add(alias.ToLower(), intendedAction);
         }
 
         public IEnumerable<string> AliasesFor(string action)
