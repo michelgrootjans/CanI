@@ -50,6 +50,11 @@ namespace CanI.Mvc
 
             var requestAction = filterContext.ActionDescriptor.ActionName;
             var requestSubject = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            if (filterContext.RouteData.Values.ContainsKey("area"))
+            {
+                var area = filterContext.RouteData.Values["area"];
+                requestAction = string.Format("{0}/{1}", area, requestAction);
+            }
             return new ActionAndSubject(requestAction, requestSubject);
         }
 
