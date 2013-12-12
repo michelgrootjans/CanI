@@ -1,0 +1,13 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Target Name="build-tasks-nuget-Pack">
+    <MakeDir Directories="$(BuildArtifacts)\NuGet" Condition="!Exists('$(BuildArtifacts)\NuGet')" />
+
+    <Exec Command="$(NuGetExe) pack $(SolutionDir)\CanI.Core\CanI.Core.nuspec -OutputDir $(BuildArtifacts)\NuGet -Version $(VersionNumber)" />
+    <Exec Command="$(NuGetExe) pack $(SolutionDir)\CanI.Mvc\CanI.Mvc.nuspec -OutputDir $(BuildArtifacts)\NuGet -Version $(VersionNumber)" />
+  </Target>  
+  
+  <Target Name="build-tasks-nuget-Push">
+    <Exec Command="$(NuGetExe) push $(BuildArtifacts)\NuGet\CanI.Core.$(VersionNumber).nupkg -ApiKey $(NuGetApiKey)" />
+    <Exec Command="$(NuGetExe) push $(BuildArtifacts)\NuGet\CanI.Mvc.$(VersionNumber).nupkg -ApiKey $(NuGetApiKey)" />
+  </Target>
+</Project>

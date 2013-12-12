@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "CanI.Demo\Demo.csproj", "{4FB467CD-331D-418A-8BF6-12FB3F8DF84B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanI.Core", "CanI.Core\CanI.Core.csproj", "{29B59305-5214-4212-ABFD-571E0F22D3AB}"
@@ -8,6 +10,28 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanI.Mvc", "CanI.Mvc\CanI.Mvc.csproj", "{AF4C8E83-CF8E-466C-B0FB-565D90FAD6E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanI.Tests", "CanI.Tests\CanI.Tests.csproj", "{503E1F61-3204-4894-8C5E-26EEF8BBB89B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AF11119E-9018-454D-8B57-970C8DA62D47}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{3172C02E-3435-454E-8A55-B09E40507427}"
+	ProjectSection(SolutionItems) = preProject
+		build\build.config.xml = build\build.config.xml
+		build\build.tasks.compiling.xml = build\build.tasks.compiling.xml
+		build\build.tasks.nuget.xml = build\build.tasks.nuget.xml
+		build\build.tasks.testing.xml = build\build.tasks.testing.xml
+		build\build.tasks.versioning.xml = build\build.tasks.versioning.xml
+		build\build.xml = build\build.xml
+		build\readme.txt = build\readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{E4612C12-9F69-4FF6-8E4C-2F18E7DC686F}"
+	ProjectSection(SolutionItems) = preProject
+		build\scripts\buildCI.ps1 = build\scripts\buildCI.ps1
+		build\scripts\buildPublish.ps1 = build\scripts\buildPublish.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,5 +58,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E4612C12-9F69-4FF6-8E4C-2F18E7DC686F} = {3172C02E-3435-454E-8A55-B09E40507427}
 	EndGlobalSection
 EndGlobal
