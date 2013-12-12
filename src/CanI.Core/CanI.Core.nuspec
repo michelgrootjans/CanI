@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>CanI.Core</id>
+    <version>$version$</version>
+    <title>CanI.Core</title>
+    <authors>Michel Grootjans</authors>
+    <owners>Michel Grootjans</owners>
+    <description>A .net authorization component that decouples authorization from User, IPrincipal or Roles. This assumes a few conventions over configuration.</description>
+    <language>en-US</language>
+    <projectUrl>https://github.com/michelgrootjans/CanI</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>CanI CanCan Authorization</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\CanI.Core.dll" target="lib\net45" />
+  </files>
+</package>

@@ -1,13 +1,9 @@
 ﻿namespace CanI.Demo.Domain.Commands
 {
-    public class CreateCustomerCommand
+    internal class CreateCustomerCommand
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public CreateCustomerCommand()
-        {
-        }
     }
 
     internal class CreateCustomerHandler : ICommandHandler<CreateCustomerCommand>

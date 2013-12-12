@@ -1,0 +1,9 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Target Name="build-tasks-compiling-BuildDebug">
+    <MSBuild Projects="$(SolutionPath)" Targets="Rebuild" Properties="Configuration=Debug;" />
+  </Target>
+
+  <Target Name="build-tasks-compiling-BuildRelease">
+    <MSBuild Projects="$(SolutionPath)" Targets="Rebuild" Properties="Configuration=Release;" />
+  </Target>
+</Project>

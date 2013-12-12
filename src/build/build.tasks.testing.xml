@@ -1,0 +1,25 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <UsingTask AssemblyFile="$(SolutionDir)\packages\MSBuild.Extension.Pack.1.3.0\tools\net40\MSBuild.ExtensionPack.dll" TaskName="MSBuild.ExtensionPack.CodeQuality.NUnit"/>
+  
+  <Target Name="build-tasks-testing-RunTests">
+    <MakeDir Directories="$(BuildArtifacts)\NUnit" Condition="!Exists('$(BuildArtifacts)\NUnit')" />
+    <ItemGroup>
+      <TestAssemblies Include="$(SolutionDir)\CanI.Tests\bin\Release\CanI.Tests.dll" />
+    </ItemGroup>
+    
+    <NUnit Assemblies="@(TestAssemblies)" OutputXmlFile="$(BuildArtifacts)\NUnit\TestResults.$(VersionNumber).xml" ToolPath="$(SolutionDir)\packages\NUnit.Runners.2.6.3\tools">
+      <Output TaskParameter="Total" PropertyName="ResultTotal"/>
+      <Output TaskParameter="NotRun" PropertyName="ResultNotRun"/>
+      <Output TaskParameter="Failures" PropertyName="ResultFailures"/>
+      <Output TaskParameter="Errors" PropertyName="ResultErrors"/>
+      <Output TaskParameter="Inconclusive" PropertyName="ResultInconclusive"/>
+      <Output TaskParameter="Ignored" PropertyName="ResultIgnored"/>
+      <Output TaskParameter="Skipped" PropertyName="ResultSkipped"/>
+      <Output TaskParameter="Invalid" PropertyName="ResultInvalid"/>
+    </NUnit>
+
+    <Error 
+      Text="$(ResultFailures) tests failed an assertion || $(ResultErrors) tests failed because of an error" 
+      Condition="$(ResultFailures) > 0 Or $(ResultErrors) > 0" />
+  </Target>
+</Project>
