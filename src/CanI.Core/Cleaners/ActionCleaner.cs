@@ -35,6 +35,12 @@ namespace CanI.Core.Cleaners
             var lowerCaseAction = action.ToLower();
             if (actionAliases.ContainsKey(lowerCaseAction))
                 return actionAliases[lowerCaseAction];
+
+            foreach (var alias in actionAliases)
+            {
+                lowerCaseAction = lowerCaseAction.Replace(alias.Key, alias.Value);
+            }
+
             return lowerCaseAction;
         }
 

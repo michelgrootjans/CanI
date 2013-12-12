@@ -28,6 +28,17 @@ namespace CanI.Tests.Areas
             Then.IShouldBeAbleTo("AreA/View", "customer");
         }
 
+        [Test]
+        public void default_area_aliasing_behavior()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("area/view").On("customer");
+                c.ConfigureActionAliases("area", "other");
+            });
+            Then.IShouldBeAbleTo("other/view", "customer");
+        }
+
         public class CustomerDto{}
         [Test]
         public void area_behavior_on_model()
@@ -35,6 +46,18 @@ namespace CanI.Tests.Areas
             AbilityConfiguration.ConfigureWith(c => c.Allow("area/view").On("customer"));
             Then.IShouldNotBeAbleTo("view", new CustomerDto());
             Then.IShouldBeAbleTo("area/view", new CustomerDto());
+        }
+
+        [Test]
+        public void area_behavior_on_model_with_action_alias()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("area/view").On("customer");
+                c.ConfigureActionAliases("area", "other");
+            });
+            Then.IShouldNotBeAbleTo("view", new CustomerDto());
+            Then.IShouldBeAbleTo("other/view", new CustomerDto());
         }
 
     }
