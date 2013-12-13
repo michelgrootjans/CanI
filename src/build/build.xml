@@ -1,0 +1,22 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <!-- CONFIGURATION -->
+  <Import Project="build.config.xml"/>
+
+  <!-- TASKS -->
+  <Import Project="build.tasks.compiling.xml"/>
+  <Import Project="build.tasks.testing.xml"/>
+  <Import Project="build.tasks.versioning.xml"/>
+  <Import Project="build.tasks.nuget.xml"/>
+
+  <!-- TARGETS -->
+  <Target Name="CI" DependsOnTargets="
+      build-tasks-versioning-UpdateVersionNumber;
+      build-tasks-compiling-BuildRelease;
+      build-tasks-testing-RunTests;
+      build-tasks-nuget-Pack;"
+  />
+  
+  <Target Name="Publish" DependsOnTargets="
+      build-tasks-nuget-Push;"
+  />
+</Project>

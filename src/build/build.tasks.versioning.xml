@@ -1,0 +1,18 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <UsingTask AssemblyFile="$(SolutionDir)\packages\MSBuild.Extension.Pack.1.3.0\tools\net40\MSBuild.ExtensionPack.dll" TaskName="MSBuild.ExtensionPack.Framework.AssemblyInfo"/>
+  
+  <Target Name="build-tasks-versioning-UpdateVersionNumber">
+    <ItemGroup>
+      <AssemblyInfoFiles Include="$(SolutionDir)\**\AssemblyInfo.*"/>
+    </ItemGroup>
+
+    <AssemblyInfo 
+      AssemblyInfoFiles="@(AssemblyInfoFiles)" 
+      AssemblyBuildNumberType="AutoIncrement" AssemblyBuildNumberFormat="0" 
+      AssemblyFileBuildNumberType="AutoIncrement" AssemblyFileBuildNumberFormat="0">
+      <Output TaskParameter="MaxAssemblyVersion" PropertyName="VersionNumber"/>
+    </AssemblyInfo>
+  
+    <Message Text="Version number: $(VersionNumber)" />
+  </Target>
+</Project>

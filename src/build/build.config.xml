@@ -1,0 +1,15 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <!-- PROPERTIES -->
+  <PropertyGroup Label="Common Properties">
+    <SolutionDir>..</SolutionDir>
+    <SolutionFileName>CanI.sln</SolutionFileName>
+    <SolutionPath>$(SolutionDir)\$(SolutionFileName)</SolutionPath>
+    <BuildArtifacts>$(SolutionDir)\build\artifacts</BuildArtifacts>
+    <VersionNumber></VersionNumber>
+  </PropertyGroup>
+
+  <PropertyGroup Label="NuGet Properties">
+    <NuGetExe>$(SolutionDir)\packages\NuGet.CommandLine.2.7.3\tools\NuGet.exe</NuGetExe>
+    <NuGetApiKey></NuGetApiKey>
+  </PropertyGroup>
+</Project>
