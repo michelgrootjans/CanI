@@ -30,11 +30,17 @@ namespace CanI.Mvc
             throw new SecurityException(exceptionMessage);
         }
 
-        private object GetCommandFrom(AuthorizationContext filterContext)
+        private string GetCommandFrom(AuthorizationContext filterContext)
         {
             try
             {
-                return filterContext.ActionDescriptor.GetParameters()[0].ParameterType.Name;
+                var commandType = filterContext.ActionDescriptor.GetParameters()[0].ParameterType.Name;
+                if (filterContext.RouteData.DataTokens.ContainsKey("area"))
+                {
+                    var area = filterContext.RouteData.DataTokens["area"];
+                    commandType = string.Format("{0}/{1}", area, commandType);
+                }
+                return commandType;
             }
             catch
             {
