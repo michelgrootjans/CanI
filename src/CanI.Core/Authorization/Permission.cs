@@ -85,7 +85,7 @@ namespace CanI.Core.Authorization
         {
 
             if (command is string)
-                return actionCleaner.Clean(command.ToString());
+                return actionCleaner.Clean(subjectCleaner.Clean(command.ToString()));
 
             var commandType = command.GetType();
             var attribute = commandType.GetCustomAttribute<AuthorizeIfICanAttribute>();

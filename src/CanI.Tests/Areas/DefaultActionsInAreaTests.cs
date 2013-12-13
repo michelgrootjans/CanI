@@ -60,7 +60,6 @@ namespace CanI.Tests.Areas
             Then.IShouldBeAbleTo("other/view", new CustomerDto());
         }
 
-        private class UpdateCustomerCommand { }
         [Test]
         public void default_area_behavior_on_command_with_area()
         {
@@ -76,14 +75,37 @@ namespace CanI.Tests.Areas
         }
 
         [Test]
-        public void default_area_behavior_on_command_with_area_and_aliases()
+        public void default_area_behavior_on_command_with_area_and_subject_alias()
         {
             AbilityConfiguration.ConfigureWith(c =>
             {
-                c.Allow("area/edit").On("client");
-                c.ConfigureSubjectAliases("client", "customer");
+                c.Allow("area/edit").On("customer");
+                c.ConfigureSubjectAliases("customer", "client");
             });
-            Then.IShouldBeAbleToExecute("area/UpdateCustomerCommand");
+            Then.IShouldBeAbleToExecute("area/EditClientCommand");
+        }
+
+        [Test]
+        public void default_area_behavior_on_command_with_area_and_action_alias()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("area/edit").On("customer");
+                c.ConfigureActionAliases("edit", "promote");
+            });
+            Then.IShouldBeAbleToExecute("area/PromoteCustomerCommand");
+        }
+
+        [Test]
+        public void default_area_behavior_on_command_with_area_and_both_aliases()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("area/edit").On("customer");
+                c.ConfigureSubjectAliases("customer", "client");
+                c.ConfigureActionAliases("edit", "promote");
+            });
+            Then.IShouldBeAbleToExecute("area/PromoteClientCommand");
         }
     }
 }
