@@ -74,5 +74,16 @@ namespace CanI.Tests.Areas
             AbilityConfiguration.ConfigureWith(c => c.Allow("area/update").On("customer"));
             Then.IShouldNotBeAbleToExecute("UpdateCustomerCommand");
         }
+
+        [Test]
+        public void default_area_behavior_on_command_with_area_and_aliases()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("area/edit").On("client");
+                c.ConfigureSubjectAliases("client", "customer");
+            });
+            Then.IShouldBeAbleToExecute("area/UpdateCustomerCommand");
+        }
     }
 }

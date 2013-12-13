@@ -85,9 +85,12 @@ namespace CanI.Core.Authorization
             return false;
         }
 
-        private static string GetRequestedCommandName(object command)
+        private string GetRequestedCommandName(object command)
         {
-            if (command is string) return command.ToString();
+
+            if (command is string)
+                return actionCleaner.Clean(command.ToString());
+
             var commandType = command.GetType();
             var attribute = commandType.GetCustomAttribute<AuthorizeIfICanAttribute>();
             return attribute == null
