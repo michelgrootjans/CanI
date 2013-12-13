@@ -9,7 +9,8 @@
     <AssemblyInfo 
       AssemblyInfoFiles="@(AssemblyInfoFiles)" 
       AssemblyBuildNumberType="AutoIncrement" AssemblyBuildNumberFormat="0" 
-      AssemblyFileBuildNumberType="AutoIncrement" AssemblyFileBuildNumberFormat="0">
+      AssemblyFileBuildNumberType="AutoIncrement" AssemblyFileBuildNumberFormat="0"
+      >
       <Output TaskParameter="MaxAssemblyVersion" PropertyName="VersionNumber"/>
     </AssemblyInfo>
   
