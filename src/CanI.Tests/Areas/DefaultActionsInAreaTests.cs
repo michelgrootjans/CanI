@@ -39,7 +39,7 @@ namespace CanI.Tests.Areas
             Then.IShouldBeAbleTo("other/view", "customer");
         }
 
-        public class CustomerDto{}
+        private class CustomerDto{}
         [Test]
         public void area_behavior_on_model()
         {
@@ -60,5 +60,19 @@ namespace CanI.Tests.Areas
             Then.IShouldBeAbleTo("other/view", new CustomerDto());
         }
 
+        private class UpdateCustomerCommand { }
+        [Test]
+        public void default_area_behavior_on_command_with_area()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.Allow("area/update").On("customer"));
+            Then.IShouldBeAbleToExecute("area/UpdateCustomerCommand");
+        }
+
+        [Test]
+        public void default_area_behavior_on_command_without_area()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.Allow("area/update").On("customer"));
+            Then.IShouldNotBeAbleToExecute("UpdateCustomerCommand");
+        }
     }
 }
