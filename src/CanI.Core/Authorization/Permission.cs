@@ -73,16 +73,12 @@ namespace CanI.Core.Authorization
         {
             var requestedCommandName = GetRequestedCommandName(command);
 
-            // I prefer 'foreach' instead of LINQ in this case
-            foreach (var subjectAlias in subjectCleaner.AliasesFor(AllowedSubject))
-            foreach (var actionAlias in actionCleaner.AliasesFor(AllowedAction))
-            {
-                if (Regex.IsMatch(requestedCommandName, actionAlias, RegexOptions.IgnoreCase)
-                    && Regex.IsMatch(requestedCommandName, subjectAlias, RegexOptions.IgnoreCase))
-                    return true;
-            }
-
-            return false;
+            return (from subjectAlias in subjectCleaner.AliasesFor(AllowedSubject) 
+                    from actionAlias in actionCleaner.AliasesFor(AllowedAction) 
+                    where Regex.IsMatch(requestedCommandName, actionAlias, RegexOptions.IgnoreCase) 
+                       && Regex.IsMatch(requestedCommandName, subjectAlias, RegexOptions.IgnoreCase) 
+                    select subjectAlias)
+                    .Any();
         }
 
         private string GetRequestedCommandName(object command)
