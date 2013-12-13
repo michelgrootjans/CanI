@@ -61,6 +61,14 @@ namespace CanI.Tests.Areas
         }
 
         [Test]
+        public void area_behavior_on_model_with_denied_data()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.Allow("area/delete").On("customer"));
+            Then.IShouldNotBeAbleTo("delete", new CustomerWithPermissionDto {CanDelete = false});
+            Then.IShouldNotBeAbleTo("area/delete", new CustomerWithPermissionDto {CanDelete = false});
+        }
+
+        [Test]
         public void default_area_behavior_on_command_with_area()
         {
             AbilityConfiguration.ConfigureWith(c => c.Allow("area/update").On("customer"));
@@ -107,5 +115,11 @@ namespace CanI.Tests.Areas
             });
             Then.IShouldBeAbleToExecute("area/PromoteClientCommand");
         }
+
+        public class CustomerWithPermissionDto
+        {
+            public bool CanDelete { get; set; }
+        }
     }
+
 }

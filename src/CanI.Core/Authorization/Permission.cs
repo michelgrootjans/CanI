@@ -61,12 +61,17 @@ namespace CanI.Core.Authorization
         private bool SubjectAllowsAction(string requestedAction, object requestedSubject)
         {
             const BindingFlags caseInsensitivePublicInstance = BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public;
-            var property = requestedSubject.GetType().GetProperty("can" + requestedAction, caseInsensitivePublicInstance);
+            var property = requestedSubject.GetType().GetProperty("can" + PureAction(requestedAction), caseInsensitivePublicInstance);
             if (property == null) return true;
 
             var propertyValue = property.GetValue(requestedSubject);
             var booleanValue = propertyValue as bool?;
             return booleanValue.GetValueOrDefault();
+        }
+
+        private static string PureAction(string requestedAction)
+        {
+            return requestedAction.Split('/').Last();
         }
 
         public bool AllowsExecutionOf(object command)
