@@ -32,9 +32,9 @@ namespace CanI.Tests.Aliasing
             AbilityConfiguration.ConfigureWith(c =>
             {
                 c.Allow("view").On("customer");
-                c.ConfigureActionAliases("view", "Consult");
+                c.ConfigureActionAliases("view", "ConSult");
             });
-            Then.IShouldBeAbleTo("consult", "customer");
+            Then.IShouldBeAbleTo("coNsult", "customer");
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace CanI.Tests.Aliasing
                 c.ConfigureActionAliases("view", "consult");
             });
             Then.IShouldBeAbleTo("consult", "customer");
-            debugMessages.ShouldNotContain(string.Format("creating action alias 'consult = view'"));
+            debugMessages.ShouldNotContain("creating action alias 'consult = view'");
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace CanI.Tests.Aliasing
                 c.ConfigureActionAliases("view", "consult");
             });
             Then.IShouldBeAbleTo("consult", "customer");
-            debugMessages.ShouldContain(string.Format("creating action alias 'consult = view'"));
+            debugMessages.ShouldContain("creating action alias 'consult = view'");
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace CanI.Tests.Aliasing
                 c.ConfigureActionAliases("edit", "consult");
             });
             Then.IShouldBeAbleTo("consult", "customer");
-            debugMessages.ShouldContain(string.Format("overwriting action alias 'consult = edit' (was 'consult = view')"));
+            debugMessages.ShouldContain("overwriting action alias 'consult = edit' (was 'consult = view')");
         }
     }
 }

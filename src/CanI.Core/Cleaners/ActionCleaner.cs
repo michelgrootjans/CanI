@@ -50,19 +50,21 @@ namespace CanI.Core.Cleaners
 
         public void ConfigureAliases(string intendedAction, params string[] aliases)
         {
-            foreach (var alias in aliases)
-            {
-                if (actionAliases.ContainsKey(alias.ToLower()))
-                {
-                    if (actionAliases[alias.ToLower()] == intendedAction) continue;
+            intendedAction = intendedAction.ToLower();
 
-                    logger.LogConfiguration(string.Format("overwriting action alias '{0} = {1}' (was '{0} = {2}')", alias.ToLower(), intendedAction, actionAliases[alias.ToLower()]));
-                    actionAliases[alias.ToLower()] = intendedAction;
+            foreach (var alias in aliases.Select(a => a.ToLower()))
+            {
+                if (actionAliases.ContainsKey(alias))
+                {
+                    if (actionAliases[alias] == intendedAction) continue;
+
+                    logger.LogConfiguration(string.Format("overwriting action alias '{0} = {1}' (was '{0} = {2}')", alias, intendedAction, actionAliases[alias]));
+                    actionAliases[alias] = intendedAction;
                 }
                 else
                 {
-                    logger.LogConfiguration(string.Format("creating action alias '{0} = {1}'", alias.ToLower(), intendedAction));
-                    actionAliases.Add(alias.ToLower(), intendedAction);
+                    logger.LogConfiguration(string.Format("creating action alias '{0} = {1}'", alias, intendedAction));
+                    actionAliases.Add(alias, intendedAction);
                 }
             }
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CanI.Core.Cleaners;
 using CanI.Core.Configuration;
@@ -18,7 +17,7 @@ namespace CanI.Core.Authorization
             this.logger = logger;
             permissions = new List<Permission>();
             actionCleaner = new ActionCleaner(logger);
-            subjectCleaner = new SubjectCleaner();
+            subjectCleaner = new SubjectCleaner(logger);
         }
 
         public bool Allows(string requestedAction, object requestedSubject)

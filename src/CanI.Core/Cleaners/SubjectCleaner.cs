@@ -1,28 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CanI.Core.Configuration;
 
 namespace CanI.Core.Cleaners
 {
     public class SubjectCleaner
     {
+        private readonly IConfigurationLogger logger;
         private readonly IDictionary<string, string> subjectAliases;
 
-        public SubjectCleaner()
+        public SubjectCleaner(IConfigurationLogger logger)
         {
+            this.logger = logger;
             subjectAliases = new Dictionary<string, string>();
         }
 
         public void AddSubjectAliases(string intendedSubject, string[] aliases)
         {
-            foreach (var alias in aliases)
+            foreach (var alias in aliases.Select(a => a.ToLower()))
             {
-                if (subjectAliases.ContainsKey(alias.ToLower()))
+                intendedSubject = intendedSubject.ToLower();
+                if (subjectAliases.ContainsKey(alias))
                 {
-                    subjectAliases[alias.ToLower()] = intendedSubject.ToLower();
+                    logger.LogConfiguration(string.Format("overwriting subject alias '{0} = {1}' (was '{0} = {2}')", alias, intendedSubject, subjectAliases[alias]));
+                    subjectAliases[alias] = intendedSubject;
                 }
                 else
                 {
-                    subjectAliases.Add(alias.ToLower(), intendedSubject.ToLower());
+                    logger.LogConfiguration(string.Format("creating subject alias '{0} = {1}'", alias, intendedSubject));
+                    subjectAliases.Add(alias, intendedSubject);
                 }
             }
         }

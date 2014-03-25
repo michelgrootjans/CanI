@@ -1,4 +1,5 @@
-﻿using CanI.Core.Configuration;
+﻿using System.Collections.Generic;
+using CanI.Core.Configuration;
 using CanI.Tests.TestUtilities;
 using NUnit.Framework;
 
@@ -21,7 +22,35 @@ namespace CanI.Tests.Aliasing
                 c.Allow("view").On("customer");
                 c.ConfigureSubjectAliases("customer", "customers");
             });
+            Then.IShouldBeAbleTo("view", "customer");
             Then.IShouldBeAbleTo("view", "customers");
+        }
+
+        [Test]
+        public void subject_alias_is_case_insensitive()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("view").On("customer");
+                c.ConfigureSubjectAliases("cusTomEr", "cuStoMErs");
+            });
+            Then.IShouldBeAbleTo("view", "cUstoMer");
+            Then.IShouldBeAbleTo("view", "cusTOmers");
+        }
+
+        [Test]
+        public void subject_alias_is_logged_in_verbose_mode()
+        {
+            var messages = new List<string>();
+            AbilityConfiguration.Debug(messages.Add).Verbose();
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("view").On("customer");
+                c.ConfigureSubjectAliases("customer", "customers");
+            });
+            Then.IShouldBeAbleTo("view", "customers");
+
+            messages.ShouldContain("creating subject alias 'customers = customer'");
         }
 
         [Test]
@@ -49,6 +78,22 @@ namespace CanI.Tests.Aliasing
             Then.IShouldBeAbleTo("view", "client");
             Then.IShouldBeAbleTo("view", "customers");
             Then.IShouldNotBeAbleTo("view", "customer");
+        }
+
+        [Test]
+        public void overwrite_subject_alias_logs_in_verbose_mode()
+        {
+            var messages = new List<string>();
+            AbilityConfiguration.Debug(messages.Add).Verbose();
+            AbilityConfiguration.ConfigureWith(c =>
+            {
+                c.Allow("view").On("client");
+                c.ConfigureSubjectAliases("customer", "customers");
+                c.ConfigureSubjectAliases("client", "customers");
+            });
+            Then.IShouldBeAbleTo("view", "client");
+
+            messages.ShouldContain("overwriting subject alias 'customers = client' (was 'customers = customer')");
         }
 
     }
