@@ -69,6 +69,12 @@ namespace CanI.Tests.Abilities
             Then.IShouldNotBeAbleTo("view_special", "order");
         }
 
-
+        [Test]
+        public void redundant_configuration_doesnt_crash()
+        {
+            AbilityConfiguration.ConfigureWith(c => c.Allow("view").On("customer"));
+            AbilityConfiguration.ConfigureWith(c => c.Allow("view").On("customer"));
+            Then.IShouldBeAbleTo("view", "customer");
+        }
     }
 }
