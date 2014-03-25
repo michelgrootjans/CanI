@@ -12,18 +12,25 @@ namespace CanI.Core.Authorization
         private readonly ICollection<Permission> permissions;
         private readonly ActionCleaner actionCleaner;
         private readonly SubjectCleaner subjectCleaner;
+        private bool logVerbose;
 
-        public Ability(Action<string> debugAction)
+        public Ability(Action<string> debugAction, bool logVerbose)
         {
             this.debugAction = debugAction;
             permissions = new List<Permission>();
             actionCleaner = new ActionCleaner();
             subjectCleaner = new SubjectCleaner();
+            this.logVerbose = logVerbose;
         }
 
         public bool Allows(string requestedAction, object requestedSubject)
         {
-            return permissions.Any(p => p.Authorizes(requestedAction, requestedSubject));
+            var permission = permissions.Any(p => p.Authorizes(requestedAction, requestedSubject));
+            if (permission)
+                debugAction(string.Format("user can {0}/{1}", requestedAction, requestedSubject));
+            else
+                debugAction(string.Format("user cannot {0}/{1}", requestedAction, requestedSubject));
+            return permission;
         }
 
         public bool AllowsExecutionOf(object command)
@@ -35,17 +42,19 @@ namespace CanI.Core.Authorization
         {
             var permission = new Permission(action, subject, actionCleaner, subjectCleaner);
             permissions.Add(permission);
+            if(logVerbose)
+                debugAction.Invoke(string.Format("user has the ability to {0}/{1}", action, subject));
             return permission;
         }
 
         public IActionConfiguration Allow(params string[] actions)
         {
-            return new ActionConfiguration(actions, this, debugAction);
+            return new ActionConfiguration(actions, this);
         }
 
         public IActionConfiguration AllowAnything()
         {
-            return new ActionConfiguration(new[] { ".+" }, this, debugAction); // that's regex for 'anything'
+            return new ActionConfiguration(new[] { ".+" }, this); // that's regex for 'anything'
         }
 
         public void ConfigureActionAliases(string intendedAction, params string[] aliases)
