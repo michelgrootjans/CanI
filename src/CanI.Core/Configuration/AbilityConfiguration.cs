@@ -7,7 +7,7 @@ namespace CanI.Core.Configuration
     {
         private static Action<IAbilityConfiguration> configurationApplier;
         private static Action<string> debugAction = t => {};
-        private static VerbosityConfiguration verbosity;
+        private static VerbosityConfiguration verbosity = new VerbosityConfiguration();
 
         public static void ConfigureWith(Action<IAbilityConfiguration> configuration)
         {
@@ -34,6 +34,7 @@ namespace CanI.Core.Configuration
         {
             configurationApplier = null;
             debugAction = t => { };
+            verbosity = new VerbosityConfiguration();
         }
     }
 
