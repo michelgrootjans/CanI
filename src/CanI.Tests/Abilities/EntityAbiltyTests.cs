@@ -30,17 +30,5 @@ namespace CanI.Tests.Abilities
             AbilityConfiguration.ConfigureWith(c => c.Allow("view").On("customer"));
             Then.IShouldBeAbleTo("view", new Customer());
         }
-
-        [Test]
-        public void an_ability_can_be_checked_with_a_subject_alias()
-        {
-            AbilityConfiguration.ConfigureWith(c =>
-            {
-                c.Allow("view").On("customer");
-                c.ConfigureSubjectAliases("customer", "customers");
-            });
-            Then.IShouldBeAbleTo("view", "customers");
-        }
-
     }
 }

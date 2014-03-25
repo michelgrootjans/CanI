@@ -16,7 +16,14 @@ namespace CanI.Core.Cleaners
         {
             foreach (var alias in aliases)
             {
-                subjectAliases.Add(alias.ToLower(), intendedSubject.ToLower());
+                if (subjectAliases.ContainsKey(alias.ToLower()))
+                {
+                    subjectAliases[alias.ToLower()] = intendedSubject.ToLower();
+                }
+                else
+                {
+                    subjectAliases.Add(alias.ToLower(), intendedSubject.ToLower());
+                }
             }
         }
 

@@ -38,6 +38,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aliasing\CustomSubjectAliasAbiltyTests.cs" />
     <Compile Include="Abilities\StateBasedAbilityTests.cs" />
     <Compile Include="Aliasing\CustomActionAliasesAbiltyTests.cs" />
     <Compile Include="Aliasing\DefaultCreateAliasesAbiltyTests.cs" />
