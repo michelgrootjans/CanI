@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CanI.Core.Cleaners;
 using CanI.Core.Configuration;
@@ -7,12 +8,14 @@ namespace CanI.Core.Authorization
 {
     public class Ability : IAbility, IAbilityConfiguration, IInternalAbilityConfiguration
     {
+        private readonly Action<string> debugAction;
         private readonly ICollection<Permission> permissions;
         private readonly ActionCleaner actionCleaner;
         private readonly SubjectCleaner subjectCleaner;
 
-        public Ability()
+        public Ability(Action<string> debugAction)
         {
+            this.debugAction = debugAction;
             permissions = new List<Permission>();
             actionCleaner = new ActionCleaner();
             subjectCleaner = new SubjectCleaner();
@@ -37,12 +40,12 @@ namespace CanI.Core.Authorization
 
         public IActionConfiguration Allow(params string[] actions)
         {
-            return new ActionConfiguration(actions, this);
+            return new ActionConfiguration(actions, this, debugAction);
         }
 
         public IActionConfiguration AllowAnything()
         {
-            return new ActionConfiguration(new[] { ".+" }, this); // that's regex for 'anything'
+            return new ActionConfiguration(new[] { ".+" }, this, debugAction); // that's regex for 'anything'
         }
 
         public void ConfigureActionAliases(string intendedAction, params string[] aliases)

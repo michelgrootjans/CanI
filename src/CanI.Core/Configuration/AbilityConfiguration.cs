@@ -6,6 +6,7 @@ namespace CanI.Core.Configuration
     public static class AbilityConfiguration
     {
         private static Action<IAbilityConfiguration> configurationApplier;
+        private static Action<string> debugAction = t => {};
 
         public static void ConfigureWith(Action<IAbilityConfiguration> configuration)
         {
@@ -14,7 +15,7 @@ namespace CanI.Core.Configuration
 
         public static IAbility CreateAbility()
         {
-            var ability = new Ability();
+            var ability = new Ability(debugAction);
             if (configurationApplier == null) return ability;
 
             configurationApplier(ability);
@@ -24,6 +25,11 @@ namespace CanI.Core.Configuration
         public static void Reset()
         {
             configurationApplier = null;
+        }
+
+        public static void Debug(Action<string> action)
+        {
+            debugAction = action;
         }
     }
 }
