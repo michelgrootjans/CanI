@@ -45,8 +45,6 @@ namespace CanI.Core.Configuration
         private static IAbility CreateAbility()
         {
             var ability = new Ability(logger);
-            if (configurationApplier == null) return ability; //why this line? -- check later
-
             configurationApplier(ability);
             cache.Store<IAbility>(ability);
             return ability;
