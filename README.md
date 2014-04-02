@@ -1,15 +1,11 @@
-Can I ?
-=======
-
-Goals:
-------
+#Can I ?
+##Goals:
 A .net authorization component that decouples authorization from User, IPrincipal or Roles. 
 This assumes a few conventions over configuration.
 
 Inspired by ruby's [cancan gem](https://github.com/ryanb/cancan).
 
-Usage
------
+##Usage
 Create a new class where you'll configure the authorization. In the demo application, I called it the AbiltiyConfigurator:
 <pre lang='csharp'>
     public class AbilityConfigurator
@@ -56,8 +52,7 @@ If both these conditions are met, the HTML will be rendered
 	}
 </pre>
 
-Configuration
--------------
+##Configuration
 To configure an asp.net application (mvc or not), just execute the following at startup (typically in global.asax):
 <pre lang='csharp'>
 	AbilityConfiguration.ConfigureWith(
@@ -65,8 +60,7 @@ To configure an asp.net application (mvc or not), just execute the following at 
 	);
 </pre>
 
-Extra configuration for an asp.net mvc application
---------------------------------------------------
+###Extra configuration for an asp.net mvc application
 To add a generic filter over all the controllers, register the filter globally
 <pre lang='csharp'>
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -112,8 +106,7 @@ If some controller action doesn't follow naming conventions, you can still indic
 	}
 </pre>
 
-Features:
----------
+##Features:
 - Action-based authorization filter for http requests (mvc only at the moment)
 - Simple viewhelper to show/hide html based on the authorization
 - Convention-based subject state authorization
@@ -122,8 +115,7 @@ Features:
 - Contains a very simple demo project. Explore at leisure
 - Attribute-based custom authorization
 
-Roadmap:
---------
+##Roadmap:
 This project is written in the RDD fashion: Readme Driven Development. These are the features I'm planning:
 
 - Authorize MVC actions based on verb
