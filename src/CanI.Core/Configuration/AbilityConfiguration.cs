@@ -15,9 +15,21 @@ namespace CanI.Core.Configuration
             Reset();
         }
 
+        public static void Reset()
+        {
+            configurationApplier = (config) => { };
+            logger = new ConfigurationLogger();
+            cache = new NullCache();
+        }
+
         public static void ConfigureWith(Action<IAbilityConfiguration> configuration)
         {
             configurationApplier = configuration;
+        }
+
+        public static IAbility GetAbility()
+        {
+            return cache.Get<IAbility>() ?? CreateAbility();
         }
 
         public static IVerbosityConfiguration Debug(Action<string> action)
@@ -25,9 +37,9 @@ namespace CanI.Core.Configuration
             return logger = new ConfigurationLogger(action);
         }
 
-        public static IAbility GetAbility()
+        public static void ConfigureCache(ICache c)
         {
-            return cache.Get<IAbility>() ?? CreateAbility();
+            cache = c;
         }
 
         private static IAbility CreateAbility()
@@ -38,18 +50,6 @@ namespace CanI.Core.Configuration
             configurationApplier(ability);
             cache.Store<IAbility>(ability);
             return ability;
-        }
-
-        public static void Reset()
-        {
-            configurationApplier = (config) => { };
-            logger = new ConfigurationLogger();
-            cache = new NullCache();
-        }
-
-        public static void ConfigureCache(ICache c)
-        {
-            cache = c;
         }
     }
 
