@@ -6,7 +6,7 @@ This assumes a few conventions over configuration.
 Inspired by ruby's [cancan gem](https://github.com/ryanb/cancan).
 
 ##Usage
-Create a new class where you'll configure the authorization. In the demo application, I called it the AbiltiyConfigurator:
+Create a new class where you'll configure the authorization. In the demo application, I called it the ```AbiltiyConfigurator```:
 <pre lang='csharp'>
     public class AbilityConfigurator
     {
@@ -66,14 +66,14 @@ If you want to know why an authorization succeeds or fails, you can configure th
 <pre lang='csharp'>
     AbilityConfiguration.Debug(message => Trace.Write(string.Format("Authorization: {0}", message))).Verbose();
 </pre>
-This allows me to view the debug information in realtime using [SysInternals'](http://technet.microsoft.com/en-us/sysinternals/bb842062.aspx) excellent [DebugView'](http://technet.microsoft.com/en-us/sysinternals/bb896647). ![Dbgview](https://raw.githubusercontent.com/michelgrootjans/CanI/master/img/DebugInformation.png)
+This allows me to view the debug information in realtime using [SysInternals Suites](http://technet.microsoft.com/en-us/sysinternals/bb842062.aspx) excellent [DebugView](http://technet.microsoft.com/en-us/sysinternals/bb896647). ![Dbgview](https://raw.githubusercontent.com/michelgrootjans/CanI/master/img/DebugInformation.png)
 
 ### Caching
-When you check an authorization with ´´´if(I.Can("edit", "custome"))````, the default implementation gets run every time. If you want to run it only once, you can add configuration caching like this:
+When you check an authorization with ```if(I.Can("edit", "customer"))```, the default implementation gets run every time. If you want to run it only once, you can add configuration caching like this:
 <pre lang='csharp'>
     AbilityConfiguration.ConfigureCache(new StaticHttpCache());
 </pre>
-You would typically use StaticCache for a desktop app or for tests. In an asp.net application, you would probably want to use a PerRequestHttpCache.
+You would typically use ```StaticCache``` for a desktop app or for tests. In an asp.net application, you would probably want to use a ```PerRequestHttpCache```.
 
 ### Extra configuration for an asp.net mvc application
 #### Filters
