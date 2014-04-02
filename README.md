@@ -122,6 +122,10 @@ If some controller action doesn't follow naming conventions, you can still indic
 	}
 </pre>
 
+#### Working with asp.net mvc areas
+If you are using areas, there are some extra things you want to watch out for...
+TO BE EDITED LATER
+
 #### Caching
 There is an optimized caching for per-request caching of the configuration. You can apply it with this line of code:
 <pre lang='csharp'>
