@@ -49,6 +49,7 @@
     <Compile Include="Abilities\PostFixAbiltyTest.cs" />
     <Compile Include="Areas\DefaultActionsInAreaTests.cs" />
     <Compile Include="Attributes\ClassAttributeAbiltyTests.cs" />
+    <Compile Include="Caching\CacheConfigurationTests.cs" />
     <Compile Include="Commands\CommandObjectAbilityTests.cs" />
     <Compile Include="Context\ExternalContextAbilityTest.cs" />
     <Compile Include="Logging\DebugLoggingTests.cs" />

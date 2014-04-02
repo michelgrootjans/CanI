@@ -2,7 +2,7 @@
 using CanI.Core.Configuration;
 using CanI.Demo.Authorization;
 
-namespace CanI.Demo.App_Start
+namespace CanI.Demo
 {
     public static class AuthorizationConfig
     {

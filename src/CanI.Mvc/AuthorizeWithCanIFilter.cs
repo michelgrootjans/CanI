@@ -26,7 +26,7 @@ namespace CanI.Mvc
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            var ability = AbilityConfiguration.CreateAbility();
+            var ability = AbilityConfiguration.GetAbility();
             if (ability == null)
                 throw new Exception("AbilityConfiguration has not been configured.");
 
