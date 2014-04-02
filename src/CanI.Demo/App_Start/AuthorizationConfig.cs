@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using CanI.Core.Configuration;
 using CanI.Demo.Authorization;
+using CanI.Mvc;
 
 namespace CanI.Demo
 {
@@ -8,7 +9,8 @@ namespace CanI.Demo
     {
         public static void Configure()
         {
-            AbilityConfiguration.Debug(message => Debug.Write(string.Format("Authorization: {0}", message))).Verbose();
+            AbilityConfiguration.Debug(message => Trace.Write(string.Format("Authorization: {0}", message))).Verbose();
+            AbilityConfiguration.ConfigureCache(new PerRequestHttpCache());
             AbilityConfiguration.ConfigureWith(
                 config => new AbilityConfigurator(config, System.Web.HttpContext.Current.User)
             );

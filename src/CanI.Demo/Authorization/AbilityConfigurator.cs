@@ -1,4 +1,5 @@
-﻿using System.Security.Principal;
+﻿using System.Diagnostics;
+using System.Security.Principal;
 using CanI.Core.Configuration;
 
 namespace CanI.Demo.Authorization
@@ -7,6 +8,7 @@ namespace CanI.Demo.Authorization
     {
         public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
         {
+            Trace.Write(string.Format("Checking abilities of: {0}", principal.Identity.IsAuthenticated ? principal.Identity.Name : "unauthenticated user"));
             if (principal.IsInRole("admin"))
                 config.AllowAnything().OnEverything();
 

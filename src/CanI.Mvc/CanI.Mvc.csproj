@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AuthorizeCommandWithCanI.cs" />
     <Compile Include="AuthorizeWithCanIFilter.cs" />
+    <Compile Include="PerRequestHttpCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlHelperExtensions.cs" />
   </ItemGroup>
