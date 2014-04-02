@@ -8,7 +8,7 @@ namespace CanI.Demo.Authorization
     {
         public AbilityConfigurator(IAbilityConfiguration config, IPrincipal principal)
         {
-            Trace.Write(string.Format("Checking abilities of: {0}", principal.Identity.IsAuthenticated ? principal.Identity.Name : "unauthenticated user"));
+            Trace.Write(string.Format("Checking abilities of user '{0}'", principal.Identity.IsAuthenticated ? principal.Identity.Name : "unauthenticated user"));
             if (principal.IsInRole("admin"))
                 config.AllowAnything().OnEverything();
 

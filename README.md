@@ -52,7 +52,8 @@ If both these conditions are met, the HTML will be rendered
 	}
 </pre>
 
-##Configuration
+## Configuration
+### Telling CanI where to find the authorization config
 To configure an asp.net application (mvc or not), just execute the following at startup (typically in global.asax):
 <pre lang='csharp'>
 	AbilityConfiguration.ConfigureWith(
@@ -60,7 +61,22 @@ To configure an asp.net application (mvc or not), just execute the following at 
 	);
 </pre>
 
-###Extra configuration for an asp.net mvc application
+### Logging
+If you want to know why an authorization succeeds or fails, you can configure the logging of CanI. There are no logging frameworks dependencies, just insert your preference. In the demo application, logging is done with plain System.Diagnostics. It is configured like this:
+<pre lang='csharp'>
+    AbilityConfiguration.Debug(message => Trace.Write(string.Format("Authorization: {0}", message))).Verbose();
+</pre>
+This allows me to view the debug information in realtime using [SysInternals'](http://technet.microsoft.com/en-us/sysinternals/bb842062.aspx) excellent [DebugView'](http://technet.microsoft.com/en-us/sysinternals/bb896647). ![Dbgview](https://raw.githubusercontent.com/michelgrootjans/CanI/master/img/DebugInformation.png)
+
+### Caching
+When you check an authorization with ´´´if(I.Can("edit", "custome"))````, the default implementation gets run every time. If you want to run it only once, you can add configuration caching like this:
+<pre lang='csharp'>
+    AbilityConfiguration.ConfigureCache(new StaticHttpCache());
+</pre>
+You would typically use StaticCache for a desktop app or for tests. In an asp.net application, you would probably want to use a PerRequestHttpCache.
+
+### Extra configuration for an asp.net mvc application
+#### Filters
 To add a generic filter over all the controllers, register the filter globally
 <pre lang='csharp'>
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -105,6 +121,13 @@ If some controller action doesn't follow naming conventions, you can still indic
         }
 	}
 </pre>
+
+#### Caching
+There is an optimized caching for per-request caching of the configuration. You can apply it with this line of code:
+<pre lang='csharp'>
+    AbilityConfiguration.ConfigureCache(new PerRequestHttpCache());
+</pre>
+
 
 ##Features:
 - Action-based authorization filter for http requests (mvc only at the moment)
