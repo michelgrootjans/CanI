@@ -141,6 +141,7 @@ There is an optimized caching for per-request caching of the configuration. You 
 - Authorization based on external state
 - Contains a very simple demo project. Explore at leisure
 - Attribute-based custom authorization
+- Downloadable as a NuGet package
 
 ##Roadmap:
 This project is written in the RDD fashion: Readme Driven Development. These are the features I'm planning:
@@ -152,5 +153,4 @@ This project is written in the RDD fashion: Readme Driven Development. These are
   - DELETE => authorize on delete
 - Make the demo site a little more appealing
 - fix hack, where an url can bypass state based authorization
-- Create NuGet package
 - Think about a plugin for NHibernate
