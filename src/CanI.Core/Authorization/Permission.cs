@@ -64,7 +64,8 @@ namespace CanI.Core.Authorization
             var property = requestedSubject.GetType().GetProperty("can" + PureAction(requestedAction), caseInsensitivePublicInstance);
             if (property == null) return true;
 
-            var propertyValue = property.GetValue(requestedSubject);
+            var propertyValue = property.GetValue(requestedSubject, BindingFlags.Instance, null, null, null);
+
             var booleanValue = propertyValue as bool?;
             return booleanValue.GetValueOrDefault();
         }
@@ -93,10 +94,10 @@ namespace CanI.Core.Authorization
                 return actionCleaner.Clean(subjectCleaner.Clean(command.ToString()));
 
             var commandType = command.GetType();
-            var attribute = commandType.GetCustomAttribute<AuthorizeIfICanAttribute>();
-            return attribute == null
+            var attribute = (AuthorizeIfICanAttribute[]) commandType.GetCustomAttributes(typeof(AuthorizeIfICanAttribute), true);
+            return attribute.Length == 0
                 ? commandType.Name
-                : attribute.Action + attribute.Subject;
+                : attribute.First().Action + attribute.First().Subject;
         }
     }
 }
