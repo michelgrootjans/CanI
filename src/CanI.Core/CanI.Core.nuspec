@@ -13,6 +13,6 @@
     <tags>CanI CanCan Authorization</tags>
   </metadata>
   <files>
-    <file src="bin\Release\CanI.Core.dll" target="lib\net45" />
+    <file src="bin\Release\CanI.Core.dll" target="lib\net40" />
   </files>
 </package>
