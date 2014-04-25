@@ -132,6 +132,13 @@ There is an optimized caching for per-request caching of the configuration. You 
     AbilityConfiguration.ConfigureCache(new PerRequestHttpCache());
 </pre>
 
+Where can I get it?
+--------------------------------
+First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install CanI from the package manager console:
+
+    PM> Install-Package CanI.Core
+    PM> Install-Package CanI.Mvc
+
 
 ##Features:
 - Action-based authorization filter for http requests (mvc only at the moment)
