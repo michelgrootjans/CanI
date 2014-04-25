@@ -41,6 +41,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbilityMvcConfiguration.cs" />
     <Compile Include="AuthorizeCommandWithCanI.cs" />
     <Compile Include="AuthorizeWithCanIFilter.cs" />
     <Compile Include="PerRequestHttpCache.cs" />

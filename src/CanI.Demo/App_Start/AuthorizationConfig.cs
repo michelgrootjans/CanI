@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Web.Mvc;
 using CanI.Core.Configuration;
 using CanI.Demo.Authorization;
 using CanI.Mvc;
@@ -14,6 +15,8 @@ namespace CanI.Demo
             AbilityConfiguration.ConfigureWith(
                 config => new AbilityConfigurator(config, System.Web.HttpContext.Current.User)
             );
+
+            AbilityMvcConfiguration.ConfigureUnauthorizedActionResult(new HttpUnauthorizedResult());
         }
     }
 }

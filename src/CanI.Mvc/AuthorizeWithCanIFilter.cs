@@ -14,13 +14,8 @@ namespace CanI.Mvc
             this.resultOnFailedAuthorization = resultOnFailedAuthorization;
         }
 
-        public AuthorizeWithCanIFilter(string redirectUrl)
-            : this(context => new RedirectResult(redirectUrl))
-        {
-        }
-
         public AuthorizeWithCanIFilter()
-            : this("/")
+            : this(context => AbilityMvcConfiguration.UnauthorizedActionResult())
         {
         }
 

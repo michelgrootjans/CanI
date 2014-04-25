@@ -69,6 +69,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Authorization\AuthorizationCommandDispatcher.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="DummyUser.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Domain\Commands\CreateCustomer.cs" />
     <Compile Include="Domain\Commands\DeleteCustomer.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="PrincipalExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Assets\images\warning.png" />
     <Content Include="Assets\images\error.png" />
