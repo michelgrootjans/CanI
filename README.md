@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/michelgrootjans/cani.png?label=ready&title=Ready)](https://waffle.io/michelgrootjans/cani)
 #Can I ?
 ##Goals:
 A .net authorization component that decouples authorization from User, IPrincipal or Roles. 
