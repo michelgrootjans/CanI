@@ -22,7 +22,7 @@ namespace CanI.Tests.Abilities
         public void positive_state_allows_action()
         {
             AbilityConfiguration.ConfigureWith(c => c.Allow("send").On("order"));
-            Then.IShouldBeAbleTo("send", new Order{CanSend = true});
+            Then.IShouldBeAbleTo("send", new Order { CanSend = true });
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace CanI.Tests.Abilities
         }
 
         [Test]
-        public void negative_state_denies_action__even_with_manage_action()
+        public void negative_state_denies_action_even_with_manage_action()
         {
             AbilityConfiguration.ConfigureWith(c => c.AllowAnything().OnEverything());
             Then.IShouldNotBeAbleTo("send", new Order { CanSend = false });

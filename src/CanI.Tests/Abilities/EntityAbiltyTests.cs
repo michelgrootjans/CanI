@@ -7,9 +7,7 @@ namespace CanI.Tests.Abilities
     [TestFixture]
     public class EntityAbiltyTests
     {
-        private class Customer
-        {
-        }
+        private class Customer { }
 
         [SetUp]
         public void SetUp()

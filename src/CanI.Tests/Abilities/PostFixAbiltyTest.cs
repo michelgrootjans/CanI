@@ -7,11 +7,6 @@ namespace CanI.Tests.Abilities
     [TestFixture]
     public class PostFixAbiltyTest
     {
-        private class CustomerViewModel {}
-        private class EditCustomer {}
-        private class UpdateCustomer { }
-        private class EditCustomerViewModel { }
-        private class CustomerEditViewModel { }
 
         [SetUp]
         public void SetUp()
@@ -19,6 +14,7 @@ namespace CanI.Tests.Abilities
             AbilityConfiguration.Reset();
         }
 
+        private class CustomerViewModel { }
         [Test]
         public void abilities_ignore_postfixes_by_default()
         {
@@ -26,6 +22,7 @@ namespace CanI.Tests.Abilities
             Then.IShouldBeAbleTo("edit", new CustomerViewModel());
         }
 
+        private class EditCustomer { }
         [Test]
         public void abilities_ignore_prefixes_by_default()
         {
@@ -33,6 +30,7 @@ namespace CanI.Tests.Abilities
             Then.IShouldBeAbleTo("edit", new EditCustomer());
         }
 
+        private class UpdateCustomer { }
         [Test]
         public void abilities_ignore_prefixes_aliases_by_default()
         {
@@ -40,6 +38,7 @@ namespace CanI.Tests.Abilities
             Then.IShouldBeAbleTo("edit", new UpdateCustomer());
         }
 
+        private class EditCustomerViewModel { }
         [Test]
         public void abilities_ignore_prefixes_and_postfixes_by_default()
         {
@@ -71,6 +70,7 @@ namespace CanI.Tests.Abilities
             Then.IShouldBeAbleTo("edit", new GetClientDetailDto());
         }
 
+        private class CustomerEditViewModel { }
         [Test]
         public void abilities_ignore_reversed_prefixes_and_postfixes_by_default()
         {

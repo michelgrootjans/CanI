@@ -72,14 +72,8 @@ namespace CanI.Tests.Areas
         public void default_area_behavior_on_command_with_area()
         {
             AbilityConfiguration.ConfigureWith(c => c.Allow("area/update").On("customer"));
-            Then.IShouldBeAbleToExecute("area/UpdateCustomerCommand");
-        }
-
-        [Test]
-        public void default_area_behavior_on_command_without_area()
-        {
-            AbilityConfiguration.ConfigureWith(c => c.Allow("area/update").On("customer"));
             Then.IShouldNotBeAbleToExecute("UpdateCustomerCommand");
+            Then.IShouldBeAbleToExecute("area/UpdateCustomerCommand");
         }
 
         [Test]
