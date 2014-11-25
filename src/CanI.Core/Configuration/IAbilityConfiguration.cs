@@ -19,7 +19,6 @@ namespace CanI.Core.Configuration
 
     public interface IPermissionConfiguration
     {
-        void If(Func<bool> predicate);
-        void If<T>(Func<T, bool> predicate);
+        IPermissionConfiguration If<T>(Func<T, bool> predicate);
     }
 }

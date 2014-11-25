@@ -27,14 +27,10 @@ namespace CanI.Core.Authorization
             authorizationPredicates = new List<IAuthorizationPredicate>();
         }
 
-        public void If(Func<bool> predicate)
-        {
-            authorizationPredicates.Add(new PlainAuthorizationPredicate(predicate));
-        }
-
-        public void If<T>(Func<T, bool> predicate)
+        public IPermissionConfiguration If<T>(Func<T, bool> predicate)
         {
             authorizationPredicates.Add(new GenericPredicate<T>(predicate));
+            return this;
         }
 
         public bool Authorizes(string requestedAction, object requestedSubject)

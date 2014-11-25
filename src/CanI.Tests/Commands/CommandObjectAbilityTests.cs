@@ -7,24 +7,20 @@ namespace CanI.Tests.Commands
     [TestFixture]
     public class CommandObjectAbilityTests
     {
-        private class EditOrder { }
-        private class EditOrderCommand { }
-        private class OrderEditCommand { }
-        private class UpdateOrderCommand { }
-        private class ExecuteUpdateOrder { }
-
         [SetUp]
         public void SetUp()
         {
             AbilityConfiguration.Reset();
         }
 
+        private class EditOrderCommand { }
         [Test]
         public void denies_command_by_default_convention()
         {
             Then.IShouldNotBeAbleToExecute(new EditOrderCommand());
         }
 
+        private class EditOrder { }
         [Test]
         public void allows_simple_command_objects_by_default()
         {
@@ -46,6 +42,7 @@ namespace CanI.Tests.Commands
             Then.IShouldBeAbleToExecute(new EditOrderCommand());
         }
 
+        private class UpdateOrderCommand { }
         [Test]
         public void allows_command_by_convention_with_action_alias()
         {
@@ -90,6 +87,7 @@ namespace CanI.Tests.Commands
             Then.IShouldBeAbleToExecute(new DiscombobulateClientCommand());
         }
 
+        private class OrderEditCommand { }
         [Test]
         public void allows_command_with_reverse_name()
         {
@@ -97,6 +95,7 @@ namespace CanI.Tests.Commands
             Then.IShouldBeAbleToExecute(new OrderEditCommand());
         }
 
+        private class ExecuteUpdateOrder { }
         [Test]
         public void allows_execute_by_convention_with_action_alias()
         {

@@ -14,33 +14,13 @@ namespace CanI.Tests.Context
         }
 
         [Test]
-        public void with_positive_context_allows_its_action()
-        {
-            AbilityConfiguration.ConfigureWith(c => 
-                c.Allow("edit").On("order")
-                 .If(() => true)
-                 );
-            Then.IShouldBeAbleTo("edit", "order");
-        }
-
-        [Test]
-        public void with_negative_context_denies_its_action()
-        {
-            AbilityConfiguration.ConfigureWith(c =>
-                c.Allow("edit").On("order")
-                 .If(() => false)
-                 );
-            Then.IShouldNotBeAbleTo("edit", "order");
-        }
-
-        [Test]
         public void with_positive_subject_context_allows_its_action()
         {
             AbilityConfiguration.ConfigureWith(c =>
                 c.Allow("edit").On("order")
                  .If<Order>(o => o.IsPending)
                 );
-            Then.IShouldBeAbleTo("edit", new Order{ IsPending = true });
+            Then.IShouldBeAbleTo("edit", new Order { IsPending = true });
         }
 
         [Test]
@@ -50,7 +30,7 @@ namespace CanI.Tests.Context
                 c.Allow("edit").On("order")
                  .If<Order>(o => o.IsPending)
                 );
-            Then.IShouldNotBeAbleTo("edit", new Order{IsPending = false});
+            Then.IShouldNotBeAbleTo("edit", new Order { IsPending = false });
         }
 
         [Test]
@@ -60,7 +40,7 @@ namespace CanI.Tests.Context
                 c.AllowAnything().OnEverything()
                  .If<Order>(o => o.IsPending)
                 );
-            Then.IShouldNotBeAbleTo("edit", new Order{IsPending = false});
+            Then.IShouldNotBeAbleTo("edit", new Order { IsPending = false });
         }
 
         [Test]
@@ -73,7 +53,28 @@ namespace CanI.Tests.Context
             Then.IShouldBeAbleTo("edit", "order");
         }
 
+        [Test]
+        public void with_double_configuration_works_as_expected()
+        {
+            AbilityConfiguration.ConfigureWith(c =>
+                c.Allow("edit").On("order")
+                .If<Order>(o => o.IsPending)
+                .If<OrderDto>(o => o.IsPending)
+            );
+
+            Then.IShouldBeAbleTo("edit", new Order { IsPending = true });
+            Then.IShouldNotBeAbleTo("edit", new Order { IsPending = false });
+            Then.IShouldBeAbleTo("edit", new OrderDto { IsPending = true });
+            Then.IShouldNotBeAbleTo("edit", new OrderDto { IsPending = false });
+        }
+
+
         private class Order
+        {
+            public bool IsPending { get; set; }
+        }
+
+        private class OrderDto
         {
             public bool IsPending { get; set; }
         }
