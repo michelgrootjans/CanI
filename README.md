@@ -65,7 +65,7 @@ To configure an asp.net application (mvc or not), just execute the following at 
 ### Logging
 If you want to know why an authorization succeeds or fails, you can configure the logging of CanI. There are no logging frameworks dependencies, just insert your preference. In the demo application, logging is done with plain System.Diagnostics. It is configured like this:
 <pre lang='csharp'>
-    AbilityConfiguration.Debug(message => Trace.Write(string.Format("Authorization: {0}", message))).Verbose();
+    AbilityConfiguration.Debug(message => Trace.WriteLine(string.Format("Authorization: {0}", message))).Verbose();
 </pre>
 This allows me to view the debug information in realtime using [SysInternals Suites](http://technet.microsoft.com/en-us/sysinternals/bb842062.aspx) excellent [DebugView](http://technet.microsoft.com/en-us/sysinternals/bb896647). ![Dbgview](https://raw.githubusercontent.com/michelgrootjans/CanI/master/img/DebugInformation.png)
 
