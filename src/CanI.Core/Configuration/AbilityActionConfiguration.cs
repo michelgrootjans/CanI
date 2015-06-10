@@ -1,4 +1,6 @@
-﻿namespace CanI.Core.Configuration
+﻿using System;
+
+namespace CanI.Core.Configuration
 {
     internal class ActionConfiguration : IActionConfiguration
     {
@@ -19,6 +21,11 @@
                     configurations.Add(abilityConfiguration.AllowTo(action, subject));
 
             return configurations;
+        }
+
+        public void On<T>(Func<T, bool> predicate)
+        {
+            On((typeof(T).Name)).If(predicate); //TODO: must match only on type, not on string
         }
 
         public IPermissionConfiguration OnEverything()
