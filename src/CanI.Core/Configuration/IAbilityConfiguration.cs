@@ -14,7 +14,7 @@ namespace CanI.Core.Configuration
     public interface IActionConfiguration
     {
         IPermissionConfiguration On(params string[] subjects);
-        void On<T>(Func<T, bool> predicate);
+        void On<T>(Func<T, bool> predicate) where T : class;
         IPermissionConfiguration OnEverything();
     }
 

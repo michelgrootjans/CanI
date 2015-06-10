@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using CanI.Core.Cleaners;
 using CanI.Core.Configuration;
 
@@ -37,9 +39,17 @@ namespace CanI.Core.Authorization
 
         public IPermissionConfiguration AllowTo(string action, string subject)
         {
-            var permission = new Permission(action, subject, actionCleaner, subjectCleaner);
+            var permission = new StringBasedPermission(action, subject, actionCleaner, subjectCleaner);
             permissions.Add(permission);
             logger.LogConfiguration(string.Format("user has the ability to {0}/{1}", action, subject));
+            return permission;
+        }
+
+        public IPermissionConfiguration AllowTo<T>(string action, Func<T, bool> predicate) where T : class
+        {
+            var permission = new TypedPermission<T>(action, predicate, actionCleaner);
+            permissions.Add(permission);
+            logger.LogConfiguration(string.Format("user has the ability to {0}/{1}", action, typeof(T).Name));
             return permission;
         }
 

@@ -23,9 +23,12 @@ namespace CanI.Core.Configuration
             return configurations;
         }
 
-        public void On<T>(Func<T, bool> predicate)
+        public void On<T>(Func<T, bool> predicate) where T : class
         {
-            On((typeof(T).Name)).If(predicate); //TODO: must match only on type, not on string
+//            On((typeof(T).Name)).If(predicate); //TODO: must match only on type, not on string
+            var configurations = new MultiplePermissionConfiguration();
+                foreach (var action in actions)
+                    configurations.Add(abilityConfiguration.AllowTo(action, predicate));
         }
 
         public IPermissionConfiguration OnEverything()

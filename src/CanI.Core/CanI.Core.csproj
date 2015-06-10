@@ -37,6 +37,8 @@
   <ItemGroup>
     <Compile Include="Authorization\Ability.cs" />
     <Compile Include="Authorization\AuthorizeIfICanAttribute.cs" />
+    <Compile Include="Authorization\StringBasedPermission.cs" />
+    <Compile Include="Authorization\TypedPermission.cs" />
     <Compile Include="Cleaners\ActionCleaner.cs" />
     <Compile Include="Authorization\I.cs" />
     <Compile Include="Configuration\IInternalAbilityConfiguration.cs" />
