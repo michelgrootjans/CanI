@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using CanI.Core.Cleaners;
 using CanI.Core.Configuration;
@@ -26,7 +28,9 @@ namespace CanI.Core.Authorization
         public override bool Authorizes(string requestedAction, object requestedSubject)
         {
             if(requestedSubject.GetType() != typeof(T)) return false;
-            return Matches(requestedAction) && predicate(requestedSubject as T);
+            return Matches(requestedAction) 
+                && MatchesPredicate(requestedSubject)
+                && SubjectAllowsAction(requestedAction, requestedSubject);
         }
 
         private bool Matches(string action)
@@ -34,6 +38,28 @@ namespace CanI.Core.Authorization
             var requestedAction = actionCleaner.Clean(action);
 
             return Regex.IsMatch(requestedAction, AllowedAction, RegexOptions.IgnoreCase);
+        }
+
+        private bool MatchesPredicate(object requestedSubject)
+        {
+            return predicate(requestedSubject as T);
+        }
+
+        private bool SubjectAllowsAction(string requestedAction, object requestedSubject)
+        {
+            const BindingFlags caseInsensitivePublicInstance = BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public;
+            var property = requestedSubject.GetType().GetProperty("can" + PureAction(AllowedAction), caseInsensitivePublicInstance);
+            if (property == null) return true;
+
+            var propertyValue = property.GetValue(requestedSubject, BindingFlags.Instance, null, null, null);
+
+            var booleanValue = propertyValue as bool?;
+            return booleanValue.GetValueOrDefault();
+        }
+
+        private string PureAction(string requestedAction)
+        {
+            return requestedAction.Split('/').Last();
         }
 
         public override bool AllowsExecutionOf(object command)
