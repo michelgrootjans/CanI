@@ -1,12 +1,15 @@
 [![Stories in Ready](https://badge.waffle.io/michelgrootjans/cani.png?label=ready&title=Ready)](https://waffle.io/michelgrootjans/cani)
-#Can I ?
-##Goals:
+
+# Can I ?
+
+## Goals
+
 A .net authorization component that decouples authorization from User, IPrincipal or Roles. 
 This assumes a few conventions over configuration.
 
 Inspired by ruby's [cancan gem](https://github.com/ryanb/cancan).
 
-##Usage
+## Usage
 Create a new class where you'll configure the authorization. In the demo application, I called it the ```AbiltiyConfigurator```:
 <pre lang='csharp'>
     public class AbilityConfigurator
@@ -141,7 +144,7 @@ First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). 
     PM> Install-Package CanI.Mvc
 
 
-##Features:
+## Features:
 - Action-based authorization filter for http requests (mvc only at the moment)
 - Simple viewhelper to show/hide html based on the authorization
 - Convention-based subject state authorization
@@ -151,7 +154,7 @@ First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). 
 - Attribute-based custom authorization
 - Downloadable as a NuGet package
 
-##Roadmap:
+## Roadmap:
 This project is written in the RDD fashion: Readme Driven Development. These are the features I'm planning:
 
 - Authorize MVC actions based on verb
